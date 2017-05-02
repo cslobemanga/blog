@@ -5,11 +5,8 @@ $author  = $data['author'];
 $comments = $data['comments'];
 
 $date_article   = new DateTime( $article['DatePublished'] ); 
-    
-//    echo '<pre>';
-//    print_r( $comments );
-//    echo '</pre>';
-
+$logged_in      = ( Session::get( 'user') != null );
+   
 ?>
 
 <div class="blog-post">
@@ -35,7 +32,9 @@ $date_article   = new DateTime( $article['DatePublished'] );
            value="<?php echo $comment['CommentId']; ?>" />
         
         <textarea class="form-control" id="content" name="content" 
-           placeholder="Your comment" value="<?php echo $comment['Content']; ?>" ></textarea>
+           placeholder="Your comment" value="<?php echo $comment['Content']; ?>"
+           <?php if( !$logged_in ) echo 'disabled'; ?> >
+        </textarea>
         
         <button type="submit" class="btn btn-md btn-primary">OK</button>
     </form>

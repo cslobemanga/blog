@@ -75,3 +75,10 @@ td.admin-table-users {
     text-align: justify;
     padding: 5px;
 }
+
+.blog-sidebar {
+/*    position: fixed;
+    background-color: black;
+    color: #ffffff;
+    right: 10%;*/
+}
