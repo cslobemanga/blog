@@ -96,15 +96,22 @@ Charles S. Lobe-Manga <charles@lobe-manga.com>
             <?php  
             $static_pages = $data[ 'static' ];
             
-            foreach ( $static_pages as $page ) { ?>
+            foreach ( $static_pages as $page ) { 
+                
+                $file_name = LANG_PATH .DS. $lang .DS. $page['Alias'] . '.txt';
+                
+                if( file_exists( $file_name ) ) {
+            ?>
             
             <div class="sidebar-module sidebar-module-inset">
                 
                 <a href="/<?php echo $lang; ?>/pages/view/<?php echo $page['Alias']; ?>">
-                    <?php echo $page['Title']; ?></a>   
+                    <?php echo $page['Title']; ?>
+                </a>   
+                
             </div>
             
-            <?php } ?>
+            <?php } } ?>
             
           <br>
           <div class="sidebar-module">
