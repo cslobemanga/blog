@@ -31,9 +31,9 @@ class App
         $controller_class = ucfirst( self::$router->getController() ) . 'Controller';
         $controller_method = strtolower( self::$router->getMethodPrefix() . self::$router->getAction() );
         
-         $layout = self::$router->getRoute();
+        $layout = self::$router->getRoute();
          
-         if( $layout == 'admin' && Session::get( 'user' )['Role'] != 1 ) {
+        if( $layout == 'admin' && Session::get( 'user' )['Role'] == Config::get( 'default_user_role' ) ) {
              
              if( $controller_method != 'admin_logout' ) {
                  
@@ -47,16 +47,20 @@ class App
         if( method_exists( $controller_object, $controller_method ) ) {
             
             // Controller's action may return a view path
-            $view_path = $controller_object->$controller_method();
-            $view_object = new View( $controller_object->getData(), $view_path );
-            $content = $view_object->render();
+            $view_path      = $controller_object->$controller_method();
+            $view_object    = new View( $controller_object->getData(), $view_path );
+            
+            $static_pages   = $controller_object->getData()['static_pages'];
+            $content        = $view_object->render();
         }
         else 
             throw new Exception ( "Method $controller_method of class $controller_class does not exist!" );
         
         // Layout
         $layout_path        = VIEWS_PATH . DS . $layout . '.phtml';
-        $layout_view_object = new View( compact('content'), $layout_path );
+        $layout_view_object = new View( array(
+                                'dynamic'   => compact('content'), 
+                                'static'    => $static_pages ), $layout_path );
         
         echo $layout_view_object->render();
     }   

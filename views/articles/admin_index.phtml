@@ -14,7 +14,7 @@
     <?php
     $count = 1;
     
-    foreach ( $data as $article ) { 
+    foreach ( $data['articles'] as $article ) { 
         
         $content = substr( $article['Content'], 0, Config::get( 'content_length' ) );
     

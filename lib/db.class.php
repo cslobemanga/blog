@@ -15,7 +15,8 @@ class DB
     {
         try {
             $this->connection = new PDO( 
-                    sprintf( "mysql:host=%s;dbname=%s", Config::get('db.host'), 
+                    sprintf( "mysql:host=%s;dbname=%s", 
+                            Config::get('db.host'), 
                             Config::get('db.dbname') ), 
                             Config::get('db.user'), 
                             Config::get('db.password') );
@@ -48,8 +49,10 @@ class DB
     
     public function query( $sql, $params=[], $select=true )
     {
-        if( !$this->connection )
+        if( !$this->connection ) {
+            
             return false;
+        }
         
         try {
             $statement = $this->connection->prepare( $sql );
@@ -63,8 +66,11 @@ class DB
             return true;
         
        $data = [];
-       foreach ( $statement->fetchAll() as $row )
+       
+       foreach ( $statement->fetchAll() as $row ) {
+           
            $data[] = $row;
+       }
        
        return $data;
     }

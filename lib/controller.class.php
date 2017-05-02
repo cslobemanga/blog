@@ -14,10 +14,13 @@ class Controller
     
     protected $params;
     
+
     public function __construct( $pData = [] ) 
     {
         $this->data     = $pData;
         $this->params   = App::getRouter()->getParams();
+        
+        $this->loadStaticPages();
     }
 
     public function getData() {
@@ -30,5 +33,18 @@ class Controller
 
     public function getParams() {
         return $this->params;
+    }
+    
+    protected function loadStaticPages()
+    {
+        
+        $this->data['static_pages'] = [];
+  
+        $pages = new Page();
+        
+        foreach ( $pages->getList() as $page ) {
+        
+            $this->data['static_pages'][] = $page;
+        }
     }
 }

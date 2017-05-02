@@ -18,19 +18,20 @@ class ArticlesController extends Controller
     public function index()
     {
         
-        $this->data = $this->model->getList();
+        $this->data['articles'] = $this->model->getList();
     }
     
     public function view()
     {
-        $params = App::getRouter()->getParams();
         
-        if( isset( $params[0] ) ) {
+        if( isset( $this->params[0] ) ) {
             
-            $article_id = ( int )$params[0];
+            $article_id = ( int ) $this->params[0];
             
             $this->data['article']  = $this->model->getById( $article_id ) ;
+            
             $this->data['author']   = $this->model->getAuthor($article_id );
+            
             $this->data['comments'] = $this->model->getComments( $article_id );
         }
     }
@@ -42,7 +43,7 @@ class ArticlesController extends Controller
     
     public function admin_index()
     {
-        $this->data = $this->model->getList();
+        $this->data['articles'] = $this->model->getList();
     }
     
     public function admin_edit()
