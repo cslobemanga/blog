@@ -1,11 +1,15 @@
-<h3>    
-    <?php 
-        $alias = strtolower( $data['page']['Alias'] );
-        echo translate( 'lng.pages.' . $alias . '.title' );
-    ?>
-</h3>
-<br>
-<?php echo translate( 'lng.pages.' . $alias . '.content' ); ?>
+<?php 
+    $router     = App::getRouter();  
+    
+    $file_path  = LANG_PATH .DS. $router->getLanguage() .DS. $data['page']['Alias'] . '.txt';
+     
+    if( $text = file_get_contents( $file_path, FILE_USE_INCLUDE_PATH ) )
+
+        echo $text; 
+        
+    else
+        Session::setFlash( 'File not found: ' . $file_path, 'alert-warning' );
+ ?>
 
 
 

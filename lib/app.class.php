@@ -50,7 +50,7 @@ class App
             $view_path      = $controller_object->$controller_method();
             $view_object    = new View( $controller_object->getData(), $view_path );
             
-            $static_pages   = $controller_object->getData()['static_pages'];
+            $static_pages   = $controller_object->getData()['static_pages'] ?? [];
             $content        = $view_object->render();
         }
         else 

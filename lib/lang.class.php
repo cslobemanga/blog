@@ -13,15 +13,19 @@ class Lang
     {
         $lang_file_path = ROOT.DS . 'lang' . DS . strtolower( $pLandCode ) . '.php';
         
-        if( file_exists( $lang_file_path ) ) 
+        if( file_exists( $lang_file_path ) ) {
+            
             self::$data= include ( $lang_file_path );
         
-        else
+        } else {
+            
             throw new Exception ( 'Language not found: ' . $lang_file_path );
+        }
     }
     
     public static function get( $key, $default_value = '' )
     {
+        
         return self::$data[ strtolower( $key ) ] ?? $default_value;
     }
 }

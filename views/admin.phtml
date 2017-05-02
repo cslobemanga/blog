@@ -44,7 +44,7 @@ Charles S. Lobe-Manga <charles@lobe-manga.com>
                
                     <li <?php if( $router->getController() == 'users' && $router->getAction() == 'register' ) { ?>
                         class="active"<?php } ?> >
-                        <a href="/admin/users/register"><?php echo translate( 'lng.nav.register' ); ?></a></li>
+                        <a href="/admin/users/register"><?php echo translate( 'lng.nav.user.new' ); ?></a></li>
                     
                     <li <?php if( $router->getController() == 'users' && $router->getAction() == 'index' ) { ?>
                         class="active"<?php } ?> >
@@ -78,7 +78,7 @@ Charles S. Lobe-Manga <charles@lobe-manga.com>
             </div>
             <?php } ?>
       
-            <?php echo $data['content'] ?>
+            <?php echo $data[ 'dynamic' ]['content']; ?>
             
           </div>
         </div>

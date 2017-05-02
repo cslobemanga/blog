@@ -14,13 +14,6 @@ return array(
   'lng.nav.contact'                 => 'Kontakte',  
   'lng.nav.users'                   => 'Benutzer', 
   'lng.nav.article.add'             => 'Artikel verfassen',
-
-  'lng.pages.about'                 => 'Über uns',  
-  'lng.pages.about.title'           => 'Geschichte',  
-  'lng.pages.about.content'         => 'Stolz können wir auf 100 Jahre Familienunternehmen zurückblicken.',  
-    
-  'lng.pages.impressum'             => 'Impressum',  
-  'lng.pages.test'                  => 'Testseite',  
     
   'lng.form.title'                  => 'Kontakte',  
   'lng.form.name'                   => 'Name',

@@ -40,7 +40,28 @@ class PagesController extends Controller
             
             $result = $this->model->save( $_POST );
             
-            Session::setFlash ( $result ? 'The new page was successfully created!' : 'Error: page could not be created!' );
+            if( $result ) {
+            
+                //TODO SOON CLM Creating the corresponding content files
+                $router = App::getRouter();
+                
+                $file_path = LANG_PATH .DS. $router->getLanguage() .DS. $_POST['alias'] . '.txt';
+                 
+                if( $file = fopen( $file_path, 'w' ) ) {
+                    
+                    $text = '<h3>' . $_POST['title'] . '</h3>';
+                    
+                    fwrite( $file, $text );
+                    
+                    fclose( $file );
+                    
+                } else 
+                    Session::setFlash ( 'Error: Content file could not be created!', 'alert-warning' );
+                    
+                Session::setFlash ( 'The new page was successfully created!', 'alert-success' );
+            
+            } else
+                Session::setFlash ( 'Error: page could not be created!', 'alert-warning' );
             
             Router::redirect( '/admin/pages' );
         }

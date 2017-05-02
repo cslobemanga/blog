@@ -46,26 +46,27 @@ class Page extends Model
     
     public function save( $data, $id=null )
     {
-        if( !isset( $data['alias'] ) || !isset( $data['title'] ) 
-                || !isset( $data['content'] ) )
+        if( !isset( $data['alias'] ) || !isset( $data['title'] ) ) {
+            
             return false;
+        }
         
         $id             = ( int )$id;
         $alias          = $data['alias'];
         $title          = $data['title'];
-        $content        = $data['content'];
         $is_published   = isset( $data['is_published'] ) ? 1 : 0;
         
         if( !$id ) { // Then add a new record
-            $sql = "INSERT INTO $this->table (Alias,Title,Content,IsPublished) VALUES(?,?,?,?)";
+            $sql = "INSERT INTO $this->table (Alias,Title,IsPublished) VALUES(?,?,?)";
             
-            $result = $this->getDB()->query( $sql, [$alias, $title, $content, $is_published], false );
+            $result = $this->getDB()->query( $sql, [$alias, $title, $is_published], false );
             
         } else {  // Then update an existing record
-            $sql = "UPDATE $this->table SET Alias=?, Title=?, Content=?, IsPublished=? WHERE PageId=?";
+            $sql = "UPDATE $this->table SET Alias=?, Title=?, IsPublished=? WHERE PageId=?";
             
-            $result = $this->getDB()->query( $sql, [$alias, $title, $content, $is_published, $id], false );
+            $result = $this->getDB()->query( $sql, [$alias, $title, $is_published, $id], false );
         }
+        
         return $result;
     }
     

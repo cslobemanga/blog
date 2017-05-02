@@ -14,15 +14,7 @@ return array(
   'lng.nav.contact'                 => 'Contactez-nous',  
   'lng.nav.users'                   => 'Utilisateurs', 
   'lng.nav.article.add'             => 'Nouvel article',
-
-  'lng.pages.about'                 => 'Qui sommes nous?',  
-  'lng.pages.about.title'           => 'Une histoire de famille',  
-  'lng.pages.about.content'         => 'Cette année marque le centième anniversaire de notre création...',  
     
-  'lng.pages.impressum'             => 'Impressum',  
-  'lng.pages.test'                  => 'Page test',  
-    
-  /* Formular */
   'lng.form.title'                  => 'Vos coordonnées',  
   'lng.form.name'                   => 'Nom',
   'lng.form.email'                  => 'Email',

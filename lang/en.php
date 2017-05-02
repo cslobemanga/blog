@@ -13,18 +13,10 @@ return array(
   'lng.nav.register'                => 'Sign up',  
   'lng.nav.contact'                 => 'Contact Us',  
   'lng.nav.users'                   => 'Users',  
+  'lng.nav.user.new'                => 'New User',
   'lng.nav.pages'                   => 'Pages',  
-  'lng.nav.page.add'                => 'New Page',  
-    
+  'lng.nav.page.add'                => 'New Page',    
   'lng.nav.article.add'             => 'New Article',
-      
-  'lng.pages.about'                 => 'About Us',  
-  'lng.pages.about.title'           => 'Corporate History',  
-  'lng.pages.about.content'         => 'Our company started making money a hundred year ago!',  
-    
-  'lng.pages.impressum'             => 'Impressum',  
-  'lng.pages.template'              => 'Template',  
-  'lng.pages.breaking-news'         => 'Breaking News',  
     
   'lng.form.title'                  => 'Contacts',  
   'lng.form.name'                   => 'Name',
