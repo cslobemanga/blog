@@ -126,8 +126,9 @@ class UsersController extends Controller
     
     public function register()
     {
+        $redirect_path = '/'. App::getRouter()->getLanguage() . '/users/login';
         
-        $this->common_register( '/'. App::getRouter()->getLanguage() . '/users/login' );
+        $this->common_register( $redirect_path );
     }
     
     public function admin_register()
