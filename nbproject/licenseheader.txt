@@ -1,0 +1,8 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Cart Project with MVC
+${licensePrefix}Charles S. Lobe-Manga <charles@lobe-manga.com> ${licensePrefix}
+<#if licenseLast??>
+${licenseLast}
+</#if>

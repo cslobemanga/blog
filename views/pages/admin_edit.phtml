@@ -1,0 +1,33 @@
+<h3>Edit page</h3>
+
+<form method="post" action="">
+    
+    <input type="hidden" name="page_id" value="<?php echo $data['page']['PageId']; ?>" >
+    
+    <div class="form-group">
+        <label for="alias">Alias</label>
+        <input type="text" id="alias" name="alias" value="<?php echo $data['page']['Alias']; ?>" class="form-control" />
+    </div>
+    
+    <div class="form-group">
+        <label for="title">Alias</label>
+        <input type="text" id="title" name="title" value="<?php echo $data['page']['Title']; ?>" class="form-control" />
+    </div>
+    
+    <div class="form-group">
+        <label for="content">Content</label>
+        <textarea name="content" id="content" class="form-control">
+            <?php echo $data['page']['Content']; ?>
+        </textarea>
+    </div>
+    
+    <div class="form-group">
+        <label for="is_published">Publish</label>
+        <input type="checkbox" id="is_published" name="is_published" 
+            <?php if( $data['page']['IsPublished'] ) { ?> checked="checked"<?php } ?> />
+    </div>
+    
+    <input type="submit" class="btn btn-success" 
+           value="<?php echo translate( 'lng.form.btn.update', 'OK' ); ?>" />
+    
+</form>

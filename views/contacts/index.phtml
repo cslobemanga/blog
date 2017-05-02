@@ -1,0 +1,17 @@
+<h3><?php echo translate( 'lng.form.title'); ?></h3>
+
+<form action="" method="post">
+    
+    <input type="text" class="form-control" name="name" required="required"
+           placeholder="<?php echo translate( 'lng.form.name' ); ?>" ><br/>
+    
+    <input type="text" class="form-control" name="email" required="required"
+           placeholder="<?php echo translate( 'lng.form.email' ); ?>" ><br/>
+    
+    <textarea name="message" class="form-control" required="required"
+              placeholder="<?php echo translate( 'lng.form.message' ); ?>"></textarea>
+    <br>
+    <button class="btn btn-md btn-primary" 
+            type="submit"><?php echo translate( 'lng.form.submit' ); ?></button>
+    
+</form>

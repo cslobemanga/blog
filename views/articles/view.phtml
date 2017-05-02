@@ -1,0 +1,54 @@
+<?php 
+
+$article = $data['article'];
+$author  = $data['author'];
+$comments = $data['comments'];
+
+$date_article   = new DateTime( $article['DatePublished'] ); 
+    
+//    echo '<pre>';
+//    print_r( $comments );
+//    echo '</pre>';
+
+?>
+
+<div class="blog-post">
+    <h2 class="blog-post-title"><?php echo $article['Title']; ?></h2>
+
+    <p class="blog-post-meta">
+        Published on <b><?php echo date_format( $date_article, 'd M Y' ); ?></b> at 
+        <?php echo date_format( $date_article, 'h:i T' ); ?> 
+        by <a href="#"><?php echo $author['Login']; ?></a></p>
+
+    <p><?php echo $article['Content']; ?></p>
+    
+    <!--Comments section-->
+
+    <?php if( !count( $comments ) ) { ?>
+    <p>Be the first to comment on this article.</p>
+    <?php } else { ?>
+    <p><br><br><b>Comments: </b><?php echo count( $comments ); ?></p>
+    <?php } ?>
+    
+    <form method="post" action="">
+        <input type="hidden" name="comment_id" id="comment_id" 
+           value="<?php echo $comment['CommentId']; ?>" />
+        
+        <textarea class="form-control" id="content" name="content" 
+           placeholder="Your comment" value="<?php echo $comment['Content']; ?>" ></textarea>
+        
+        <button type="submit" class="btn btn-md btn-primary">OK</button>
+    </form>
+    
+    <?php foreach ( $comments as $comment ) { ?>
+    
+            <p><?php echo $comment['Content']; ?></p>
+        
+    <?php } ?>
+    
+</div>
+
+
+
+
+

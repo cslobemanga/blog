@@ -1,0 +1,28 @@
+<div class="blog-header">
+    <h1 class="blog-title">Der Maintaler Blog</h1>
+    <p class="lead blog-description">Template for creating MVC with PHP</p>
+</div>
+
+<?php 
+
+  foreach ( $data as $article ) { 
+    
+    $date_article = new DateTime( $article['DatePublished'] ); ?>
+
+<div class="blog-post">
+    <h2 class="blog-post-title"><?php echo $article['Title']; ?></h2>
+    
+    <p class="blog-post-meta">
+        Published on <?php echo date_format( $date_article, 'd M Y' ); ?> at 
+        <?php echo date_format( $date_article, 'h:i T' ); ?> 
+        by <a href="#"><?php echo $article['Login']; ?></a></p>
+
+    <p><?php echo $article['Content']; ?></p>
+    
+    <nav>
+        <ul class="pager">
+            <li><a href="/articles/view/<?php echo $article['ArticleId']; ?>">Weiterlesen</a></li>
+        </ul>
+     </nav>
+</div>
+<?php } ?>

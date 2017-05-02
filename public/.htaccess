@@ -1,0 +1,7 @@
+#Turning RewriteEngine on
+RewriteEngine On
+
+#Own rules
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [PT,L]

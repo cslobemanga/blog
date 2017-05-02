@@ -1,0 +1,43 @@
+<h4><b>Users Control</b></h4>
+
+<table class="table table-striped table-bordered admin-table-users">
+    
+    <tr>
+        <td style="width: 5%">#</td>
+        <td style="width: 25%">Login</td>
+        <td style="width: 35%">Email</td>
+        <td style="width: 7%">Admin</td>
+        <td style="width: 7%">Active</td>
+        <td style="width: 30%"></td>
+    </tr>
+    
+    <?php foreach ( $data['users'] as $user) { ?>
+    <tr>
+        <td><?php echo $user['UserId']; ?></td>
+        
+        <td><?php echo $user['Login']; ?></td>
+        
+        <td><?php echo $user['Email']; ?></td>
+        
+        <td><?php echo $user['Role']; ?></td>
+        
+        <td><?php echo $user['IsActive']; ?></td>
+        
+        <td class="admin-table">
+            <a href="/admin/users/edit/<?php echo $user['UserId']; ?>">
+                <button class="btn btn-sm btn-primary">Edit</button></a>
+                
+            <a href="/admin/users/delete/<?php echo $user['UserId']; ?>" 
+               onclick="return confirmDelete();" >
+                <button class="btn btn-sm btn-warning">Delete</button></a>
+        </td>
+    </tr>
+    <?php } ?>
+</table>
+
+<br>
+
+<div>
+    <a href="/admin/users/add/"
+       <button class="btn btn-sm btn-success">New User</button></a>
+</div>
