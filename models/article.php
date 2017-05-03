@@ -26,6 +26,8 @@ class Article extends Model
         if( $only_published )
             $sql .= " WHERE IsPublished=1";
         
+        $sql .= " ORDER BY DatePublished";
+        
         $result = $this->getDB()->query( $sql );
         
         return $result;

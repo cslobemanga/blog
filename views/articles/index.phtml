@@ -10,14 +10,14 @@
     $date_article = new DateTime( $article['DatePublished'] ); ?>
 
 <div class="blog-post">
-    <h2 class="blog-post-title"><?php echo $article['Title']; ?></h2>
+    <h3 class="blog-post-title"><?php echo $article['Title']; ?></h3>
     
     <p class="blog-post-meta">
         Published on <?php echo date_format( $date_article, 'd M Y' ); ?> at 
         <?php echo date_format( $date_article, 'h:i T' ); ?> 
         by <a href="#"><?php echo $article['Login']; ?></a></p>
 
-    <p><?php echo $article['Content']; ?></p>
+    <p><?php echo substr( $article['Content'], 0, 200 ); ?></p>
     
     <nav>
         <ul class="pager">
