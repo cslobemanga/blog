@@ -107,11 +107,11 @@ class UsersController extends Controller
         }
     }
     
-    public function common_register( $redirect_path )
+    public function common_register( $redirect_path, bool $by_admin )
     {
         if( isset( $_POST['login'] ) && isset( $_POST['password'] ) ) {
             
-            $result = $this->model->register( $_POST );
+            $result = $this->model->register( $_POST, $by_admin );
             
             if( $result ) {
                 Session::setFlash( 'User successfully registerd', 'alert-success' );
@@ -128,13 +128,7 @@ class UsersController extends Controller
     {
         $redirect_path = '/'. App::getRouter()->getLanguage() . '/users/login';
         
-        $this->common_register( $redirect_path );
-    }
-    
-    public function admin_register()
-    {
-        
-        $this->common_register( '/admin/users' );
+        $this->common_register( $redirect_path, false );
     }
 
     public function admin_logout()

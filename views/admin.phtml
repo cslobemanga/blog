@@ -41,11 +41,6 @@ Charles S. Lobe-Manga <charles@lobe-manga.com>
                         class="active"<?php } ?> >
                         <a href="/admin"><?php echo translate( 'lng.nav.home' ); ?></a></li>
                     
-               
-                    <li <?php if( $router->getController() == 'users' && $router->getAction() == 'register' ) { ?>
-                        class="active"<?php } ?> >
-                        <a href="/admin/users/register"><?php echo translate( 'lng.nav.user.new' ); ?></a></li>
-                    
                     <li <?php if( $router->getController() == 'users' && $router->getAction() == 'index' ) { ?>
                         class="active"<?php } ?> >
                         <a href="/admin/users"><?php echo translate( 'lng.nav.users' ); ?></a></li>
