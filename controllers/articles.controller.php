@@ -36,9 +36,29 @@ class ArticlesController extends Controller
         }
     }
     
+    /**
+     * Adding a new article
+     */
     public function add()
     {
+        if( !Session::get( 'user' ) ) {
+            $this->redirect_path = '/' . App::getRouter()->getLanguage() . '/users/login';
+            $this->redirect();
+        }
         
+        if( !isset( $_POST['title'] ) || !isset( $_POST['content'] ) )
+            return false;
+        
+        if( $this->model->save( $_POST ) ) {
+            
+            Session::setFlash( 'A new page was successfully created!', 'alert-info' );
+            
+            $this->redirect_path = '/' . App::getRouter()->getLanguage();
+            $this->redirect();
+        
+        } else {
+            Session::setFlash( 'Error: A new page could not be created!', 'alert-danger' );
+        }
     }
     
     public function admin_index()

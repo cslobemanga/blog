@@ -26,13 +26,12 @@ class Article extends Model
         if( $only_published )
             $sql .= " WHERE IsPublished=1";
         
-        $sql .= " ORDER BY DatePublished";
+        $sql .= " ORDER BY DatePublished DESC";
         
         $result = $this->getDB()->query( $sql );
         
         return $result;
     }
-
 
     public function getById( $id )
     {
@@ -75,5 +74,22 @@ class Article extends Model
         
         return $result;
     }
-}
+    
+    public function save( $data, $by_admin=false )
+    {
+        try {
+            $sql = "INSERT INTO $this->table (AuthorId, Title, Content) VALUES(?,?,?)";
+            
+            $params = [ $data['user_id'], $data['title'], $data['content'] ];
 
+            $result = $this->getDB()->query( $sql, $params, $by_admin );
+            
+            return true;
+            
+        } catch ( PDOException $ex ) {
+            echo 'Error: ' . $ex->getMessage();
+        }
+        
+        return false;
+    }
+}

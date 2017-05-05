@@ -14,6 +14,9 @@ class Controller
     
     protected $params;
     
+    protected $redirect_path;
+
+
 
     public function __construct( $pData = [] ) 
     {
@@ -46,5 +49,11 @@ class Controller
         
             $this->data['static_pages'][] = $page;
         }
+    }
+    
+    protected function redirect()
+    {
+        
+        Router::redirect( $this->redirect_path );
     }
 }

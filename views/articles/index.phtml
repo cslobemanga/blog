@@ -14,7 +14,7 @@
     
     <p class="blog-post-meta">
         Published on <?php echo date_format( $date_article, 'd M Y' ); ?> at 
-        <?php echo date_format( $date_article, 'h:i T' ); ?> 
+        <?php echo date_format( $date_article, 'G:h T' ); ?> 
         by <a href="#"><?php echo $article['Login']; ?></a></p>
 
     <p><?php echo substr( $article['Content'], 0, 200 ); ?></p>

@@ -1,1 +1,21 @@
+<h3>Nouvel article</h3>
 
+<form method="post" action="">
+    
+    <input type="hidden" id="user_id" name="user_id" 
+           value="<?php echo Session::get('user')['UserId']; ?>" />
+    
+    <input type="text" id="title" name="title" class=form-control"
+           autofocus="autofocus" required="required" placeholder="Title" />
+    
+    <br><br>
+    
+    <textarea id="content" name="content" class=form-control" 
+              required="required" placeholder="Content">
+   </textarea>
+    
+    <br>
+    
+    <button type="submit"class="btn btn-md btn-primary">OK</button>
+    
+</form>

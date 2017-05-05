@@ -14,7 +14,7 @@ $logged_in      = ( Session::get( 'user') != null );
 
     <p class="blog-post-meta">
         Published on <b><?php echo date_format( $date_article, 'd M Y' ); ?></b> at 
-        <?php echo date_format( $date_article, 'h:i T' ); ?> 
+        <?php echo date_format( $date_article, 'G:h T' ); ?> 
         by <a href="#"><?php echo $author['Login']; ?></a></p>
 
     <p><?php echo $article['Content']; ?></p>
