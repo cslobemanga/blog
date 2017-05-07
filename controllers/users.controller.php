@@ -17,8 +17,9 @@ class UsersController extends Controller
     
     public function logout()
     {
+        Session::destroy();
         
-        $this->common_logout( '/' . App::getRouter()->getLanguage() );
+        Router::redirect( '/' . App::getRouter()->getLanguage() );
     }
 
     public function admin_index()
@@ -119,9 +120,7 @@ class UsersController extends Controller
                 
             } else
                 Session::setFlash( 'Error: User could not be registered.', 'alert-warning' );
-        
-        } else 
-            Session::flash ();
+        } 
     }
     
     public function register()
@@ -134,14 +133,6 @@ class UsersController extends Controller
     public function admin_logout()
     {
         
-        $this->common_logout( '/admin' );
-    }
-    
-    protected function common_logout( $redirect_path )
-    {
-        
-        Session::destroy();
-        
-        Router::redirect( $redirect_path );
+        $this->logout();
     }
 }
