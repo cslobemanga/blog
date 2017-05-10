@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <!--
 Cart Project with MVC
-Charles S. Lobe-Manga <charles@lobe-manga.com> 
+Charles S. Lobe-Manga <charles@lobe-manga.com>
 -->
 <html>
     <head>
         <title><?php echo Config::get('site_name');?></title>
         <meta charset="UTF-8">
-        
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="/css/style.css">
-        
+
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </head>
     <body>
-        <?php 
-            $router     = App::getRouter(); 
+        <?php
+            $router     = App::getRouter();
             $lang       = $router->getLanguage();
             $controller = $router->getController();
             $action     = $router->getAction();
@@ -39,44 +39,44 @@ Charles S. Lobe-Manga <charles@lobe-manga.com>
               </div>
               <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    
+
                     <li <?php if( $controller == 'articles' && $action == 'index') { ?>class="active"<?php } ?>>
                         <a href="/<?php echo $lang; ?>"><?php echo translate( 'lng.nav.home' ); ?></a></li>
-                    
+
                     <?php if( !isset( $_SESSION['user'] ) ) { ?>
-                    
+
                     <li <?php if( $controller == 'users' && $action == 'login' ) { ?>
                         class="active"<?php } ?>>
                         <a href="/<?php echo $lang; ?>/users/login"><?php echo translate( 'lng.nav.login' ); ?></a></li>
-                    
+
                     <li <?php if( $controller == 'users' && $action == 'register' ) { ?>
                         class="active"<?php } ?>>
                         <a href="/<?php echo $lang; ?>/users/register"><?php echo translate( 'lng.nav.register' ); ?></a></li>
-                    
+
                     <?php } else { ?>
-                    
+
                     <li <?php if( $controller == 'articles' && $action == 'add') { ?>
                         class="active"<?php } ?>>
                         <a href="/<?php echo $lang; ?>/articles/add"><?php echo translate( 'lng.nav.article.add' ); ?></a></li>
-                    
+
                     <li <?php if( $controller == 'users') { ?>class="active"<?php } ?>>
                         <a href="/<?php echo $lang; ?>/users/logout"><?php echo translate( 'lng.nav.logout' ); ?></a></li>
-                    
+
                     <?php } ?>
-                    
+
                      <li <?php if( $controller == 'contacts') { ?>class="active"<?php } ?>>
                         <a href="/<?php echo $lang; ?>/contacts">
                             <?php echo translate( 'lng.nav.contact' ); ?></a></li>
-                    
+
                 </ul>
               </div><!--/.nav-collapse -->
             </div>
         </nav>
 
         <div class="container">
-            
+
             <div class="starter-template">
-              
+
             <?php if( Session::hasFlash() ) { ?>
                 <div class="alert alert-info" role="alert">
                     <?php Session::flash(); ?>
@@ -93,27 +93,27 @@ Charles S. Lobe-Manga <charles@lobe-manga.com>
             </div><!-- /.blog-main -->
 
             <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-            
-            <?php  
+
+            <?php
             $static_pages = $data[ 'static' ];
-            
-            foreach ( $static_pages as $page ) { 
-                
+
+            foreach ( $static_pages as $page ) {
+
                 $file_name = LANG_PATH .DS. $lang .DS. $page['Alias'] . '.txt';
-                
+
                 if( file_exists( $file_name ) ) {
             ?>
-            
+
             <div class="sidebar-module sidebar-module-inset">
-                
+
                 <a href="/<?php echo $lang; ?>/pages/view/<?php echo $page['Alias']; ?>">
                     <?php echo $page['Title']; ?>
-                </a>   
-                
+                </a>
+
             </div>
-            
+
             <?php } } ?>
-            
+
             <br>
             <div class="sidebar-module">
               <h4>Archives</h4>

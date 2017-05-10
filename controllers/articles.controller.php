@@ -19,6 +19,7 @@ class ArticlesController extends Controller
     {
         
         $this->data['articles'] = $this->model->getList();
+        
     }
     
     public function view()

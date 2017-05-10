@@ -28,21 +28,32 @@ $logged_in      = ( Session::get( 'user') != null );
     <?php } ?>
     
     <form method="post" action="">
-        <input type="hidden" name="comment_id" id="comment_id" 
-           value="<?php echo $comment['CommentId']; ?>" />
-        
-        <textarea class="form-control" id="content" name="content" 
-           placeholder="Your comment" value="<?php echo $comment['Content']; ?>"
-           <?php if( !$logged_in ) echo 'disabled'; ?> >
-        </textarea>
-        
-        <button type="submit" class="btn btn-md btn-primary">OK</button>
+    <div class="comment row">
+        <div class="col-xs-10">
+            <input type="hidden" name="comment_id" id="comment_id" 
+               value="<?php echo $comment['CommentId'] ?? ''; ?>" />
+
+            <textarea class="form-control" id="content" name="content" 
+               placeholder="Your comment" value="<?php echo $comment['Content'] ?? ''; ?>"
+               <?php if( !$logged_in ) echo 'disabled'; ?> width="100%">
+            </textarea>
+        </div>
+        <div class="col-xs-2">
+            <button type="submit" class="btn btn-md btn-primary">OK</button>
+        </div>
+     </div>
     </form>
     
     <?php foreach ( $comments as $comment ) { ?>
-    
+    <div class="comment row">
+        <div class="col-xs-2">
+            <img src="http://gravatar.com/avatar/<?php 
+            echo md5($comment['Content']); ?>" width="80%" >
+        </div>
+        <div class="col-xs-10">
             <p><?php echo $comment['Content']; ?></p>
-        
+        </div>
+    </div>
     <?php } ?>
     
 </div>

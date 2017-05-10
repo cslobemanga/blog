@@ -70,3 +70,14 @@ td.admin-table-users {
     text-align: justify;
     padding: 5px;
 }
+
+div.comment {
+    padding: 5px;
+    margin-top: 5px; 
+    margin-bottom: 15px; 
+}
+
+div.row {
+    border: 1px solid #DDD;
+    margin-top: 10px;
+}
