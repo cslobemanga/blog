@@ -1,61 +1,58 @@
-<?php 
-
+<?php
 $article = $data['article'];
-$author  = $data['author'];
+$author = $data['author'];
 $comments = $data['comments'];
 
-$date_article   = new DateTime( $article['DatePublished'] ); 
-$logged_in      = ( Session::get( 'user') != null );
-   
+$date_article = new DateTime($article['DatePublished']);
+$logged_in = ( Session::get('user') != null );
 ?>
 
 <div class="blog-post">
     <h2 class="blog-post-title"><?php echo $article['Title']; ?></h2>
 
     <p class="blog-post-meta">
-        Published on <b><?php echo date_format( $date_article, 'd M Y' ); ?></b> at 
-        <?php echo date_format( $date_article, 'G:h T' ); ?> 
+        Published on <b><?php echo date_format($date_article, 'd M Y'); ?></b> at 
+<?php echo date_format($date_article, 'G:h T'); ?> 
         by <a href="#"><?php echo $author['Login']; ?></a></p>
 
     <p><?php echo $article['Content']; ?></p>
-    
+
     <!--Comments section-->
 
-    <?php if( !count( $comments ) ) { ?>
-    <p>Be the first to comment on this article.</p>
+<?php if (!count($comments)) { ?>
+        <p>Be the first to comment on this article.</p>
     <?php } else { ?>
-    <p><br><br><b>Comments: </b><?php echo count( $comments ); ?></p>
+        <p><br><br><b>Comments: </b><?php echo count($comments); ?></p>
     <?php } ?>
-    
-    <form method="post" action="">
-    <div class="comment row">
-        <div class="col-xs-10">
-            <input type="hidden" name="comment_id" id="comment_id" 
-               value="<?php echo $comment['CommentId'] ?? ''; ?>" />
 
-            <textarea class="form-control" id="content" name="content" 
-               placeholder="Your comment" value="<?php echo $comment['Content'] ?? ''; ?>"
-               <?php if( !$logged_in ) echo 'disabled'; ?> width="100%">
-            </textarea>
+    <form method="post" action="">
+        <div class="comment row">
+            <div class="col-xs-10">
+                <input type="hidden" name="comment_id" id="comment_id" 
+                       value="<?php echo $comment['CommentId'] ?? ''; ?>" />
+
+                <textarea class="form-control" id="content" name="content" 
+                          placeholder="Your comment" value="<?php echo $comment['Content'] ?? ''; ?>"
+<?php if (!$logged_in) echo 'disabled'; ?> width="100%">
+                </textarea>
+            </div>
+            <div class="col-xs-2">
+                <button type="submit" class="btn btn-md btn-primary">OK</button>
+            </div>
         </div>
-        <div class="col-xs-2">
-            <button type="submit" class="btn btn-md btn-primary">OK</button>
-        </div>
-     </div>
     </form>
-    
-    <?php foreach ( $comments as $comment ) { ?>
-    <div class="comment row">
-        <div class="col-xs-2">
-            <img src="http://gravatar.com/avatar/<?php 
-            echo md5($comment['Content']); ?>" width="80%" >
+
+<?php foreach ($comments as $comment) { ?>
+        <div class="comment row">
+            <div class="col-xs-2">
+                <img src="http://gravatar.com/avatar/<?php echo md5($comment['Content']); ?>" width="80%" >
+            </div>
+            <div class="col-xs-10">
+                <p><?php echo $comment['Content']; ?></p>
+            </div>
         </div>
-        <div class="col-xs-10">
-            <p><?php echo $comment['Content']; ?></p>
-        </div>
-    </div>
-    <?php } ?>
-    
+<?php } ?>
+
 </div>
 
 

@@ -8,14 +8,34 @@ body {
     padding-top: 50px;
 }
 
-.starter-template {
-    padding:40px 15px;
+span.company  {
+   margin-left: 40px;
 }
 
-form {
-    width: 400px;
-    max-width: 400px;
+form.w3-container {
+    padding-top: 10px;
 }
+
+.user-form {
+    font-family: "Lato", sans-serif;
+    margin-left: 50px;
+    margin-top: 50px;
+    width: 50%;
+}
+
+div.login {
+    height: 260px;
+}
+
+div.register {
+    height: 320px;
+}
+
+form.contact {
+    font-family: "Lato", sans-serif;
+    width: 50%;
+}
+
 div.single-page {
     margin-top: 20px;
 }
@@ -69,6 +89,8 @@ td.admin-table-users {
     margin-top: 20px;
     text-align: justify;
     padding: 5px;
+    background-color: antiquewhite;
+    color: #222;
 }
 
 div.comment {

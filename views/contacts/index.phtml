@@ -1,17 +1,24 @@
-<h3><?php echo translate( 'lng.form.title'); ?></h3>
+<div class="w3-container w3-dark-gray contact user-form">
+    <h4><?php echo translate( 'lng.form.title'); ?></h4>
+</div>
 
-<form action="" method="post">
-    
-    <input type="text" class="form-control" name="name" required="required"
-           placeholder="<?php echo translate( 'lng.form.name' ); ?>" ><br/>
-    
-    <input type="text" class="form-control" name="email" required="required"
-           placeholder="<?php echo translate( 'lng.form.email' ); ?>" ><br/>
-    
-    <textarea name="message" class="form-control" required="required"
-           placeholder="<?php echo translate( 'lng.form.message' ); ?>"></textarea>
+<form method="post" action="" class="w3-container user-form">
+
+    <input type="text" id="name" name="name" autofocus="autofocus"
+           class="w3-input w3-animate-input" required="required" 
+           placeholder="<?php echo translate( 'lng.form.name' ); ?>" >
+
+    <input type="email" id="email" name="email" 
+           class="w3-input w3-animate-input" required="required"
+           placeholder="<?php echo translate( 'lng.form.email' ); ?>" >
+
+    <textarea type="text" id="password" name="message" 
+           class="w3-input" required="required"
+           placeholder="<?php echo translate( 'lng.form.message', 'Message' ); ?>" >      
+    </textarea>
     <br>
-    <button class="btn btn-md btn-primary" type="submit">
-           <?php echo translate( 'lng.form.submit' ); ?></button>
-    
+
+    <button type="submit" class="w3-btn w3-dark-gray">
+            <?php echo translate( 'lng.form.btn.contact', 'OK' ); ?>
+    </button>
 </form>
