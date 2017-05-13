@@ -1,4 +1,6 @@
 <?php
+namespace Application\Lib;
+
 error_reporting( E_ALL );
 /* 
  * Cart Project with MVC

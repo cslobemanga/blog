@@ -1,11 +1,12 @@
 <?php
+namespace Application\Lib;
 
 /* 
  * Cart Project with MVC
  * Charles S. Lobe-Manga <charles@lobe-manga.com>  * 
  */
 
-class DB
+class Database
 { 
     protected static $instance;
     protected $connection;
@@ -14,17 +15,19 @@ class DB
     private function __construct() 
     {
         try {
-            $this->connection = new PDO( 
+            $this->connection = new \PDO( 
                     sprintf( "mysql:host=%s;dbname=%s", 
                             Config::get('db.host'), 
                             Config::get('db.dbname') ), 
                             Config::get('db.user'), 
                             Config::get('db.password') );
             
-            $this->connection->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-            $this->connection->setAttribute( PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC );
+            $this->connection->setAttribute( \PDO::ATTR_ERRMODE, 
+            								 \PDO::ERRMODE_EXCEPTION );
+            $this->connection->setAttribute( \PDO::ATTR_DEFAULT_FETCH_MODE, 
+            								 \PDO::FETCH_ASSOC );
         
-        } catch ( PDOException $ex) {
+        } catch ( \PDOException $ex) {
             echo 'Verbindung fehlgeschlagen: '. $ex->getMessage();
         }
     }
@@ -39,7 +42,7 @@ class DB
         return false;
     }
 
-    public static function getInstance()
+    public static function getInstance(): Database
     {
         if( self::$instance === null )
             self::$instance = new static();
@@ -58,7 +61,7 @@ class DB
             $statement = $this->connection->prepare( $sql );
             $statement->execute( $params );
             
-        } catch ( PDOException $ex ) {
+        } catch ( \PDOException $ex ) {
             echo 'Error ' . $ex->getCode() . ': ' . $ex->getMessage();
         }
         

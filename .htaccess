@@ -2,6 +2,5 @@
 RewriteEngine On
 
 #Own rules
-RewriteRule ^$ public/ [NC,L]
 RewriteRule (.*) public/$1 [NC,L]
 

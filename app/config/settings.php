@@ -1,4 +1,6 @@
 <?php
+use Application\Lib\Config;
+
 error_reporting( E_ALL );
 /* 
  * Cart Project with MVC
