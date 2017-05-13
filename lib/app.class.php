@@ -1,8 +1,4 @@
 <?php
-namespace Application\Lib;
-
-// use Application\Controllers\PagesController;
-
 error_reporting( E_ALL );
 /* 
  * Cart Project with MVC
@@ -20,7 +16,7 @@ class App
         return self::$router;
     }
     
-    public static function getDB(): Database
+    public static function getDB(): DB
     {
         return self::$db;
     }
@@ -28,11 +24,11 @@ class App
     public static function run( $uri )
     {
         self::$router   = new Router( $uri );
-        self::$db       = Database::getInstance();
+        self::$db       = DB::getInstance();
         
         Lang::load( self::$router->getLanguage() );
         
-        $controller_class = 'Application\\Controllers\\' . ucfirst( self::$router->getController() ) . 'Controller';
+        $controller_class = ucfirst( self::$router->getController() ) . 'Controller';
         $controller_method = strtolower( self::$router->getMethodPrefix() . self::$router->getAction() );
         
         $layout = self::$router->getRoute();

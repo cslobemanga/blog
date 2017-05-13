@@ -1,8 +1,4 @@
 <?php
- namespace Application\Lib;
- 
- error_reporting( E_ALL );
- 
 /* 
  * Cart Project with MVC
  * Charles S. Lobe-Manga <charles@lobe-manga.com>  * 
@@ -71,7 +67,7 @@ class Router
             
             // next: the parameters
             $this->params = $path_parts;
-        }        
+        }
     }
     
     public static function redirect( $location )

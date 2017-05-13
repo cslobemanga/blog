@@ -4,16 +4,26 @@
 </div>
 
 <?php 
-
+  $today = new DateTime('now');
+    
   foreach ( $data['articles'] as $article ) { 
     
-    $date_article = new DateTime( $article['DatePublished'] ); ?>
+    $date_article = new DateTime( $article['DatePublished'] ); 
+    $interval = $today->diff( $date_article );
+    
+    display( $interval );
+    ?>
 
 <div class="blog-post">
     <h3 class="blog-post-title"><?php echo $article['Title']; ?></h3>
     
     <p class="blog-post-meta">
-        Published on <?php echo date_format( $date_article, 'd M Y' ); ?> at 
+        Published on 
+        <?php 
+//        echo date_format( $date_article, 'd M Y' ); 
+        echo ( $interval->h < 24 ) ? 'Today' : date_format( $date_article, 'd M Y' ); 
+        ?> 
+        at 
         <?php echo date_format( $date_article, 'G:h T' ); ?> 
         by <a href="#"><?php echo $article['Login']; ?></a></p>
 
@@ -21,7 +31,12 @@
     
     <nav>
         <ul class="pager">
-            <li><a href="/articles/view/<?php echo $article['ArticleId']; ?>">Weiterlesen</a></li>
+            <li>
+                <a href="/articles/view/<?php echo $article['ArticleId']; ?>">
+                    Weiterlesen 
+                    <?php '!' ?>
+                </a>
+            </li>
         </ul>
      </nav>
 </div>

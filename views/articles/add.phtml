@@ -1,24 +1,28 @@
-<?php
-use Application\Lib\Session;
-?>
-<h3>Nouvel article</h3>
+<div class="w3-card-4 user-form">
+    
+    <div class="w3-container w3-dark-gray w3-text-sand">
+        <h4>New Article</h4>
+    </div>
 
-<form method="post" action="">
-    
-    <input type="hidden" id="user_id" name="user_id" 
-           value="<?php echo Session::get('user')['UserId']; ?>" />
-    
-    <input type="text" id="title" name="title" class=form-control"
-           autofocus="autofocus" required="required" placeholder="Title" />
-    
-    <br><br>
-    
-    <textarea id="content" name="content" class=form-control" 
-              required="required" placeholder="Content">
-   </textarea>
-    
-    <br>
-    
-    <button type="submit"class="btn btn-md btn-primary">OK</button>
-    
-</form>
+    <form method="post" action="" class="w3-container">
+
+        <input type="hidden" id="user_id" name="user_id" 
+               value="<?php echo Session::get('user')['UserId']; ?>" >
+
+        <input type="text" id="title" name="title" class="w3-input"
+               autofocus="autofocus" required="required" placeholder="Title" >
+
+        <input type="text" id="slug" name="slug" class="w3-input"
+               autofocus="autofocus" required="required" placeholder="Alias" >
+
+        <label>Text</label>
+        <textarea id="content" name="content" class="w3-input" 
+                  required="required" placeholder="Content">
+       </textarea>
+
+        <br>
+
+        <button type="submit"class="w3-btn w3-dark-gray">OK</button>
+
+    </form>
+</div>

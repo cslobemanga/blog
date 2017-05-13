@@ -1,6 +1,4 @@
 <?php 
-    use Application\Lib\App;
-
     $router     = App::getRouter();  
     
     $file_path  = LANG_PATH .DS. $router->getLanguage() .DS. $data['page']['Alias'] . '.txt';
@@ -12,3 +10,7 @@
     else
         Session::setFlash( 'File not found: ' . $file_path, 'alert-warning' );
  ?>
+
+
+
+

@@ -1,15 +1,11 @@
 <?php
-namespace Application\Lib;
-
-use Application\Lib\Interfaces\IModel;
-
 error_reporting( E_ALL );
 /* 
  * Cart Project with MVC
  * Charles S. Lobe-Manga <charles@lobe-manga.com>  * 
  */
 
-class Model implements IModel
+class Model
 {
     
     protected $db;
@@ -23,8 +19,8 @@ class Model implements IModel
         $this->table_view = [];
     }
     
-    public function getDB(): Database
+    public function getDB(): DB
     {
-    	return $this->db;
+        return $this->db;
     }
 }

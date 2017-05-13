@@ -1,6 +1,5 @@
 <?php
-session_start();
-error_reporting( E_ALL );
+ error_reporting( E_ALL );
  
  /* 
  * Cart Project with MVC
@@ -10,41 +9,21 @@ error_reporting( E_ALL );
 define( 'DS',                   DIRECTORY_SEPARATOR );
 define( 'ROOT',                 dirname(dirname( __FILE__) ) );
 define( 'VIEWS_PATH',           ROOT. DS . 'views' );
-define( 'LANG_PATH',            ROOT. DS . 'app' .DS. 'lang' );
+define( 'LANG_PATH',            ROOT. DS . 'lang' );
 define( 'VENDOR_PATH',          ROOT. DS . 'vendor' );
 
-require __DIR__ . '../../vendor/autoload.php';
+require_once ROOT.DS . 'lib' . DS . 'init.php';
 
-require ROOT.DS. 'app' .DS. 'config' .DS. 'settings.php';
+session_start();
 
-
-
-use Application\Lib\App;
-use Application\Lib\Lang;
+date_default_timezone_set( 'Europe/Berlin' );
 
 App::run( $_SERVER['REQUEST_URI'] );
 
-
-/**
- * Globale Übersetzungsfunktion
- * 
- * @param string $key
- * @param string $default_value
- * @return string
- */
-function translate( string $key, $default_value= '' ):string
-{
-	return Lang::get( $key, $default_value );
-}
-
-/**
- * Hilfsfunktion zur Konsole-Ausgabe
- * 
- * @param unknown $data
- */
 function display( $data )
 {
-	echo '<pre>';
-	print_r( $data );
-	echo '</pre>';
+    echo '<pre>';
+    var_dump( $data );
+    echo '</pre>';
 }
+?>

@@ -1,6 +1,5 @@
 <?php
-namespace Application\Lib;
-
+    
 class Config
 {
     

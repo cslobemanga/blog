@@ -1,12 +1,4 @@
 <?php
-namespace Application\Controllers;
-
-use Application\Lib\Controller;
-use Application\Models\User;
-use Application\Lib\App;
-use Application\Lib\Session;
-use Application\Lib\Router;
-
 error_reporting( E_ALL );
 /* 
  * Cart Project with MVC

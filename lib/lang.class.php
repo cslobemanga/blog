@@ -1,6 +1,4 @@
 <?php
-namespace Application\Lib;
-
 error_reporting( E_ALL );
 /* 
  * Cart Project with MVC
@@ -13,7 +11,7 @@ class Lang
     
     public static function load( $pLandCode )
     {
-        $lang_file_path = ROOT.DS . 'app' .DS. 'lang' . DS . strtolower( $pLandCode ) . '.php';
+        $lang_file_path = ROOT.DS . 'lang' . DS . strtolower( $pLandCode ) . '.php';
         
         if( file_exists( $lang_file_path ) ) {
             
@@ -21,7 +19,7 @@ class Lang
         
         } else {
             
-            throw new \Exception( 'Language not found: ' . $lang_file_path );
+            throw new Exception ( 'Language not found: ' . $lang_file_path );
         }
     }
     
