@@ -23,9 +23,9 @@ class Database
                             Config::get('db.password') );
             
             $this->connection->setAttribute( \PDO::ATTR_ERRMODE, 
-            								 \PDO::ERRMODE_EXCEPTION );
+                                             \PDO::ERRMODE_EXCEPTION );
             $this->connection->setAttribute( \PDO::ATTR_DEFAULT_FETCH_MODE, 
-            								 \PDO::FETCH_ASSOC );
+                                             \PDO::FETCH_ASSOC );
         
         } catch ( \PDOException $ex) {
             echo 'Verbindung fehlgeschlagen: '. $ex->getMessage();
