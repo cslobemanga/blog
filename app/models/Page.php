@@ -31,7 +31,7 @@ class Page extends Model
     
     public function getByAlias( $pAlias )
     {           
-        $column = array( 'Alias' => $pAlias );
+        $column = array( 'key' => 'Alias', 'value' => $pAlias );
    
         $result = parent::findByColumn( $column, $this->table );
         
@@ -40,7 +40,7 @@ class Page extends Model
     
     public function getById( $pId )
     {           
-        $column = array( 'PageId' => $pId );
+        $column = array( 'key' => 'PageId', 'value' => $pId );
    
         $result = parent::findByColumn( $column, $this->table );
         
@@ -73,15 +73,11 @@ class Page extends Model
         return $result;
     }
     
-    public function delete( $id )
+    public function remove( int $id )
     {
-        if( !$id )
-            return false;
-        
-        $sql = "DELETE FROM $this->table WHERE PageId=?";
-        
-        $result = $this->getDB()->query( $sql, [$id], false );
-        
-        return $result;
+        $column = array( 'key' => 'PageId', 'value' => (int)$id );
+         
+        $result = parent::delete( $column, $this->table );
+
     }
 }

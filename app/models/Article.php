@@ -35,7 +35,7 @@ class Article extends Model
 
     public function getById( int $id )
     {
-        $column = array( 'ArticleId', $id );
+        $column = array( 'key' => 'ArticleId', 'value' => $id );
         
         $result = parent::findByColumn( $column, $this->table ); 
         
@@ -44,7 +44,7 @@ class Article extends Model
     
     public function getByAuthor( int $author_id )
     {
-        $column = array( 'AuthorId', $id );
+        $column = array( 'key' => 'AuthorId', 'value' => $author_id );
         
         $result = parent::findByColumn( $column, $this->table );
         
@@ -96,5 +96,12 @@ class Article extends Model
         }
         
         return false;
+    }
+    
+    public function remove( int $article_id )
+    {
+        $column = array( 'key' => 'ArticleId', 'value' => $article_id );
+        
+        return parent::delete( $column, $this->table );
     }
 }

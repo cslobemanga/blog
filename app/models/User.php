@@ -16,10 +16,9 @@ class User extends Model
     {
         parent::__construct();
         
-        $this->table = 'users';
-        
-        $this->table_view['articles'] = 'author_articles';
-        $this->table_view['comments'] = 'author_comments';
+        $this->table                    = 'users';
+        $this->table_view['articles']   = 'author_articles';
+        $this->table_view['comments']   = 'author_comments';
     }
     
     public function getAll()
@@ -29,9 +28,9 @@ class User extends Model
         return parent::findAll( $this->table, $params );
     }
 
-    public function getByLogin( $login )
+    public function getByLogin( string $login )
     {
-        $column = array( 'Login' => $login );
+        $column = array( 'key' => 'Login', 'value' => $login );
         
         $result = parent::findByColumn( $column, $this->table );
         
@@ -40,7 +39,7 @@ class User extends Model
     
     public function getById( int $id )
     {
-        $column = array( 'UserId' => $id );
+        $column = array( 'key' => 'UserId', 'value' => $id );
         
         $result = parent::findByColumn( $column, $this->table );
         
@@ -102,7 +101,6 @@ class User extends Model
 
     private function authenticate( $login, $password ): bool
     {
-        
         $user = $this->getByLogin( $login );
         
         if( !$user )
@@ -111,15 +109,10 @@ class User extends Model
         return password_verify( $password, $user['Password'] );
     }
     
-    public function delete( $id )
+    public function remove( int $id )
     {
-        if( !$id )
-            return false;
+        $column = array( 'key' => 'UserId', 'value' => (int)$id );
         
-        $sql = "DELETE FROM $this->table WHERE UserId=?";
-        
-        $result = $this->getDB()->query( $sql, [$id], false );
-        
-        return $result;
+        $result = parent::delete( $column, $this->table );
     }
 }

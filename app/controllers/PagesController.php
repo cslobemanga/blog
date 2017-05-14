@@ -39,7 +39,7 @@ class PagesController extends Controller
     
     public function admin_index()
     {
-        $this->data['pages'] = $this->model->findAll();
+        $this->data['pages'] = $this->model->getAll();
     }
     
     public function admin_add()
@@ -108,7 +108,7 @@ class PagesController extends Controller
         
         if( isset( $params[0] ) ) {
             
-            $result = $this->model->delete( (int) $params[0] );
+            $result = $this->model->remove( (int) $params[0] );
             
             Session::setFlash ( $result ? 'The selected page was successfully deleted!' : 'Error: page could not be deleted!' );
             

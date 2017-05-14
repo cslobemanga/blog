@@ -50,7 +50,7 @@ class Model implements IModel
         return $result;
     }
     
-    public function findByColumn( array $column, string $table=null )
+    public function findByColumn( array $column, string $table )
     {
         if( !isset($column['key']) || !isset($column['value']) )
             return null;
@@ -64,5 +64,16 @@ class Model implements IModel
         return $result;
     } 
     
-//    public function find
+    public function delete( array $column, string $table )
+    {
+        if( !isset($column['key']) || !isset($column['value']) )
+            return null;
+        
+        $key    = $column['key'];
+        $value  = $column['value'];
+        
+        $sql    = "DELETE FROM $table WHERE $key = ?";
+        
+        return $this->getDB()->query( $sql, [$value], false );
+    }
 }

@@ -4,6 +4,8 @@ namespace Application\Controllers;
 use Application\Lib\Controller;
 use Application\Models\Article;
 use Application\Lib\Session;
+use Application\Lib\App;
+use Application\Lib\Router;
 
 error_reporting( E_ALL );
 /* 
@@ -67,7 +69,7 @@ class ArticlesController extends Controller
     
     public function admin_index()
     {
-        $this->data['articles'] = $this->model->findAll();
+        $this->data['articles'] = $this->model->getAll();
     }
     
     public function admin_edit()
@@ -78,6 +80,16 @@ class ArticlesController extends Controller
     public function admin_delete()
     {
         
+        $params = App::getRouter()->getParams();
+        
+        if( isset( $params[0] ) ) {
+            
+            $result = $this->model->remove( (int) $params[0] );
+            
+            Session::setFlash ( $result ? 'The selected article was successfully deleted!' : 'Error: article could not be deleted!' );
+            
+            Router::redirect( '/admin' );
+        }
     }
     
     public function admin_add()

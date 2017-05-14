@@ -28,11 +28,11 @@ class Comment extends Model
     
     public function getByID( $id )
     {
-        $column = array( 'CommentId' => $id );
+        $column = array( 'key' => 'CommentId', 'value' => $id );
    
         $result = parent::findByColumn( $column, $this->table );
         
-        return $result[ 0 ] ?? false;
+        return $result[0] ?? false;
     }
     
     public function getArticle( $comment_id )

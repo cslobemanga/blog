@@ -78,7 +78,7 @@ class UsersController extends Controller
         
         if( isset( $params[0] ) ) {
             
-            $result = $this->model->delete( (int) $params[0] );
+            $result = $this->model->remove( (int) $params[0] );
             
             Session::setFlash ( $result ? 'The selected user was successfully deleted!' : 'Error: User could not be deleted!' );
             
@@ -111,8 +111,9 @@ class UsersController extends Controller
                 else
                     Router::redirect( '/' . $lang ); 
             
-            } else
+            } else {
                 Session::setFlash( 'Zugangsdaten sind ungültig!', 'alert-danger' );
+            }
         }
     }
     
