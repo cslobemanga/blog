@@ -30,7 +30,7 @@ class User extends Model
 
     public function getByLogin( string $login )
     {
-        $column = array( 'key' => 'Login', 'value' => $login );
+        $column = array( 'Login' => $login );
         
         $result = parent::findByColumn( $column, $this->table );
         
@@ -39,7 +39,7 @@ class User extends Model
     
     public function getById( int $id )
     {
-        $column = array( 'key' => 'UserId', 'value' => $id );
+        $column = array( 'UserId' => $id );
         
         $result = parent::findByColumn( $column, $this->table );
         

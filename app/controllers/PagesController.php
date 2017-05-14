@@ -80,9 +80,9 @@ class PagesController extends Controller
         
         if( $_POST ) {
             
-            $id = ( $_POST['page_id'] ?? null );
+            $id = $_POST['page_id'] ?? null;
             
-            $result = $this->model->save( $_POST, $id );
+            $result = $this->model->register( $_POST, $id );
             
             Session::setFlash( $result ? 'The new page was successfully edited!' : 'Error: page could not be edited!' );
             

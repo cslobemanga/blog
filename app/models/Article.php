@@ -33,9 +33,9 @@ class Article extends Model
         return $result; 
     }
 
-    public function getById( int $id )
+    public function getById( int $article_id )
     {
-        $column = array( 'key' => 'ArticleId', 'value' => $id );
+        $column = array( 'ArticleId' => $article_id );
         
         $result = parent::findByColumn( $column, $this->table ); 
         
@@ -44,7 +44,7 @@ class Article extends Model
     
     public function getByAuthor( int $author_id )
     {
-        $column = array( 'key' => 'AuthorId', 'value' => $author_id );
+        $column = array( 'AuthorId' => $author_id );
         
         $result = parent::findByColumn( $column, $this->table );
         
@@ -80,7 +80,7 @@ class Article extends Model
      * @param bool $by_admin
      * @return bool
      */
-    public function save( $data, bool $by_admin=false ):bool
+    public function register( $data, bool $by_admin=false ):bool
     {
         try {
             $sql = "INSERT INTO $this->table (AuthorId, Title, Content) VALUES(?,?,?)";
