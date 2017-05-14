@@ -49,4 +49,20 @@ class Model implements IModel
         
         return $result;
     }
+    
+    public function findByColumn( array $column, string $table=null )
+    {
+        if( !isset($column['key']) || !isset($column['value']) )
+            return null;
+        
+        $key    = $column['key'];
+        $value  = $column['value'];
+        
+        $sql    = "SELECT * FROM $table WHERE $key = ?";
+        $result = $this->getDB()->query( $sql, [$value] );
+        
+        return $result;
+    } 
+    
+//    public function find
 }

@@ -19,7 +19,6 @@ class Comment extends Model
     
     public function __construct() 
     {
-        
         parent::__construct();
         
         $this->table                    = 'comments';
@@ -29,9 +28,9 @@ class Comment extends Model
     
     public function getByID( $id )
     {
-        $sql = "SELECT * FROM $this->table WHERE CommentID=? AND IsPublished=1";
-        
-        $result = $this->getDB()->query( $sql, [$id] );
+        $column = array( 'CommentId' => $id );
+   
+        $result = parent::findByColumn( $column, $this->table );
         
         return $result[ 0 ] ?? false;
     }

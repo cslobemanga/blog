@@ -22,7 +22,7 @@ class User extends Model
         $this->table_view['comments'] = 'author_comments';
     }
     
-    public function getAll( string $table=null, array $conditions=[], string $order_by=null)
+    public function getAll()
     {
         $params = array( 'IsActive' => 1 );
         
@@ -31,18 +31,18 @@ class User extends Model
 
     public function getByLogin( $login )
     {
-        $sql = "SELECT * FROM $this->table WHERE Login = ? AND IsActive=1";
+        $column = array( 'Login' => $login );
         
-        $result = $this->getDB()->query( $sql, [$login] );
+        $result = parent::findByColumn( $column, $this->table );
         
         return $result[0] ?? false;
     }
     
-    public function getById( $id )
+    public function getById( int $id )
     {
-        $sql = "SELECT * FROM $this->table WHERE UserId = ? AND IsActive=1";
+        $column = array( 'UserId' => $id );
         
-        $result = $this->getDB()->query( $sql, [$id] );
+        $result = parent::findByColumn( $column, $this->table );
         
         return $result[0] ?? false;
     }

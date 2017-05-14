@@ -19,11 +19,11 @@ class Message extends Model
         $this->table = 'messages';
     }
     
-    public function findAll()
+    public function getAll()
     {
-        $sql = "SELECT * FROM $this->table";
+        $params = array( 'IsActive' => 1 );
         
-        return $this->getDB()->query( $sql );
+        return parent::findAll( $this->table, $params );
     }
 
     public function save( $data, $id=null )

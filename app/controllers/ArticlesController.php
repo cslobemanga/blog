@@ -24,8 +24,7 @@ class ArticlesController extends Controller
     public function index()
     {
         
-        $this->data['articles'] = $this->model->findAll();
-        
+        $this->data['articles'] = $this->model->getAll();
     }
     
     public function view()
@@ -36,9 +35,7 @@ class ArticlesController extends Controller
             $article_id = ( int ) $this->params[0];
             
             $this->data['article']  = $this->model->getById( $article_id ) ;
-            
             $this->data['author']   = $this->model->getAuthor($article_id );
-            
             $this->data['comments'] = $this->model->getComments( $article_id );
         }
     }

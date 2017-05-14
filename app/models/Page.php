@@ -20,7 +20,7 @@ class Page extends Model
         $this->table = 'pages';
     }
 
-    public function findAll( string $table=null, array $conditions=[], string $order_by=null )
+    public function getAll()
     {
         $params = array( 'IsPublished' => 1 );
    
@@ -31,18 +31,18 @@ class Page extends Model
     
     public function getByAlias( $pAlias )
     {           
-        $sql = "SELECT * FROM $this->table WHERE Alias = ? LIMIT 1";
-        
-        $result = $this->getDB()->query( $sql, [ $pAlias ] );
+        $column = array( 'Alias' => $pAlias );
+   
+        $result = parent::findByColumn( $column, $this->table );
         
         return $result[0] ?? false;
     }
     
     public function getById( $pId )
     {           
-        $sql = "SELECT * FROM $this->table WHERE PageId = ? LIMIT 1";
-        
-        $result = $this->getDB()->query( $sql, [ $pId ] );
+        $column = array( 'PageId' => $pId );
+   
+        $result = parent::findByColumn( $column, $this->table );
         
         return $result[0] ?? false;
     }

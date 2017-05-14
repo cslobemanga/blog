@@ -21,7 +21,7 @@ class Article extends Model
         $this->table_view['comments']   = 'article_comments';
     }
     
-    public function findAll( string $table=null, array $conditions=[], string $order_by=null )
+    public function getAll()
     {
         
         $table_view = $this->table_view['author'];
@@ -33,27 +33,25 @@ class Article extends Model
         return $result; 
     }
 
-    public function getById( $id )
+    public function getById( int $id )
     {
+        $column = array( 'ArticleId', $id );
         
-        $sql = "SELECT * FROM $this->table WHERE ArticleID=? AND IsPublished=1";
+        $result = parent::findByColumn( $column, $this->table ); 
         
-        $result = $this->getDB()->query( $sql, [ (int)$id ] );
-        
-        return $result[0] ?? false;
+        return $result[0] ?? null;
     }
     
-    public function getByAuthor( $author_id )
+    public function getByAuthor( int $author_id )
     {
+        $column = array( 'AuthorId', $id );
         
-        $sql = "SELECT * FROM $this->table WHERE AuthorID=? AND IsPublished=1";
+        $result = parent::findByColumn( $column, $this->table );
         
-        $result = $this->getDB()->query( $sql, [$author_id] );
-        
-        return $result;
+        return $result[0] ?? null;
     }
     
-    public function getAuthor( $article_id )
+    public function getAuthor( int $article_id )
     {
         $table_view = $this->table_view['author'];
         

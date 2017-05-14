@@ -49,7 +49,7 @@ class Controller
   
         $pages = new Page();
         
-        foreach ( $pages->findAll() as $page ) {
+        foreach ( $pages->getAll() as $page ) {
         
             $this->data['static_pages'][] = $page;
         }

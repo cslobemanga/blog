@@ -63,7 +63,7 @@ class UsersController extends Controller
         if( isset( $this->params[0] ) ) {
             
             $user_id =( int ) $this->params[0];
-            $this->data['user'] = $this->model->getById( $user_id );
+            $this->data['user'] = $this->model->findByColumn( $user_id );
         
         } else {
             Session::setFlash ( 'Wrong page requested!' );

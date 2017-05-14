@@ -24,7 +24,7 @@ class PagesController extends Controller
 
     public function index() 
     {
-        $this->data['pages'] = $this->model->findAll();
+        $this->data['pages'] = $this->model->getAll();
     }
     
     public function view()
@@ -92,7 +92,7 @@ class PagesController extends Controller
         if( isset( $this->params[0] ) ) {
             
             $page_id =( int ) $this->params[0];
-            $this->data['page'] = $this->model->getById( $page_id );
+            $this->data['page'] = $this->model->findByColumn( $page_id );
         
         } else {
             Session::setFlash ( 'Wrong page requested!' );
