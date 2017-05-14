@@ -1,1 +1,24 @@
+<?php
+    $article = $data['article'];
+?>
+<div class="w3-card-4 user-fom">
+
+    <div class="w3-container w3-dark-gray w3-text-sand">
+        <h4>Edit User</h4> 
+    </div>
+
+    <form class="w3-container" method="post" action="">
+
+    <label>Title</label>
+    <input type="text" class="w3-input" name="title" required="required"
+           value="<?php echo $article['Title']; ?>" >
+
+    <label>Alias</label>
+    <input type="text" class="w3-input" name="alias" required="required"
+           value="<?php echo $article['Slug']; ?>" >
+    <br>
+    <input class="w3-btn w3-dark-gray" type="submit" value="OK" />
+
+    </form>
+</div>
 

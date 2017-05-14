@@ -21,7 +21,7 @@ class Message extends Model
     
     public function getAll()
     {
-        $params = array( 'IsActive' => 1 );
+        $params = array( 'IsPublished' => 1 );
         
         return parent::findAll( $this->table, $params );
     }
@@ -50,15 +50,10 @@ class Message extends Model
         return $result;
     }
     
-    public function delete( $id )
+    public function remove( int $comment_id )
     {
+        $column = array( 'key' => 'ColumnId', 'value' => (int) $comment_id );
         
-        $id = ( int )$id;
-        
-        $sql = "DELETE FROM $this->table WHERE MessageId = ?";
-        
-        $result = $this->getDB()->query( $sql, [$id], false );
-        
-        return $result;
+        return parent::delete( $column, $this->table );
     }
 }

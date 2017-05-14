@@ -74,7 +74,12 @@ class ArticlesController extends Controller
     
     public function admin_edit()
     {
+        $param = App::getRouter()->getParams();
         
+        if( !isset( $param[0] ) )
+            return false;
+        
+        $this->data['article'] = $this->model->getById( $param[0] );
     }
     
     public function admin_delete()
