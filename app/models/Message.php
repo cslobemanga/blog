@@ -19,7 +19,7 @@ class Message extends Model
         $this->table = 'messages';
     }
     
-    public function getList()
+    public function findAll()
     {
         $sql = "SELECT * FROM $this->table";
         

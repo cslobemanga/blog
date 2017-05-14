@@ -22,14 +22,11 @@ class User extends Model
         $this->table_view['comments'] = 'author_comments';
     }
     
-    public function getAll( $only_active = false )
+    public function getAll( string $table=null, array $conditions=[], string $order_by=null)
     {
-        $sql = "SELECT * FROM $this->table";
+        $params = array( 'IsActive' => 1 );
         
-        if( $only_active )
-            $sql .= " AND IsActive=1";
-        
-        return $this->getDB()->query( $sql );
+        return parent::findAll( $this->table, $params );
     }
 
     public function getByLogin( $login )

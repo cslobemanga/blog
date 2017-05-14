@@ -21,20 +21,16 @@ class Article extends Model
         $this->table_view['comments']   = 'article_comments';
     }
     
-    public function getList( $only_published = false )
+    public function findAll( string $table=null, array $conditions=[], string $order_by=null )
     {
+        
         $table_view = $this->table_view['author'];
+        $params     = array( 'IsPublished' => 1 );
+        $order      = " ORDER BY DatePublished DESC";
         
-        $sql ="SELECT * FROM $table_view";
+        $result     = parent::findAll( $table_view, $params, $order );
         
-        if( $only_published )
-            $sql .= " WHERE IsPublished=1";
-        
-        $sql .= " ORDER BY DatePublished DESC";
-        
-        $result = $this->getDB()->query( $sql );
-        
-        return $result;
+        return $result; 
     }
 
     public function getById( $id )
@@ -78,8 +74,15 @@ class Article extends Model
         
         return $result;
     }
-    
-    public function save( $data, $by_admin=false )
+   
+    /**
+     * Saves a new article or edit an existing one
+     * 
+     * @param type $data
+     * @param bool $by_admin
+     * @return bool
+     */
+    public function save( $data, bool $by_admin=false ):bool
     {
         try {
             $sql = "INSERT INTO $this->table (AuthorId, Title, Content) VALUES(?,?,?)";

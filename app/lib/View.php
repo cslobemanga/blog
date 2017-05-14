@@ -17,7 +17,7 @@ class View
      * 
      * @return boolean
      */
-    protected static function getDefaultViewPath()
+    protected static function getDefaultViewPath(): string
     {
         $router = App::getRouter();
         

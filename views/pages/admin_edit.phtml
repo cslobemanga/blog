@@ -15,13 +15,6 @@
     </div>
     
     <div class="form-group">
-        <label for="content">Content</label>
-        <textarea name="content" id="content" class="form-control">
-            <?php echo $data['page']['Content']; ?>
-        </textarea>
-    </div>
-    
-    <div class="form-group">
         <label for="is_published">Publish</label>
         <input type="checkbox" id="is_published" name="is_published" 
             <?php if( $data['page']['IsPublished'] ) { ?> checked="checked"<?php } ?> />

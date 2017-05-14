@@ -20,14 +20,13 @@ class Page extends Model
         $this->table = 'pages';
     }
 
-    public function getList( $only_published = false )
+    public function findAll( string $table=null, array $conditions=[], string $order_by=null )
     {
-        $sql = "SELECT * FROM $this->table where 1";
+        $params = array( 'IsPublished' => 1 );
+   
+        $result = parent::findAll( $this->table, $params );
         
-        if( $only_published ) 
-            $sql .= " AND IsPublished = 1";
-        
-        return $this->getDB()->query( $sql );
+        return $result;
     }
     
     public function getByAlias( $pAlias )

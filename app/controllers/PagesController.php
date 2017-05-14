@@ -4,6 +4,8 @@ namespace Application\Controllers;
 use Application\Lib\Controller;
 use Application\Models\Page;
 use Application\Lib\App;
+use Application\Lib\Session;
+use Application\Lib\Router;
 
 error_reporting( E_ALL );
 /* 
@@ -22,7 +24,7 @@ class PagesController extends Controller
 
     public function index() 
     {
-        $this->data['pages'] = $this->model->getList();
+        $this->data['pages'] = $this->model->findAll();
     }
     
     public function view()
@@ -37,7 +39,7 @@ class PagesController extends Controller
     
     public function admin_index()
     {
-        $this->data['pages'] = $this->model->getList();
+        $this->data['pages'] = $this->model->findAll();
     }
     
     public function admin_add()

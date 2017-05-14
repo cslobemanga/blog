@@ -27,4 +27,26 @@ class Model implements IModel
     {
     	return $this->db;
     }
+    
+    public function findAll( string $table=null, array $conditions=[], string $order_by=null )
+    {
+        $sql    = "SELECT * FROM $table";
+        $params = [];
+        
+        if( $conditions ) {
+            $sql .= " WHERE ";
+            
+            foreach ( $conditions as $key => $value ) {
+                $sql .= $key . "=? ";
+                $params[] = $value;
+            }
+        }
+        
+        if( $order_by ) {
+            $sql .= $order_by;
+        }
+        $result = $this->getDB()->query( $sql, $params );
+        
+        return $result;
+    }
 }

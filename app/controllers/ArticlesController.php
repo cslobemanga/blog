@@ -24,7 +24,7 @@ class ArticlesController extends Controller
     public function index()
     {
         
-        $this->data['articles'] = $this->model->getList();
+        $this->data['articles'] = $this->model->findAll();
         
     }
     
@@ -70,7 +70,7 @@ class ArticlesController extends Controller
     
     public function admin_index()
     {
-        $this->data['articles'] = $this->model->getList();
+        $this->data['articles'] = $this->model->findAll();
     }
     
     public function admin_edit()

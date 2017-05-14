@@ -53,7 +53,6 @@ class Database
     public function query( $sql, $params=[], $select=true )
     {
         if( !$this->connection ) {
-            
             return false;
         }
         
