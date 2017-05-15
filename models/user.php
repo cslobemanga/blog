@@ -12,36 +12,32 @@ class User extends Model
     {
         parent::__construct();
         
-        $this->table = 'users';
-        
-        $this->table_view['articles'] = 'author_articles';
-        $this->table_view['comments'] = 'author_comments';
+        $this->table                    = 'users';
+        $this->table_view['articles']   = 'author_articles';
+        $this->table_view['comments']   = 'author_comments';
     }
     
-    public function getAll( $only_active = false )
+    public function getAll()
     {
-        $sql = "SELECT * FROM $this->table";
+        $params = array( 'IsActive' => 1 );
         
-        if( $only_active )
-            $sql .= " AND IsActive=1";
-        
-        return $this->getDB()->query( $sql );
+        return parent::findAll( $this->table, $params );
     }
 
-    public function getByLogin( $login )
+    public function getByLogin( string $login )
     {
-        $sql = "SELECT * FROM $this->table WHERE Login = ? AND IsActive=1";
+        $column = array( 'Login' => $login );
         
-        $result = $this->getDB()->query( $sql, [$login] );
+        $result = parent::findByColumn( $column, $this->table );
         
         return $result[0] ?? false;
     }
     
-    public function getById( $id )
+    public function getById( int $id )
     {
-        $sql = "SELECT * FROM $this->table WHERE UserId = ? AND IsActive=1";
+        $column = array( 'UserId' => $id );
         
-        $result = $this->getDB()->query( $sql, [$id] );
+        $result = parent::findByColumn( $column, $this->table );
         
         return $result[0] ?? false;
     }
@@ -85,11 +81,10 @@ class User extends Model
         $is_admin   = isset( $data['role'] ) ? 1 : 0;
         $is_active  = isset( $_data['is_active'] ) ? 1 : 0;
         
-        $sql = "UPDATE $this->table SET Role=?, IsActive=? WHERE UserId=?";
+        $columns    = [ 'Role' => $is_admin, 'IsActive' => $is_active, 
+                        'UserId'=> $user_id ];
         
-        $result = $this->getDB()->query( $sql, [ $is_admin, $is_active, $user_id ], false );
-        
-        return $result;
+        return parent::save( $columns, $this->table, $id );
     }
 
     public function login( $login, $password ): bool
@@ -101,7 +96,6 @@ class User extends Model
 
     private function authenticate( $login, $password ): bool
     {
-        
         $user = $this->getByLogin( $login );
         
         if( !$user )
@@ -110,15 +104,10 @@ class User extends Model
         return password_verify( $password, $user['Password'] );
     }
     
-    public function delete( $id )
+    public function remove( int $id )
     {
-        if( !$id )
-            return false;
+        $column = array( 'key' => 'UserId', 'value' => (int)$id );
         
-        $sql = "DELETE FROM $this->table WHERE UserId=?";
-        
-        $result = $this->getDB()->query( $sql, [$id], false );
-        
-        return $result;
+        $result = parent::delete( $column, $this->table );
     }
 }

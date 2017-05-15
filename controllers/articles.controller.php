@@ -1,4 +1,15 @@
 <?php
+<<<<<<< HEAD:controllers/articles.controller.php
+=======
+namespace Application\Controllers;
+
+use Application\Lib\Controller;
+use Application\Models\Article;
+use Application\Lib\Session;
+use Application\Lib\App;
+use Application\Lib\Router;
+
+>>>>>>> maroc:app/controllers/ArticlesController.php
 error_reporting( E_ALL );
 /* 
  * Cart Project with MVC
@@ -18,8 +29,7 @@ class ArticlesController extends Controller
     public function index()
     {
         
-        $this->data['articles'] = $this->model->getList();
-        
+        $this->data['articles'] = $this->model->getAll();
     }
     
     public function view()
@@ -30,9 +40,7 @@ class ArticlesController extends Controller
             $article_id = ( int ) $this->params[0];
             
             $this->data['article']  = $this->model->getById( $article_id ) ;
-            
             $this->data['author']   = $this->model->getAuthor($article_id );
-            
             $this->data['comments'] = $this->model->getComments( $article_id );
         }
     }
@@ -64,17 +72,32 @@ class ArticlesController extends Controller
     
     public function admin_index()
     {
-        $this->data['articles'] = $this->model->getList();
+        $this->data['articles'] = $this->model->getAll();
     }
     
     public function admin_edit()
     {
+        $param = App::getRouter()->getParams();
         
+        if( !isset( $param[0] ) )
+            return false;
+        
+        $this->data['article'] = $this->model->getById( $param[0] );
     }
     
     public function admin_delete()
     {
         
+        $params = App::getRouter()->getParams();
+        
+        if( isset( $params[0] ) ) {
+            
+            $result = $this->model->remove( (int) $params[0] );
+            
+            Session::setFlash ( $result ? 'The selected article was successfully deleted!' : 'Error: article could not be deleted!' );
+            
+            Router::redirect( '/admin' );
+        }
     }
     
     public function admin_add()

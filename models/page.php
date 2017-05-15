@@ -16,35 +16,34 @@ class Page extends Model
         $this->table = 'pages';
     }
 
-    public function getList( $only_published = false )
+    public function getAll()
     {
-        $sql = "SELECT * FROM $this->table where 1";
+        $params = array( 'IsPublished' => 1 );
+   
+        $result = parent::findAll( $this->table, $params );
         
-        if( $only_published ) 
-            $sql .= " AND IsPublished = 1";
-        
-        return $this->getDB()->query( $sql );
+        return $result;
     }
     
     public function getByAlias( $pAlias )
     {           
-        $sql = "SELECT * FROM $this->table WHERE Alias = ? LIMIT 1";
-        
-        $result = $this->getDB()->query( $sql, [ $pAlias ] );
+        $column = array( 'Alias' => $pAlias );
+   
+        $result = parent::findByColumn( $column, $this->table );
         
         return $result[0] ?? false;
     }
     
     public function getById( $pId )
     {           
-        $sql = "SELECT * FROM $this->table WHERE PageId = ? LIMIT 1";
-        
-        $result = $this->getDB()->query( $sql, [ $pId ] );
+        $column = array( 'PageId' => $pId );
+   
+        $result = parent::findByColumn( $column, $this->table );
         
         return $result[0] ?? false;
     }
     
-    public function save( $data, $id=null )
+    public function register( $data, $id=null )
     {
         if( !isset( $data['alias'] ) || !isset( $data['title'] ) ) {
             
@@ -56,29 +55,22 @@ class Page extends Model
         $title          = $data['title'];
         $is_published   = isset( $data['is_published'] ) ? 1 : 0;
         
-        if( !$id ) { // Then add a new record
-            $sql = "INSERT INTO $this->table (Alias,Title,IsPublished) VALUES(?,?,?)";
-            
-            $result = $this->getDB()->query( $sql, [$alias, $title, $is_published], false );
-            
-        } else {  // Then update an existing record
-            $sql = "UPDATE $this->table SET Alias=?, Title=?, IsPublished=? WHERE PageId=?";
-            
-            $result = $this->getDB()->query( $sql, [$alias, $title, $is_published, $id], false );
+        $columns        = array( 'Title' => $title, 
+                                 'Alias' => $alias, 
+                                 'IsPublished' => $is_published );
+        
+        if( $id ) { // Then add a new record
+            $columns += array( 'PageId' =>$id );
         }
         
-        return $result;
+        return parent::save( $columns, $this->table, $id );
     }
     
-    public function delete( $id )
+    public function remove( int $id )
     {
-        if( !$id )
-            return false;
-        
-        $sql = "DELETE FROM $this->table WHERE PageId=?";
-        
-        $result = $this->getDB()->query( $sql, [$id], false );
-        
-        return $result;
+        $column = array( 'key' => 'PageId', 'value' => (int)$id );
+         
+        $result = parent::delete( $column, $this->table );
+
     }
 }

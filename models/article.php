@@ -17,43 +17,37 @@ class Article extends Model
         $this->table_view['comments']   = 'article_comments';
     }
     
-    public function getList( $only_published = false )
+    public function getAll()
     {
+        
         $table_view = $this->table_view['author'];
+        $params     = array( 'IsPublished' => 1 );
+        $order      = " ORDER BY DatePublished DESC";
         
-        $sql ="SELECT * FROM $table_view";
+        $result     = parent::findAll( $table_view, $params, $order );
         
-        if( $only_published )
-            $sql .= " WHERE IsPublished=1";
-        
-        $sql .= " ORDER BY DatePublished DESC";
-        
-        $result = $this->getDB()->query( $sql );
-        
-        return $result;
+        return $result; 
     }
 
-    public function getById( $id )
+    public function getById( int $article_id )
     {
+        $column = array( 'ArticleId' => $article_id );
         
-        $sql = "SELECT * FROM $this->table WHERE ArticleID=? AND IsPublished=1";
+        $result = parent::findByColumn( $column, $this->table ); 
         
-        $result = $this->getDB()->query( $sql, [ (int)$id ] );
-        
-        return $result[0] ?? false;
+        return $result[0] ?? null;
     }
     
-    public function getByAuthor( $author_id )
+    public function getByAuthor( int $author_id )
     {
+        $column = array( 'AuthorId' => $author_id );
         
-        $sql = "SELECT * FROM $this->table WHERE AuthorID=? AND IsPublished=1";
+        $result = parent::findByColumn( $column, $this->table );
         
-        $result = $this->getDB()->query( $sql, [$author_id] );
-        
-        return $result;
+        return $result[0] ?? null;
     }
     
-    public function getAuthor( $article_id )
+    public function getAuthor( int $article_id )
     {
         $table_view = $this->table_view['author'];
         
@@ -74,8 +68,15 @@ class Article extends Model
         
         return $result;
     }
-    
-    public function save( $data, $by_admin=false )
+   
+    /**
+     * Saves a new article or edit an existing one
+     * 
+     * @param type $data
+     * @param bool $by_admin
+     * @return bool
+     */
+    public function register( $data, bool $by_admin=false ):bool
     {
         try {
             $sql = "INSERT INTO $this->table (AuthorId, Title, Content) VALUES(?,?,?)";
@@ -91,5 +92,12 @@ class Article extends Model
         }
         
         return false;
+    }
+    
+    public function remove( int $article_id )
+    {
+        $column = array( 'key' => 'ArticleId', 'value' => $article_id );
+        
+        return parent::delete( $column, $this->table );
     }
 }

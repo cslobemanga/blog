@@ -21,8 +21,15 @@ class DB
                             Config::get('db.user'), 
                             Config::get('db.password') );
             
+<<<<<<< HEAD:lib/db.class.php
             $this->connection->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
             $this->connection->setAttribute( PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC );
+=======
+            $this->connection->setAttribute( \PDO::ATTR_ERRMODE, 
+                                             \PDO::ERRMODE_EXCEPTION );
+            $this->connection->setAttribute( \PDO::ATTR_DEFAULT_FETCH_MODE, 
+                                             \PDO::FETCH_ASSOC );
+>>>>>>> maroc:app/lib/Database.php
         
         } catch ( PDOException $ex) {
             echo 'Verbindung fehlgeschlagen: '. $ex->getMessage();
@@ -50,7 +57,6 @@ class DB
     public function query( $sql, $params=[], $select=true )
     {
         if( !$this->connection ) {
-            
             return false;
         }
         

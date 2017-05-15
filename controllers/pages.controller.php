@@ -1,4 +1,15 @@
 <?php
+<<<<<<< HEAD:controllers/pages.controller.php
+=======
+namespace Application\Controllers;
+
+use Application\Lib\Controller;
+use Application\Models\Page;
+use Application\Lib\App;
+use Application\Lib\Session;
+use Application\Lib\Router;
+
+>>>>>>> maroc:app/controllers/PagesController.php
 error_reporting( E_ALL );
 /* 
  * Cart Project with MVC
@@ -16,7 +27,7 @@ class PagesController extends Controller
 
     public function index() 
     {
-        $this->data['pages'] = $this->model->getList();
+        $this->data['pages'] = $this->model->getAll();
     }
     
     public function view()
@@ -31,14 +42,14 @@ class PagesController extends Controller
     
     public function admin_index()
     {
-        $this->data['pages'] = $this->model->getList();
+        $this->data['pages'] = $this->model->getAll();
     }
     
     public function admin_add()
     {
         if( $_POST ) {
             
-            $result = $this->model->save( $_POST );
+            $result = $this->model->register( $_POST );
             
             if( $result ) {
             
@@ -72,9 +83,9 @@ class PagesController extends Controller
         
         if( $_POST ) {
             
-            $id = ( $_POST['page_id'] ?? null );
+            $id = $_POST['page_id'] ?? null;
             
-            $result = $this->model->save( $_POST, $id );
+            $result = $this->model->register( $_POST, $id );
             
             Session::setFlash( $result ? 'The new page was successfully edited!' : 'Error: page could not be edited!' );
             
@@ -100,7 +111,7 @@ class PagesController extends Controller
         
         if( isset( $params[0] ) ) {
             
-            $result = $this->model->delete( (int) $params[0] );
+            $result = $this->model->remove( (int) $params[0] );
             
             Session::setFlash ( $result ? 'The selected page was successfully deleted!' : 'Error: page could not be deleted!' );
             
