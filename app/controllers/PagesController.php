@@ -46,7 +46,7 @@ class PagesController extends Controller
     {
         if( $_POST ) {
             
-            $result = $this->model->save( $_POST );
+            $result = $this->model->register( $_POST );
             
             if( $result ) {
             

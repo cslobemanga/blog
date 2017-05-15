@@ -49,24 +49,28 @@ class UsersController extends Controller
     
     public function admin_edit()
     {
-        if( $_POST ) {
-            
+        if( $_POST && isset( $_POST['user_id'] ) ) {
+                
             $id = ( $_POST['user_id'] ?? null );
-            
+
             $result = $this->model->update( $_POST, $id );
-            
-            Session::setFlash( $result ? 'The user successfully updated!' : 'Error: User data could not be edited!' );
-            
-            Router::redirect( '/admin/users' );
+
+//            if( $result ) {
+//                Session::setFlash( 'The user was successfully updated!', 'alert-success' );
+//                Router::redirect( '/admin/users' );
+//                
+//            } else {
+//                Session::setFlash( 'Error: User data could not be edited!', 'alert-warning' );
+//                Router::redirect( '/admin/users' );
+//            }
         }
         
         if( isset( $this->params[0] ) ) {
+            $id = (int) $this->params[0];
+            $this->data['user'] = $this->model->getById( $id );
             
-            $user_id =( int ) $this->params[0];
-            $this->data['user'] = $this->model->getById( $user_id );
-        
         } else {
-            Session::setFlash ( 'Wrong page requested!' );
+            Session::setFlash ( 'Wrong page requested!', 'alert-warning' );
             Router::redirect( '/admin/users' );
         }
     }

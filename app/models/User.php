@@ -85,11 +85,10 @@ class User extends Model
         $is_admin   = isset( $data['role'] ) ? 1 : 0;
         $is_active  = isset( $_data['is_active'] ) ? 1 : 0;
         
-        $sql = "UPDATE $this->table SET Role=?, IsActive=? WHERE UserId=?";
+        $columns    = [ 'Role' => $is_admin, 'IsActive' => $is_active, 
+                        'UserId'=> $user_id ];
         
-        $result = $this->getDB()->query( $sql, [ $is_admin, $is_active, $user_id ], false );
-        
-        return $result;
+        return parent::save( $columns, $this->table, $id );
     }
 
     public function login( $login, $password ): bool

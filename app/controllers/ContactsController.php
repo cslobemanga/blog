@@ -3,6 +3,9 @@ namespace Application\Controllers;
 
 use Application\Lib\Controller;
 use Application\Models\Message;
+use Application\Lib\Session;
+use Application\Lib\Router;
+use Application\Lib\App;
 
 error_reporting( E_ALL );
 /* 
@@ -24,11 +27,12 @@ class ContactsController extends Controller
     {
         if( $_POST ) {
             
-            if( $this->model->save( $_POST ) ) {
-                Session::setFlash( translate( 'lng.flash.success.insert' ) );
+            if( $this->model->register( $_POST ) ) {
+                Session::setFlash( translate( 'lng.flash.success.insert' ), 'alert-success' );
+                Router::redirect( '/' . App::getRouter()->getLanguage() );
                 
             } else {
-                Session::setFlash( translate( 'lng.flash.error.insert' ) );
+                Session::setFlash( translate( 'lng.flash.error.insert' ), 'alert-warning' );
             }
         }
     }

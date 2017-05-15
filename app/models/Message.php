@@ -26,7 +26,7 @@ class Message extends Model
         return parent::findAll( $this->table, $params );
     }
 
-    public function save( $data, $id=null )
+    public function register( $data, $id=null )
     {
         if( !isset( $data['name'] ) || !isset( $data['email'] ) 
                 || !isset( $data['message'] ) )
@@ -37,17 +37,15 @@ class Message extends Model
         $email      = $data['email'];
         $message    = $data['message'];
         
-        if( !$id ) { // Then add a new record
-            $sql = "INSERT INTO $this->table (Name,Email,Message) VALUES(?,?,?)";
-            
-            $result = $this->getDB()->query( $sql, [$name, $email, $message], false );
-            
-        } else {  // Then update an existing record
-            $sql = "UPDATE $this->table SET Name=?, Email=?, Message=? WHERE MessageId=?";
-            
-            $result = $this->getDB()->query( $sql, [$name, $email, $message, $id], false );
+        $columns    = [ 'Name' => $name,
+                        'Email' => $email,
+                        'Message' => $message ];
+        
+        if( $id ) {
+            $columns += [ 'MessageId' => $id ];
         }
-        return $result;
+        
+        return parent::save( $columns, $this->table, $id );
     }
     
     public function remove( int $comment_id )

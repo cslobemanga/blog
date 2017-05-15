@@ -47,7 +47,7 @@ $logged_in = ( Session::get('user') != null );
 <?php foreach ($comments as $comment) { ?>
         <div class="comment row">
             <div class="col-xs-2">
-                <img src="http://gravatar.com/avatar/<?php echo md5($comment['Content']); ?>" width="80%" >
+                <img src="http://gravatar.com/avatar/<?php echo md5($comment['Content']); ?>" width="5%" >
             </div>
             <div class="col-xs-10">
                 <p><?php echo $comment['Content']; ?></p>

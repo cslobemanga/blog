@@ -92,7 +92,7 @@ class Model implements IModel
      * @param string $table
      * @param int $id
      */
-    public function save( array $columns, string $table=null, int $id=null )
+    public function save( array $columns, string $table, int $id=null )
     {
         $id     = ( int )$id;
         $params = [];
@@ -111,30 +111,29 @@ class Model implements IModel
 //                    $sql .= $key . "=? ";
                 
                 } else {
-                    $sql .= $key . "=?, ";
+                    $sql .= "$key=?, ";
                 } 
                 
                 $params[] = $value;
                 $count++;
             }
-        } else{
+            echo $sql;
+            
+        } else {
             $sql = "INSERT INTO $table SET ";
             
             foreach ( $columns as $key => $value ) {
                 
-                $sql .= $key . ( $count == count( $columns-1 )) ? "=? " : "=?, ";
+                $sql .= ($count == count($columns)-1 ) ? "$key=? " : "$key=?, ";
                 
                 $params[] = $value;
                 $count++;
             }
         }
-            
-//        echo $sql;
-//        die();
         
-//        $result = $this->getDB()->query( $sql, $params, false );
-//        
-//        return $result;
+        $result = $this->getDB()->query( $sql, $params, false );
+        
+        return $result;
     }
 
 

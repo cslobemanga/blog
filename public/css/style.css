@@ -97,9 +97,15 @@ div.comment {
     padding: 5px;
     margin-top: 5px; 
     margin-bottom: 15px; 
+    width: 100%;
+    background-color: mediumorchid;
 }
 
 div.row {
     border: 1px solid #DDD;
     margin-top: 10px;
+}
+
+.w3-bar-item a {
+    background: aqua;
 }
