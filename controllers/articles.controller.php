@@ -1,15 +1,4 @@
 <?php
-<<<<<<< HEAD:controllers/articles.controller.php
-=======
-namespace Application\Controllers;
-
-use Application\Lib\Controller;
-use Application\Models\Article;
-use Application\Lib\Session;
-use Application\Lib\App;
-use Application\Lib\Router;
-
->>>>>>> maroc:app/controllers/ArticlesController.php
 error_reporting( E_ALL );
 /* 
  * Cart Project with MVC

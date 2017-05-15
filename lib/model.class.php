@@ -23,16 +23,7 @@ class Model
         $this->table_view = [];
     }
     
-<<<<<<< HEAD:lib/model.class.php
     public function getDB(): DB
-=======
-    /**
-     * Access the private attribut $db with this getter
-     * 
-     * @return \Application\Lib\Database
-     */
-    public function getDB(): Database
->>>>>>> maroc:app/lib/Model.php
     {
         return $this->db;
     }

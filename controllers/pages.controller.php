@@ -1,15 +1,4 @@
 <?php
-<<<<<<< HEAD:controllers/pages.controller.php
-=======
-namespace Application\Controllers;
-
-use Application\Lib\Controller;
-use Application\Models\Page;
-use Application\Lib\App;
-use Application\Lib\Session;
-use Application\Lib\Router;
-
->>>>>>> maroc:app/controllers/PagesController.php
 error_reporting( E_ALL );
 /* 
  * Cart Project with MVC
