@@ -17,8 +17,6 @@ require __DIR__ . '../../vendor/autoload.php';
 
 require ROOT.DS. 'app' .DS. 'config' .DS. 'settings.php';
 
-
-
 use Application\Lib\App;
 use Application\Lib\Lang;
 
@@ -26,7 +24,7 @@ App::run( $_SERVER['REQUEST_URI'] );
 
 
 /**
- * Globale Übersetzungsfunktion
+ * Globale ï¿½bersetzungsfunktion
  * 
  * @param string $key
  * @param string $default_value
