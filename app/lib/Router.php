@@ -1,7 +1,7 @@
 <?php
  namespace Application\Lib;
  
- error_reporting( E_ALL );
+ error_reporting( E_ALL ); 
  
 /* 
  * Cart Project with MVC
@@ -26,12 +26,14 @@ class Router
     protected $language;
 
 
-    public function __construct( $pUri ) 
+    public function __construct( string $pUri ) 
     {
         $this->uri = urldecode( trim( $pUri, '/' ) );
         
         // Setting defaults
         $routes                 = Config::get( 'routes' );
+        $languages              = Config::get( 'languages' );
+        
         $this->route            = Config::get( 'default_route' );
         $this->language         = Config::get( 'default_language' );
         $this->controller       = Config::get( 'default_controller' );
@@ -52,7 +54,7 @@ class Router
                 array_shift( $path_parts );
             
                 // next element: language
-            } elseif ( in_array(strtolower(current($path_parts)), Config::get('languages') )) {
+            } elseif ( in_array(strtolower(current($path_parts)), $languages )) {
                 $this->language = strtolower(current( $path_parts ));
                 array_shift( $path_parts );
             }
@@ -79,37 +81,37 @@ class Router
         header( "Location: $location" );
     }
 
-    public function getUri() 
+    public function getUri(): string
     {
         return $this->uri;
     }
 
-    public function getController() 
+    public function getController(): string
     {
         return $this->controller;
     }
 
-    public function getAction() 
+    public function getAction(): string
     {
         return $this->action;
     }
 
-    public function getParams() 
+    public function getParams(): array
     {
         return $this->params;
     }
     
-    public function getRoute() 
+    public function getRoute(): string
     {
         return $this->route;
     }
 
-    public function getMethodPrefix() 
+    public function getMethodPrefix(): string
     {
         return $this->method_prefix;
     }
 
-    public function getLanguage() 
+    public function getLanguage(): string
     {
         return $this->language;
     }

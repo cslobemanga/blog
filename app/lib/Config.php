@@ -4,7 +4,7 @@ namespace Application\Lib;
 class Config
 {
     
-    protected static $settings = array();
+    protected static $settings = [];
     
     /**
      * 

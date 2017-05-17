@@ -11,10 +11,9 @@ define( 'user_config', array(
     
         'site_name'             => 'CSLM AG',
         'languages'             => [ 'en', 'de', 'fr' ],
-        'routes'                => array(
-                                    'default'   => '',
-                                    'admin'     => 'admin_'
-                                ),
+        'routes'                => [ 'default'   => '',
+                                     'admin'     => 'admin_'
+                                   ],
     
         // Routes
         'default_route'         =>  'default',

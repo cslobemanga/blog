@@ -4,15 +4,13 @@ Cart Project with MVC
 Charles S. Lobe-Manga <charles@lobe-manga.com> 
 -->
 
-
 <phpunit bootstrap="./vendor/autoload.php" 
          colors="true" 
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          stopOnFailures="false"
-         syntaxCheck="false"
-    >
+         syntaxCheck="false" >
     
     <testsuites>
         
