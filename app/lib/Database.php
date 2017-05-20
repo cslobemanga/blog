@@ -1,6 +1,8 @@
 <?php
 namespace Application\Lib;
 
+use Application\Lib\Traits\Singleton;
+
 /* 
  * Cart Project with MVC
  * Charles S. Lobe-Manga <charles@lobe-manga.com>  * 

@@ -5,7 +5,18 @@
 */
 body {
     font-family: 'Comfortaa', cursive;
+    font-size: 1em;
     padding-top: 50px;
+}
+
+.bar-item-home {
+    font-size: 2.0em;
+    width: 10%;
+    background-color: white;
+}
+.bar-item-custom {
+    width: 40%;
+    padding: 10px;
 }
 
 span.company  {
