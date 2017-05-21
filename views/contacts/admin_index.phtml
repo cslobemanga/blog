@@ -1,20 +1,28 @@
-<h3>Messages</h3>
+<div class="w3-content" style="max-width: 1400px">
 
-<table class="table table-striped">
-    
-    <tr>
-        <td style="width: 5%">#</td>
-        <td style="width: 10%">Name</td>
-        <td style="width: 25%">Email</td>
-        <td style="width: 50%">Message</td>
-    </tr>
-    
-    <?php foreach ( $data as $item ) { ?>
-    <tr>
-        <td><?php echo $item['MessageId']; ?></td>
-        <td><?php echo $item['Name']; ?></td>
-        <td><?php echo $item['Email']; ?></td>
-        <td><?php echo $item['Message']; ?></td>
-    </tr> 
-    <?php } ?>
-</table>
+    <div class="w3-container w3-padding-large w3-margin w3-responsive">
+        
+        <h3><b>Messages</b></h3>
+        <hr>
+
+        <table class="w3-table-all" style="width: 80%">
+
+            <tr class="w3-dark-gray w3-text-sand">
+                <td style="width: 5%">#</td>
+                <td style="width: 10%">Name</td>
+                <td style="width: 25%">Email</td>
+                <td style="width: 50%">Message</td>
+            </tr>
+
+            <?php foreach ( $data as $item ) { ?>
+            <tr>
+                <td><?php echo $item['MessageId']; ?></td>
+                <td><?php echo $item['Name']; ?></td>
+                <td><?php echo $item['Email']; ?></td>
+                <td><?php echo $item['Message']; ?></td>
+            </tr> 
+            <?php } ?>
+        </table>
+        
+    </div>
+</div>

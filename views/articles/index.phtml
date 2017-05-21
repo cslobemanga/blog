@@ -1,28 +1,31 @@
-<div class="blog-header">
-    <h1 class="blog-title">Der Maintaler Blog</h1>
-    <p class="lead blog-description">Template for creating MVC with PHP</p>
-</div>
-
 <?php 
 
   foreach ( $data['articles'] as $article ) { 
     
     $date_article = new DateTime( $article['DatePublished'] ); ?>
 
-<div class="blog-post">
-    <h3 class="blog-post-title"><?php echo $article['Title']; ?></h3>
+<div class="w3-card-4 blog-item w3-margin" style="width: 95%">
     
-    <p class="blog-post-meta">
-        Published on <?php echo date_format( $date_article, 'd M Y' ); ?> at 
-        <?php echo date_format( $date_article, 'G:h T' ); ?> 
-        by <a href="#"><?php echo $article['Login']; ?></a></p>
+    <div class="w3-container w3-dark-grey w3-text-sand w3-padding-medium">
+        <h4><?php echo $article['Title']; ?></h4>
+    </div>
+    
+    <div class="w3-container w3-border">
+        <p class="w3-padding-4 w3-margin">
+            Published on <?php echo date_format( $date_article, 'd M Y' ); ?> at 
+            <?php echo date_format( $date_article, 'G:h T' ); ?> by&nbsp;
+            <span class="w3-tag w3-black"><a href="#"><?php echo $article['Login']; ?></a></span>
+        </p>
+    </div>
 
-    <p><?php echo substr( $article['Content'], 0, 200 ); ?></p>
-    
-    <nav>
-        <ul class="pager">
-            <li><a href="/articles/view/<?php echo $article['ArticleId']; ?>">Weiterlesen</a></li>
-        </ul>
-     </nav>
+    <div class="w3-container">
+        <p class="w3-padding-4 w3-margin"><?php echo $article['Content']; ?></p>
+        <p>
+            <button class="w3-button w3-right w3-padding-4 w3-border w3-black w3-text-sand">
+            <a href="/articles/view/<?php echo $article['ArticleId']; ?>">Weiterlesen</a>
+            </button>
+        </p>
+    </div>
 </div>
+<hr>
 <?php } ?>

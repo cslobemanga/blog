@@ -1,9 +1,11 @@
 <?php
 namespace Application\Models;
 
-use Application\Lib\Model;
-
 error_reporting( E_ALL );
+
+use Application\Lib\Model;
+use Application\Lib\Config;
+
 /* 
  * Cart Project with MVC
  * Charles S. Lobe-Manga <charles@lobe-manga.com>  * 

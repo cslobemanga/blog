@@ -1,22 +1,26 @@
-<div class="w3-card-4 user-form login">
+<div class="w3-card-4 w3-margin user-form">
     
     <div class="w3-container w3-dark-gray w3-text-sand">
         <h4>Login</h4> 
     </div>
 
-    <form method="post" action="" class="w3-container">
+    <form method="post" action="">  
+        <div class="w3-container">
 
-        <label>Benutzer</label>
-        <input type="text" id="login" name="login" autofocus="autofocus"
-               class="w3-input" required="required" />
+            <p class="w3-margin">
+            <label>Benutzer</label>
+            <input type="text" id="login" name="login" autofocus="autofocus"
+                   class="w3-input w3-border" required="required" />
 
-        <label>Passwort</label>
-        <input type="password" id="password" name="password" 
-               class="w3-input" required="required" />
-        <br>
-        
-        <button type="submit" class="w3-btn w3-dark-gray">
-                <?php echo translate( 'lng.form.btn.send', 'OK' ); ?>
-        </button>
+            <label>Passwort</label>
+            <input type="password" id="password" name="password" 
+                   class="w3-input" required="required" />
+            <br>
+
+            <button type="submit" class="w3-button w3-dark-gray">
+                    <?php echo translate( 'lng.form.btn.send', 'OK' ); ?>
+            </button>
+            </p>
+        </div>
     </form>
 </div>
