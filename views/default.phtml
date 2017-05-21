@@ -33,39 +33,39 @@ Charles S. Lobe-Manga <charles@lobe-manga.com>
                 </div>
                
                 <div class="w3-left bar-item-custom">
-                    <a class="w3-bar-item w3-button w3-padding-large"
-                    <?php if( $controller == 'articles' && $action == 'index') { echo " active"; } ?>
+                    <a class="w3-bar-item w3-button w3-padding-large 
+                    <?php if( $controller == 'articles' && $action == 'index') { echo " w3-white w3-text-black"; } ?>"
                         href="/<?php echo $lang; ?>"><?php echo translate( 'lng.nav.home' ); ?>
                     </a>
 
                     <?php if( !isset( $_SESSION['user'] ) ) { ?>
 
-                    <a class="w3-bar-item w3-button w3-padding-large"
-                    <?php if( $controller == 'users' && $action == 'login' ) { echo " active"; } ?>
+                    <a class="w3-bar-item w3-button w3-padding-large
+                    <?php if( $controller == 'users' && $action == 'login' ) { echo " w3-white w3-text-black"; } ?>"
                         href="/<?php echo $lang; ?>/users/login"><?php echo translate( 'lng.nav.login' ); ?>
                     </a>
 
-                   <a class="w3-bar-item w3-button w3-padding-large"
-                   <?php if( $controller == 'users' && $action == 'register' ) { echo " active"; } ?>
+                   <a class="w3-bar-item w3-button w3-padding-large
+                   <?php if( $controller == 'users' && $action == 'register' ) { echo " w3-white w3-text-black"; } ?>"
                         href="/<?php echo $lang; ?>/users/register"><?php echo translate( 'lng.nav.register' ); ?>
                    </a>
 
                     <?php } else { ?>
 
-                    <a class="w3-bar-item w3-button w3-padding-large"
-                    <?php if( $controller == 'articles' && $action == 'add') { echo " active"; } ?>
+                    <a class="w3-bar-item w3-button w3-padding-large
+                    <?php if( $controller == 'articles' && $action == 'add') { echo " w3-white w3-text-black"; } ?>"
                         href="/<?php echo $lang; ?>/articles/add"><?php echo translate( 'lng.nav.article.add' ); ?>
                     </a>
 
-                    <a class="w3-bar-item w3-button w3-padding-large"
-                    <?php if( $controller == 'users') { echo " active"; } ?>
+                    <a class="w3-bar-item w3-button w3-padding-large
+                    <?php if( $controller == 'users') { echo " w3-white w3-text-black"; } ?>"
                         <a href="/<?php echo $lang; ?>/users/logout"><?php echo translate( 'lng.nav.logout' ); ?>
                     </a>
 
                     <?php } ?>
 
-                    <a class="w3-bar-item w3-button w3-padding-large"
-                    <?php if( $controller == 'contacts') { echo " active"; } ?>
+                    <a class="w3-bar-item w3-button w3-padding-large
+                    <?php if( $controller == 'contacts') { echo " w3-white w3-text-black"; } ?>"
                         href="/<?php echo $lang; ?>/contacts">
                             <?php echo translate( 'lng.nav.contact' ); ?>
                     </a>

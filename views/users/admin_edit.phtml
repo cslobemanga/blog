@@ -1,37 +1,44 @@
-<h3>Edit User</h3>
+<div class="w3-card-4 w3-margin user-form">
+    
+    <div class="w3-container w3-dark-gray w3-text-sand">
+        <h3>Edit User</h3>
+    </div>
 
-<br>
+    <form method="post" action="">
 
-<form method="post" action="">
-    
-    <input type="hidden" name="user_id" value="<?php echo $data['user']['UserId']; ?>" >
-    
-    <div class="form-group">
-        <label for="login">Login</label>
-        <input type="text" id="login" name="login" 
-               value="<?php echo $data['user']['Login']; ?>"
-               class="form-control" required="required"  disabled="disabled"/>
-    </div>
-    
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" id="email" name="email" 
-               value="<?php echo $data['user']['Email']; ?>"
-               class="form-control" required="required" disabled="disabled"/>
-    </div>
-    
-    <div class="form-group">
-        <label for="role">Admin</label>
-        <input type="checkbox" id="role" name="role" 
-        <?php if( $data['user']['Role'] == 1 ) echo 'checked="checked"'; ?> />
-    </div>
-    
-    <div class="form-group">
-        <label for="is_active">Active</label>
-        <input type="checkbox" id="is_active" name="is_active" 
-        <?php if( $data['user']['IsActive'] == 1 ) echo 'checked="checked"'; ?> />
-    </div>
-        
-    <input type="submit" class="btn btn-success" 
-           value="<?php echo translate( 'lng.form.btn.update', 'OK' ); ?>" />
-</form>
+        <input type="hidden" name="user_id" value="<?php echo $data['user']['UserId']; ?>" >
+
+        <div class="w3-container">
+            <p class="w3-margin">
+                
+            <label for="login">Login</label>
+            <input type="text" id="login" name="login" class="w3-input"
+                   value="<?php echo $data['user']['Login']; ?>"
+                   required="required"  disabled="disabled" />      
+            <br>
+            
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" disabled="disabled"
+                   value="<?php echo $data['user']['Email']; ?>"
+                   class="w3-input w3-border" required="required"/>     
+            <br>
+            
+            <label for="role">Admin</label>
+            <input type="checkbox" id="role" name="role" class="w3-check"
+                <?php if( $data['user']['Role'] == 1 ) echo 'checked="checked"'; ?> />
+            
+            <br><br>
+           
+            <label for="is_active">Active</label>
+            <input type="checkbox" id="is_active" name="is_active" class="w3-check"
+                <?php if( $data['user']['IsActive'] == 1 ) echo 'checked="checked"'; ?> />
+            
+            <br><br>
+
+            <button type="submit" class="w3-button w3-dark-gray" 
+                    value="<?php echo translate( 'lng.form.btn.update', 'OK' ); ?>" >OK
+            </button>
+            </p>
+        </div>
+    </form>
+</div>

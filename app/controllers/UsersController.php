@@ -32,7 +32,7 @@ class UsersController extends Controller
 
     public function admin_index()
     {
-        $this->data['users'] = $this->model->getAll();
+        $this->data['users'] = $this->model->getAll( false );
     }
     
     public function admin_add()
@@ -55,14 +55,14 @@ class UsersController extends Controller
 
             $result = $this->model->update( $_POST, $id );
 
-//            if( $result ) {
-//                Session::setFlash( 'The user was successfully updated!', 'alert-success' );
-//                Router::redirect( '/admin/users' );
-//                
-//            } else {
-//                Session::setFlash( 'Error: User data could not be edited!', 'alert-warning' );
-//                Router::redirect( '/admin/users' );
-//            }
+            if( $result ) {
+                Session::setFlash( 'The user was successfully updated!', 'alert-success' );
+                Router::redirect( '/admin/users' );
+                
+            } else {
+                Session::setFlash( 'Error: User data could not be edited!', 'alert-warning' );
+                Router::redirect( '/admin/users' );
+            }
         }
         
         if( isset( $this->params[0] ) ) {

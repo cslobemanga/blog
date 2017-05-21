@@ -29,8 +29,8 @@ a {
 .blog-item {
     padding-bottom: 20px;
 }
-span.company  {
-   margin-left: 40px;
+input.w3-input {
+    /*width: 300px;*/
 }
 
 form.w3-container {
@@ -38,11 +38,11 @@ form.w3-container {
 }
 
 .user-form {
-    font-family: "Lato", sans-serif;
+    font-size: 0.9em;
     margin-left: 50px;
     margin-top: 50px;
     padding-bottom: 20px;
-    width: 50%;
+    width: 60%;
 }
 
 div.single-page {

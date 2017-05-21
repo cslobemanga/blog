@@ -1,32 +1,41 @@
-<div class="w3-card-4 w3-margin user-form">
-    
-    <div class="w3-container w3-dark-gray w3-text-sand">
-        <h4><?php echo translate( 'lng.form.title'); ?></h4>
+<div class="w3-container w3-dark-gray w3-text-sand w3-margin" style="width: 75%">
+    <h4><?php echo translate( 'lng.form.title'); ?></h4>
+</div>
+
+<form method="post" action="" class="w3-margin w3-card-4 w3-container" 
+      style="width: 75%; padding-bottom: 20px;">
+
+    <div class="w3-row">
+        <div class="w3-col s1"><i class="w3-xxlarge fa fa-user"></i></div>
+        <div class="w3-col s11">
+            <input type="text" id="name" name="name" autofocus="autofocus"
+            class="w3-input" required="required" style="width: 400px"
+            placeholder="<?php echo translate( 'lng.form.name' ); ?>" >
+        </div>
     </div>
 
-    <form method="post" action="">
-        <div class="w3-container">
-            
-            <p class="w3-margin">
-            <input type="text" id="name" name="name" autofocus="autofocus"
-                   class="w3-input" required="required" 
-                   placeholder="<?php echo translate( 'lng.form.name' ); ?>" >
-
-            <input type="email" id="email" name="email" 
-                   class="w3-input w3-animate-input" required="required"
-                   placeholder="<?php echo translate( 'lng.form.email' ); ?>" >
-
-            <textarea type="text" id="password" name="message" 
-                   class="w3-input" required="required"
-                   placeholder="<?php echo translate( 'lng.form.message', 'Message' ); ?>" >      
-            </textarea>
-            
-            <br>
-
-            <button type="submit" class="w3-button w3-dark-gray">
-                    <?php echo translate( 'lng.form.btn.contact', 'OK' ); ?>
-            </button>
-            </p>
+    <div class="w3-row w3-section">
+        <div class="w3-col s1"><i class="w3-xxlarge fa fa-envelope-o"></i></div>
+        <div class="w3-col s11">
+            <input type="email" id="email" name="email" style="width: 400px"
+                   class="w3-input" required="required" maxlength="80"
+            placeholder="<?php echo translate( 'lng.form.email' ); ?>" >
         </div>
-    </form>
-</div>
+    </div>
+
+    <div class="w3-row w3-section">
+        <div class="w3-col s1"><i class="w3-xxlarge fa fa-pencil"></i></div>
+        <div class="w3-col s11">
+            <textarea type="text" id="password" name="message" required="required"
+                      cols="54" rows="4"
+                placeholder="<?php echo translate( 'lng.form.message', 'Message' ); ?>" >      
+            </textarea>
+        </div>
+    </div>
+
+    <div class="w3-row">
+        <button type="submit" class="w3-button w3-dark-gray w3-padding">
+            <?php echo translate( 'lng.form.btn.contact', 'OK' ); ?>
+        </button>
+    </div>
+</form>

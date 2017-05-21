@@ -23,7 +23,9 @@ class Message extends Model
     {
         $params = array( 'IsPublished' => 1 );
         
-        return parent::findAll( $this->table, $params );
+        $order_by =  "ORDER BY MessageId DESC";
+        
+        return parent::findAll( $this->table, $params, $order_by );
     }
 
     public function register( $data, $id=null )

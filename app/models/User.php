@@ -23,9 +23,10 @@ class User extends Model
         $this->table_view['comments']   = 'author_comments';
     }
     
-    public function getAll()
+    public function getAll( bool $only_active=true )
     {
-        $params = array( 'IsActive' => 1 );
+   
+        $params = $only_active ? array( 'IsActive' => 1 ) : [];
         
         return parent::findAll( $this->table, $params );
     }
@@ -80,9 +81,6 @@ class User extends Model
     
     public function update( $data, $id=null )
     {
-        if( !isset( $_data['user_id'] ) || !isset( $data['role'] ) || !isset( $data['is_active'] ) )
-            return false;
-        
         $user_id    = ( int )$id;
         $is_admin   = isset( $data['role'] ) ? 1 : 0;
         $is_active  = isset( $_data['is_active'] ) ? 1 : 0;

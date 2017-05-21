@@ -107,17 +107,16 @@ class Model implements IModel
                 if( $count == count($columns)-1 ) {
                     $sql .= "WHERE $key=?";
                     
-//                } elseif ( $count == count($columns-2 ) ) {
-//                    $sql .= $key . "=? ";
+                } elseif ( $count == count($columns)-2 ) {
+                    $sql .= $key . "=? ";
                 
                 } else {
-                    $sql .= "$key=?, ";
+                    $sql .= $key . "=?, ";
                 } 
                 
                 $params[] = $value;
                 $count++;
             }
-            echo $sql;
             
         } else {
             $sql = "INSERT INTO $table SET ";
