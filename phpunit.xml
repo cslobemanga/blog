@@ -12,14 +12,11 @@ Charles S. Lobe-Manga <charles@lobe-manga.com>
          stopOnFailures="false"
          syntaxCheck="false" >
     
-    <testsuites>
-        
+    <testsuites>  
+           
         <testsuite name="Learning PHP-Unit">
-            
             <directory>./tests/</directory>
-            
         </testsuite>
         
     </testsuites>
-    
 </phpunit>

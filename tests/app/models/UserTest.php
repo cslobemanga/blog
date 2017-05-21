@@ -1,4 +1,6 @@
 <?php
+namespace Test\App\Lib;
+
 use PHPUnit\Framework\TestCase;
 use Application\Models\User;
 
