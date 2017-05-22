@@ -6,7 +6,6 @@
 body {
     font-family: 'Comfortaa', cursive;
     font-size: 0.9em;
-    /*padding-top: 50px;*/
 }
 
 a {
@@ -89,13 +88,17 @@ header h1 {
     font-family: "Lato", sans-serif;
     font-size: 4em;
 }
+header p {
+    font-size: 1.5em;
+}
 
-div.comment {
-    padding: 5px;
+.single-comment {
+/*    padding: 5px;
     margin-top: 5px; 
     margin-bottom: 15px; 
     width: 100%;
-    background-color: mediumorchid;
+    background-color: mediumorchid;*/
+    font-size: 2em;
 }
 
 div.row {

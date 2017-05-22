@@ -24,11 +24,11 @@ class Article extends Model
     public function getAll()
     {
         
-        $table_view = $this->table_view['author'];
-        $params     = array( 'IsPublished' => 1 );
-        $order      = " ORDER BY DatePublished DESC";
+        $table  = $this->table_view['author'];
+        $params = array( 'IsPublished' => 1 );
+        $order  = " ORDER BY DatePublished DESC";
         
-        $result     = parent::findAll( $table_view, $params, $order );
+        $result     = parent::findAll( $table, $params, $order );
         
         return $result; 
     }
@@ -66,7 +66,7 @@ class Article extends Model
     {
         $table_view = $this->table_view['comments'];
         
-        $sql = "SELECT * FROM $table_view WHERE Article=?";
+        $sql = "SELECT * FROM $table_view WHERE Article=? ORDER BY DatePublished DESC";
         
         $result = $this->getDB()->query( $sql, [$article_id] );
         

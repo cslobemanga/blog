@@ -1,12 +1,14 @@
 <?php
 use Application\Lib\Session;
+use Application\Lib\App;
 
-$article = $data['article'];
-$author = $data['author'];
-$comments = $data['comments'];
+$article    = $data['article'];
+$author     = $data['author'];
+$comments   = $data['comments'];
 
-$date_article = new DateTime($article['DatePublished']);
-$logged_in = ( Session::get('user') != null );
+$date_article   = new DateTime($article['DatePublished']);
+$logged_in      = ( Session::get('user') != null );
+$add_comment_path = '/' . App::getRouter()->getLanguage() . '/comments/add/' . $article['ArticleId'];
 ?>
 
 <div class="w3-content" style="max-width: 800px;">
@@ -16,7 +18,8 @@ $logged_in = ( Session::get('user') != null );
     <p>
         Published on <b><?php echo date_format($date_article, 'd M Y'); ?></b> at 
     <?php echo date_format($date_article, 'G:h T'); ?> 
-        by <a href="#"><?php echo $author['Login']; ?></a></p>
+        by <span class="w3-tag"><a href="#"><?php echo $author['Login']; ?></a></span>
+    </p>
     
     <hr>
 
@@ -29,35 +32,68 @@ $logged_in = ( Session::get('user') != null );
     <?php } else { ?>
         <p>
             <br><br>
-            <b>Comments: </b><span class="w3-tag w3-black"><?php echo count($comments); ?></span></p>
+            <b>Comments: </b><span class="w3-tag w3-black"><?php echo count($comments); ?></span>
+        </p>
     <?php } ?>
 
-    <form method="post" action="">
+    <form method="post" action="<?php echo $add_comment_path; ?>">
+        <input type="hidden" name="article_id" value="<?php echo $article['ArticleId']; ?>" >
+        <?php if( $logged_in ) {
+            $user = Session::get('user');
+        ?>
+        <input type="hidden" name="author_id" value="<?php echo $user['UserId']; ?>" >
+        <?php } ?>
+        
         <div class="w3-row">
             <div class="w3-col m2">
-                <input type="hidden" name="comment_id" id="comment_id" 
-                       value="<?php echo $comment['CommentId'] ?? ''; ?>" />
-
-                <textarea class="form-control" id="content" name="content" rows="4" cols="50"
-                          placeholder="Your comment" value="<?php echo $comment['Content'] ?? ''; ?>"
-    <?php if (!$logged_in) echo 'disabled'; ?> width="100%">
-                </textarea>
+                <div class="w3-dark-gray w3-text-sand w3-right w3-margin" 
+                     style="width:50%;">
+                    <h1 class="w3-center">C</h1>
+                </div>
             </div>
             <div class="w3-col m10">
-                <button type="submit" class="w3-button w3-dark-gray w3-right">OK</button>
+                <textarea id="content" name="content" rows="4" style="width:95%"
+                          placeholder="Your comment" value="<?php echo $comment['Content'] ?? ''; ?>"
+            <?php if (!$logged_in) echo 'disabled'; ?> required="required" width="100%">
+                </textarea>
             </div>
         </div>
+        <div class="w3-container" style="width:95%">
+            <button class="w3-button w3-right w3-white w3-border w3-round-xlarge w3-border-black" style="margin-left:20px">Cancel</button>
+            <button type="submit" class="w3-button w3-dark-gray w3-right w3-round-xlarge">OK</button>
+        </div>
     </form>
+        
+    <hr>
 
-    <?php foreach ($comments as $comment) { ?>
-        <div class="comment row">
-            <div class="col-xs-2">
-                <img src="http://gravatar.com/avatar/<?php echo md5($comment['Content']); ?>" width="5%" >
+    <?php foreach ($comments as $comment) { 
+        $date_comment = new DateTime( $comment['DatePublished'] );
+        $login = $comment['Login'];
+        $df_date = date_format( $date_comment, 'd M Y' );
+        $df_time = date_format( $date_comment, 'G:h T' );
+        
+        $author_tag = authorComment( $login ) ? 'w3-tag w3-blue' : '';
+        ?>
+    <form action="" method="post">
+        <div class="w3-row" style="width:95%">
+            <div class="w3-col s2 w3-center">
+                <img src="http://gravatar.com/avatar/<?php echo md5($comment['Content']); ?>" width="40%" >
             </div>
-            <div class="col-xs-10">
+            <div class="w3-col s10">
+                <p>Published by <span class="<?php echo $author_tag; ?>"><?php echo $login ?></span> am 
+                    <b><?php echo $df_date ?></b> um
+                    <?php echo $df_time ?>
+                </p>
                 <p><?php echo $comment['Content']; ?></p>
             </div>
         </div>
+        <?php if( authorComment($login) ) { ?>
+        <div class="w3-container" style="width: 95%">
+            <button type="submit" class="w3-button w3-dark-gray w3-border w3-right w3-round-xlarge">Edit</button>
+        </div>
+        <?php } ?>
+    </form>
+        <hr>
     <?php } ?>
 
 </div>

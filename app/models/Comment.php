@@ -26,7 +26,15 @@ class Comment extends Model
         $this->table_view['article']    = 'article_comments';
     }
     
-    public function getByID( $id )
+    public function getAll()
+    {
+        $params = [ 'IsPublished' => 1 ];
+        $order_by = "ORDER BY DatePublished DESC";
+        
+        return parent::findAll( $this->table, $params, $order_by );
+    }
+
+        public function getByID( $id )
     {
         $column = array( 'key' => 'CommentId', 'value' => $id );
    
@@ -48,5 +56,29 @@ class Comment extends Model
     {
         
     }
+    
+    /**
+     * Saves a new comment to the article <article_id>
+     * or edits an  existing one falls 
+     * 
+     * @param array $data
+     * @param int $comment_id
+     */
+    public function add( array $data )
+    {
+        try {
+            $article_id = $data['article_id'];
+            $author_id  = $data['author_id'];
+            $content    = trim( $data['content'] );
+            
+            $columns = [ 'ArticleId' => (int) $article_id, 
+                         'AuthorId'   => (int) $author_id, 
+                         'Content'   => $content ];
+            
+            return parent::save( $columns, $this->table );
+            
+        } catch ( \Exception $ex) {
+            echo 'Error: ' . $ex->getMessage();
+        }
+    }
 }
-

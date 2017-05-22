@@ -47,8 +47,10 @@ class ArticlesController extends Controller
      */
     public function add()
     {
+        $lang = App::getRouter()->getLanguage();
+        
         if( !Session::get( 'user' ) ) {
-            $this->redirect_path = '/' . App::getRouter()->getLanguage() . '/users/login';
+            $this->redirect_path = '/' . $lang . '/users/login';
             $this->redirect();
         }
         
@@ -59,7 +61,7 @@ class ArticlesController extends Controller
             
             Session::setFlash( 'A new page was successfully created!', 'alert-info' );
             
-            $this->redirect_path = '/' . App::getRouter()->getLanguage();
+            $this->redirect_path = '/' . $lang;
             $this->redirect();
         
         } else {

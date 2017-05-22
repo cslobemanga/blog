@@ -5,10 +5,11 @@
     
     $file_path  = LANG_PATH .DS. $router->getLanguage() .DS. $data['page']['Alias'] . '.txt';
      
-    if( $text = file_get_contents( $file_path, FILE_USE_INCLUDE_PATH ) )
+    if( $text = file_get_contents( $file_path, FILE_USE_INCLUDE_PATH ) ) {
 
         echo $text; 
-        
-    else
+    
+    } else {
         Session::setFlash( 'File not found: ' . $file_path, 'alert-warning' );
+    }
  ?>
