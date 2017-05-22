@@ -80,13 +80,11 @@ class PagesController extends Controller
         
         if( $_POST ) {
             
-            $id = $_POST['page_id'] ?? null;
-            
-            $result = $this->model->register( $_POST, $id );
+            $result = $this->model->edit( $_POST );
             
             Session::setFlash( $result ? 'The new page was successfully edited!' : 'Error: page could not be edited!' );
             
-            Router::redirect( '/admin/pages' );
+            Router::redirect( '/admin/' . App::getRouter()->getLanguage() . '/pages' );
         }
         
         if( isset( $this->params[0] ) ) {
@@ -96,7 +94,7 @@ class PagesController extends Controller
         
         } else {
             Session::setFlash ( 'Wrong page requested!' );
-            Router::redirect( '/admin/pages' );
+            Router::redirect( '/admin/' . App::getRouter()->getLanguage() . '/pages' );
         }
     }
     

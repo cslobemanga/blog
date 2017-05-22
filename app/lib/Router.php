@@ -47,14 +47,16 @@ class Router
         
         if( count( $path_parts ) ) {
             
-            // Get route or language at first
+            // Get route and method prefix at first
             if( in_array(strtolower(current($path_parts)), array_keys($routes) )) {
                 $this->route = strtolower(current($path_parts) );
                 $this->method_prefix = $routes[ $this->route ] ?? '';
                 array_shift( $path_parts );
             
-                // next element: language
-            } elseif ( in_array(strtolower(current($path_parts)), $languages )) {
+            } 
+            
+            // next element: language
+            if ( in_array(strtolower(current($path_parts)), $languages )) {
                 $this->language = strtolower(current( $path_parts ));
                 array_shift( $path_parts );
             }

@@ -33,5 +33,8 @@ return array(
     
   # Admin section
   'lng.admin.title'                 => 'Admin Section',
+    
+  # MySQL section
+   'lng.mysql.error.cascade'        => 'Error: You are trying to delete a parent row.<br>Do you want to delete all articles and comments related to this user?'
 );
 

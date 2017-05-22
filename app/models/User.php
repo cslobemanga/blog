@@ -83,12 +83,13 @@ class User extends Model
     {
         $user_id    = ( int )$id;
         $is_admin   = isset( $data['role'] ) ? 1 : 0;
-        $is_active  = isset( $_data['is_active'] ) ? 1 : 0;
+        $is_active  = isset( $data['is_active'] ) ? 1 : 0;
         
-        $columns    = [ 'Role' => $is_admin, 'IsActive' => $is_active, 
-                        'UserId'=> $user_id ];
+        $columns    = [ 'Role'      => $is_admin, 
+                        'IsActive'  => $is_active, 
+                        'UserId'    => $user_id ];
         
-        return parent::save( $columns, $this->table, $id );
+        return parent::save( $columns, $this->table, $user_id );
     }
 
     public function login( $login, $password ): bool
@@ -108,10 +109,17 @@ class User extends Model
         return password_verify( $password, $user['Password'] );
     }
     
+    /**
+     * Deletes the user with the userid $id
+     * 
+     * @param int $id
+     */
     public function remove( int $id )
     {
-        $column = array( 'key' => 'UserId', 'value' => (int)$id );
+        $columns = [ 'UserId' => (int)$id ];
         
-        $result = parent::delete( $column, $this->table );
+        $result = parent::delete( $columns, $this->table );
+        
+        return $result;
     }
 }

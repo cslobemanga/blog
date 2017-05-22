@@ -1,7 +1,11 @@
 <?php 
-
+  $lang = \Application\Lib\App::getRouter()->getLanguage();
+  
   foreach ( $data['articles'] as $article ) { 
     
+      $article_id   = $article['ArticleId'];
+      $article_link = "/$lang/articles/view/$article_id";
+      
     $date_article = new DateTime( $article['DatePublished'] ); ?>
 
 <div class="w3-card-4 blog-item w3-margin" style="width: 95%">
@@ -21,9 +25,11 @@
     <div class="w3-container">
         <p class="w3-padding-4 w3-margin"><?php echo $article['Content']; ?></p>
         <p>
-            <button class="w3-button w3-right w3-padding-4 w3-border w3-black w3-text-sand">
-            <a href="/articles/view/<?php echo $article['ArticleId']; ?>">Weiterlesen</a>
-            </button>
+            <a href="<?php echo $article_link ?>">
+                <button class="w3-button w3-right w3-padding-4 w3-border w3-black w3-text-sand w3-round-xlarge">
+                Weiterlesen
+                </button>
+            </a>
         </p>
     </div>
 </div>

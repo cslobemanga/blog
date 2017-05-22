@@ -13,7 +13,10 @@ return array(
   'lng.nav.register'                => 'Enregistrez-vous',  
   'lng.nav.contact'                 => 'Contactez-nous',  
   'lng.nav.users'                   => 'Utilisateurs', 
-  'lng.nav.article.add'             => 'Nouvel article',
+  'lng.nav.user.new'                => 'Nouvel Utilisateur',
+  'lng.nav.pages'                   => 'Pages',  
+  'lng.nav.page.add'                => 'Nouvelle Page',    
+  'lng.nav.article.add'             => 'Nouvel Article',
     
   'lng.form.title'                  => 'Vos coordonnées',  
   'lng.form.name'                   => 'Nom',
@@ -30,4 +33,7 @@ return array(
     
   # Admin section
   'lng.admin.title'                 => 'Zone Admin',
+    
+  # MySQL section
+   'lng.mysql.error.cascade'        => 'Error: You are trying to delete a parent row.<br>Do you want to delete all articles and comments related to this user?'
 );

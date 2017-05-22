@@ -1,5 +1,8 @@
 <?php
 use Application\Lib\Config;
+use Application\Lib\App;
+
+$lang = App::getRouter()->getLanguage();
 ?>
 <div class="w3-content" style="max-width: 1400px">
     <div class="w3-container w3-padding-large w3-margin w3-responsive">
@@ -41,11 +44,11 @@ use Application\Lib\Config;
 
 
                 <td class="admin-table">
-                    <a href="/admin/articles/edit/<?php echo $article['ArticleId']; ?>">
-                        <button class="w3-button w3-blue">Edit</button></a>
+                    <a href="/admin/<?php echo $lang; ?>/articles/edit/<?php echo $article['ArticleId']; ?>">
+                        <button class="w3-button w3-blue w3-round-xlarge w3-text-sand">Edit</button></a>
 
-                    <a href="/admin/articles/delete/<?php echo $article['ArticleId']; ?>" onclick="return confirmDelete();" >
-                        <button class="w3-button w3-orange">Delete</button></a>
+                    <a href="/admin/<?php echo $lang; ?>/articles/delete/<?php echo $article['ArticleId']; ?>" onclick="return confirmDelete();" >
+                        <button class="w3-button w3-orange w3-round-xlarge w3-text-sand">Delete</button></a>
                 </td>
             </tr>
             <?php $count++; } ?>
@@ -56,7 +59,7 @@ use Application\Lib\Config;
 
         <div>
             <a href="/admin/articles/add/"
-               <button class="w3-button w3-green">New Article</button>
+               <button class="w3-button w3-green w3-round-xlarge w3-text-sand">New Article</button>
             </a>
         </div>
     </div>

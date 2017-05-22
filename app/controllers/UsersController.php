@@ -43,7 +43,7 @@ class UsersController extends Controller
             
             Session::setFlash( $result ? 'User was successfully added!' : 'Error: User could not be created.' );
             
-            Router::redirect( '/admin/users' );
+            Router::redirect( '/admin/' . App::getRouter()->getLanguage() . '/users' );
         }
     }
     
@@ -57,11 +57,11 @@ class UsersController extends Controller
 
             if( $result ) {
                 Session::setFlash( 'The user was successfully updated!', 'alert-success' );
-                Router::redirect( '/admin/users' );
+                Router::redirect( '/admin/' . App::getRouter()->getLanguage() . '/users' );
                 
             } else {
                 Session::setFlash( 'Error: User data could not be edited!', 'alert-warning' );
-                Router::redirect( '/admin/users' );
+                Router::redirect( '/admin/' . App::getRouter()->getLanguage() . '/users' );
             }
         }
         
@@ -71,7 +71,7 @@ class UsersController extends Controller
             
         } else {
             Session::setFlash ( 'Wrong page requested!', 'alert-warning' );
-            Router::redirect( '/admin/users' );
+            Router::redirect( '/admin/' . App::getRouter()->getLanguage() . '/users' );
         }
     }
 
@@ -86,7 +86,7 @@ class UsersController extends Controller
             
             Session::setFlash ( $result ? 'The selected user was successfully deleted!' : 'Error: User could not be deleted!' );
             
-            Router::redirect( '/admin/users' );
+            Router::redirect( '/admin/' . App::getRouter()->getLanguage() . '/users' );
         }
     }
 
@@ -110,7 +110,7 @@ class UsersController extends Controller
                 $lang = App::getRouter()->getLanguage();
                 
                 if( $user['Role'] == 1 )
-                    Router::redirect( '/admin' );
+                    Router::redirect( '/admin/' . $lang );
                 
                 else
                     Router::redirect( '/' . $lang ); 

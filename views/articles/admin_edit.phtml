@@ -1,23 +1,36 @@
 <?php
     $article = $data['article'];
 ?>
-<div class="w3-card-4 user-fom">
+<div class="w3-container w3-margin w3-dark-gray w3-text-sand" style="width: 60%">
+    <h4>Edit Article</h4> 
+</div>
 
-    <div class="w3-container w3-dark-gray w3-text-sand">
-        <h4>Edit User</h4> 
-    </div>
+ <div class="w3-card-4 w3-container w3-margin" style="width: 60%">
 
-    <form class="w3-container" method="post" action="">
+    <form class="w3-container w3-margin" method="post" action="">
+        
+        <input type="hidden"name="article_id" value="<?php echo $article['ArticleId'] ?>" />
 
-    <label>Title</label>
-    <input type="text" class="w3-input" name="title" required="required"
-           value="<?php echo $article['Title']; ?>" >
+        <label>Title</label>
+        <input type="text" class="w3-input" name="title" disabled="disabled"
+               value="<?php echo $article['Title']; ?>" >
+        <hr>
+        
+        <label>Alias</label>
+        <input type="text" class="w3-input" name="alias" disabled="disabled"
+               value="<?php echo $article['Slug']; ?>" >
+        <hr>
 
-    <label>Alias</label>
-    <input type="text" class="w3-input" name="alias" required="required"
-           value="<?php echo $article['Slug']; ?>" >
-    <br>
-    <input class="w3-btn w3-dark-gray" type="submit" value="OK" />
+        <label>Inhalt</label>
+        <textarea name="content" style="width:100%" rows="4" placeholder="Text"><?php echo $article['Content']; ?></textarea>
+        
+        <hr>
+        
+        <label>Publish</label>
+        <input type="checkbox" class="w3-check" name="is_published"
+               <?php if ( $article['IsPublished'] == 1 ) echo 'checked="checked"' ?> >
+        <hr>
+        <button class="w3-button w3-dark-gray w3-round-xlarge" type="submit">Edit</button>
 
     </form>
 </div>

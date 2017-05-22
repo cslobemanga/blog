@@ -57,7 +57,7 @@ class ArticlesController extends Controller
         if( !isset( $_POST['title'] ) || !isset( $_POST['content'] ) )
             return false;
         
-        if( $this->model->save( $_POST ) ) {
+        if( $this->model->add( $_POST ) ) {
             
             Session::setFlash( 'A new page was successfully created!', 'alert-info' );
             
@@ -77,11 +77,30 @@ class ArticlesController extends Controller
     public function admin_edit()
     {
         $param = App::getRouter()->getParams();
+        $lang  = App::getRouter()->getLanguage();
         
         if( !isset( $param[0] ) )
             return false;
         
-        $this->data['article'] = $this->model->getById( $param[0] );
+        $this->data['article'] = $this->model->getById( (int) $param[0] );
+        
+        if( !isset( $_POST['article_id'] ) ) {
+            return false;
+        }
+        
+        $article_id = $_POST['article_id'];
+        
+        $result = $this->model->edit( $_POST, $article_id );
+
+        if( $result ) {
+            Session::setFlash( 'Article was successfully edited', 'alert-success' );
+            
+        } else {
+            Session::setFlash( 'Error: The required article could not be updated', 'alert-warning' );
+        }
+        
+        $this->redirect_path = '/admin/' . $lang;
+        $this->redirect();
     }
     
     public function admin_delete()
@@ -95,13 +114,32 @@ class ArticlesController extends Controller
             
             Session::setFlash ( $result ? 'The selected article was successfully deleted!' : 'Error: article could not be deleted!' );
             
-            Router::redirect( '/admin' );
+            Router::redirect( '/admin/' . App::getRouter()->getLanguage() );
         }
     }
     
     public function admin_add()
     {
+        $lang = App::getRouter()->getLanguage();
         
+        if( !Session::get( 'user' ) ) {
+            $this->redirect_path = '/' . $lang . '/users/login';
+            $this->redirect();
+        }
+        
+        if( !isset( $_POST['title'] ) || !isset( $_POST['content'] ) )
+            return false;
+        
+        if( $this->model->add( $_POST ) ) {
+            
+            Session::setFlash( 'A new page was successfully created!', 'alert-info' );
+            
+            $this->redirect_path = '/admin/' . $lang;
+            $this->redirect();
+        
+        } else {
+            Session::setFlash( 'Error: A new page could not be created!', 'alert-danger' );
+        }
     }
 }
 

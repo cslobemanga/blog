@@ -1,1 +1,35 @@
+<?php
+use Application\Lib\Session;
+?>
+<div class="w3-container w3-dark-gray w3-text-sand w3-margin" style="width:80%">
+    <h3>Nouvel article</h3>
+</div>
 
+<div class="w3-card-4 w3-margin w3-padding-16" style="width:80%; margin-bottom: 30px;">
+    
+    <form method="post" action="" class="w3-container">
+
+        <input type="hidden" id="user_id" name="user_id" 
+               value="<?php echo Session::get('user')['UserId']; ?>" />
+
+        <label>Title</label>
+        <input type="text" id="title" name="title" class="w3-input w3-border" style="width: 60%"
+               autofocus="autofocus" required="required" placeholder="Title" />
+        <hr>
+        
+        <label>Slug</label>
+        <input type="text" id=slug name="slug" class="w3-input w3-border" style="width: 60%"
+               placeholder="Slug" />
+        <hr>
+
+        <textarea id="content" name="content" style="width: 90%" rows="4"
+                  required="required" placeholder="Content">
+       </textarea>
+
+        <hr>
+
+        <button type="submit"class="w3-button w3-dark-gray w3-text-sand w3-round-xlarge">OK</button>
+
+    </form>
+
+</div>

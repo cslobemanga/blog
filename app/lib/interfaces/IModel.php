@@ -15,6 +15,6 @@ error_reporting( E_ALL );
 
 interface IModel
 {
-	
-	public function getDB(): Database;
+
+    public function getDB(): Database;
 }

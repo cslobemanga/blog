@@ -143,16 +143,18 @@ class Model implements IModel
      * @param string $table
      * @return type
      */
-    public function delete( array $column, string $table )
+    public function delete( array $columns, string $table )
     {
-        if( !isset($column['key']) || !isset($column['value']) )
-            return null;
         
-        $key    = $column['key'];
-        $value  = $column['value'];
+        $sql    = "DELETE FROM $table WHERE ";
+        $params = [];
+            
+        foreach ( $columns as $key => $value ) {
+          $sql      .= $key . "=?";
+          $params[]  = $value;
+          break;
+        }
         
-        $sql    = "DELETE FROM $table WHERE $key = ?";
-        
-        return $this->getDB()->query( $sql, [$value], false );
+        return $this->getDB()->query( $sql, $params, false );        
     }
 }

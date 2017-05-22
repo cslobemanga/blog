@@ -5,7 +5,7 @@
 
 function confirmDelete()
 {
-    if( confirm( "Delete this item?" ) )
+    if( confirm( "Delete this item? <br>All related data - Artikel, comments - will alos be deleted!" ) )
         return true;
     
     else

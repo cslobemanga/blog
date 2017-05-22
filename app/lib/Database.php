@@ -64,6 +64,7 @@ class Database
             
         } catch ( \PDOException $ex ) {
             echo 'Error ' . $ex->getCode() . ': ' . $ex->getMessage();
+            return $ex->getCode();
         }
         
         if( !$select )

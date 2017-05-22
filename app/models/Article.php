@@ -80,16 +80,23 @@ class Article extends Model
      * @param bool $by_admin
      * @return bool
      */
-    public function register( $data, bool $by_admin=false ):bool
+    public function add( $data, bool $by_admin=false ):bool
     {
         try {
-            $sql = "INSERT INTO $this->table (AuthorId, Title, Content) VALUES(?,?,?)";
+            if( !isset( $data['slug'] ) ) {
+                $slug = explode( ' ', trim( strtolower( $data['title'] ) ) );
+                $slug = implode( '-', $slug );
+                
+            } else {
+                $slug = $data['slug'];
+            }
             
-            $params = [ $data['user_id'], $data['title'], $data['content'] ];
+            $columns = [ 'AuthorId' => $data['user_id'], 
+                         'Title'    => trim( $data['title'] ), 
+                         'Slug'     => trim( $data['slug'] ),
+                         'Content'  => trim( $data['content'] ) ];
 
-            $result = $this->getDB()->query( $sql, $params, $by_admin );
-            
-            return true;
+            return parent::save( $columns, $this->table );
             
         } catch ( PDOException $ex ) {
             echo 'Error: ' . $ex->getMessage();
@@ -98,6 +105,29 @@ class Article extends Model
         return false;
     }
     
+    public function edit( $data, int $article_id )
+    {
+        try {
+            $content = trim( $data['content'] );
+            $is_published = isset( $data['is_published'] ) ? 1 : 0;
+            
+            $columns = [ 'Content'      => $content, 
+                         'IsPublished'  => $is_published,
+                         'ArticleId'     => $article_id ];
+            
+            return parent::save( $columns, $this->table, $article_id );
+            
+        } catch ( Exception $ex ) {
+            echo 'Error: ' . $ex->getMessage();
+        }
+    }
+
+        /**
+     * Deletes an article given the id
+     * 
+     * @param int $article_id
+     * @return type
+     */
     public function remove( int $article_id )
     {
         $column = array( 'key' => 'ArticleId', 'value' => $article_id );

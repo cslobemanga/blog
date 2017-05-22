@@ -47,14 +47,43 @@ class Page extends Model
         return $result[0] ?? false;
     }
     
-    public function register( $data, $id=null )
+    /**
+     * Updates the page page id
+     * 
+     * @param type $data
+     * @param type $id
+     * @return boolean
+     */
+    public function edit( $data )
     {
-        if( !isset( $data['alias'] ) || !isset( $data['title'] ) ) {
-            
+        if( !isset( $data['page_id'] ) || !isset( $data['title'] ) ) {
             return false;
         }
         
-        $id             = ( int )$id;
+        $page_id        = ( int )$data['page_id'];
+        $title          = $data['title'];
+        $is_published   = isset( $data['is_published'] ) ? 1 : 0;
+        
+        $columns        = [ 'Title'        => $title, 
+                            'IsPublished'  => $is_published,
+                            'PageId'       => $page_id ];
+        
+        return parent::save( $columns, $this->table, $page_id );
+    }
+    
+    /**
+     * * Creates a new page
+     * 
+     * @param type $data
+     * @param type $id
+     * @return boolean
+     */
+    public function register( $data )
+    {
+        if( !isset( $data['alias'] ) || !isset( $data['title'] ) ) {  
+            return false;
+        }
+        
         $alias          = $data['alias'];
         $title          = $data['title'];
         $is_published   = isset( $data['is_published'] ) ? 1 : 0;
@@ -63,16 +92,17 @@ class Page extends Model
                                  'Alias' => $alias, 
                                  'IsPublished' => $is_published );
         
-        if( $id ) { // Then add a new record
-            $columns += array( 'PageId' =>$id );
-        }
-        
-        return parent::save( $columns, $this->table, $id );
+        return parent::save( $columns, $this->table );
     }
     
+    /**
+     * Delete the selected page
+     * 
+     * @param int $id
+     */
     public function remove( int $id )
     {
-        $column = array( 'key' => 'PageId', 'value' => (int)$id );
+        $column = array( 'PageId' => (int)$id );
          
         $result = parent::delete( $column, $this->table );
 
