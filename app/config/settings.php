@@ -30,7 +30,8 @@ define( 'user_config', array(
         'default_user_role'     =>  0,
         'default_user_status'   =>  1,
     
-        'content_length'        =>  100
+        'content_length'        =>  100,
+        'use_twig'              => false,
     )
 );
 

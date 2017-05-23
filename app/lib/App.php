@@ -61,7 +61,8 @@ class App
             throw new Exception ( "Method $controller_method of class $controller_class does not exist!" );
         
         // Layout
-        $layout_path        = VIEWS_PATH . DS . $layout . '.phtml';
+        $use_twig           = Config::get( 'use_twig' );
+        $layout_path        = VIEWS_PATH . DS . $layout . ( $use_twig ? '.html.twig' : '.phtml' );
         $layout_view_object = new View( array(
                                 'dynamic'   => compact('content'), 
                                 'static'    => $static_pages ), $layout_path );

@@ -10,9 +10,12 @@ error_reporting( E_ALL );
 class View
 {
     
+    protected static $twig_loader;
+    protected static $twig_engine;
+    
     protected $data; 
     protected $path;
-    
+   
     /**
      * 
      * @return boolean
@@ -26,6 +29,21 @@ class View
         
         $controller_dir = $router->getController();
         $template_name  = $router->getMethodPrefix() . $router->getAction() . '.phtml';
+        
+        $router         = App::getRouter();
+        $loader_path    = VIEWS_PATH . DS . $router->getController();
+        
+        if( Config::get('use_twig') ) {
+            try {
+                self::$twig_loader  = new \Twig_Loader_Filesystem( $loader_path );
+                self::$twig_engine  = new \Twig_Environment( self::$twig_loader, 
+                                [ 'cache' => false,
+                                  'debug' => true ] );
+
+            } catch ( \Exception $tel ) {
+                echo $tel->getMessage();
+            }
+        }
         
         return VIEWS_PATH . DS . $controller_dir . DS . $template_name;
     }
@@ -51,6 +69,13 @@ class View
         include ( $this->path );
         $content = ob_get_clean();
         
-        return $content;
+        if( Config::get('use_twig') ) {
+            
+            $template_file = App::getRouter()->getMethodPrefix() . App::getRouter()->getAction() . '.html.twig';
+            return self::$twig_engine->render( $template_file, $data );
+            
+        } else {
+            return $content;
+        }
     }
 }
