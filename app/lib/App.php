@@ -30,7 +30,9 @@ class App
         self::$router   = new Router( $uri );
         self::$db       = Database::getInstance();
         
-        Lang::load( self::$router->getLanguage() );
+        $lang           = self::$router->getLanguage();
+        
+        Lang::load( $lang );
         
         $controller_class = 'Application\\Controllers\\' . ucfirst( self::$router->getController() ) . 'Controller';
         $controller_method = strtolower( self::$router->getMethodPrefix() . self::$router->getAction() );
@@ -41,7 +43,7 @@ class App
              
              if( $controller_method != 'admin_logout' ) {
                  
-                 Router::redirect ( '/users/login' );
+                 Router::redirect ( '/' . $lang . '/users/login' );
              }
          }
         
@@ -58,11 +60,20 @@ class App
             $content        = $view_object->render();
         }
         else 
+        {
             throw new Exception ( "Method $controller_method of class $controller_class does not exist!" );
+        }
         
         // Layout
-        $use_twig           = Config::get( 'use_twig' );
-        $layout_path        = VIEWS_PATH . DS . $layout . ( $use_twig ? '.html.twig' : '.phtml' );
+        $use_twig = Config::get( 'use_twig' );
+        
+        if( $use_twig ) {
+            $layout_path = VIEWS_PATH .DS. 'html' .DS. $layout . '.twig';
+        
+        } else {
+            $layout_path = VIEWS_PATH .DS. $layout . '.phtml';
+        }
+        
         $layout_view_object = new View( array(
                                 'dynamic'   => compact('content'), 
                                 'static'    => $static_pages ), $layout_path );

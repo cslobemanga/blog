@@ -1,0 +1,141 @@
+<?php
+use Application\Lib\Config;
+use Application\Lib\App;
+?>
+<!DOCTYPE html>
+<!--
+Cart Project with MVC
+Charles S. Lobe-Manga <charles@lobe-manga.com>
+-->
+<html>
+    <head>
+        {% block head %}
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa|Lato">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/style.css">
+        {% endblock %}
+    </head>
+    <body class="w3-light-grey">
+        <?php
+            $router     = App::getRouter();
+            $lang       = $router->getLanguage();
+            $controller = $router->getController();
+            $action     = $router->getAction();
+        ?>
+        <div class="w3-content" style="max-width: 1400px;">
+            <div class="w3-bar w3-card-2 w3-border w3-black">
+                <div class="w3-left w3-hide-small bar-item-home w3-black w3-text-sand">
+                    <a class="w3-bar-item w3-button" href="">
+                        <li class="fa fa-home"></li>
+                    </a>
+                </div>
+               
+                <div class="w3-left bar-item-custom">
+                    <a class="w3-bar-item w3-button w3-padding-large 
+                    <?php if( $controller == 'articles' && $action == 'index') { echo " w3-white w3-text-black"; } ?>"
+                        href="/<?php echo $lang; ?>"><?php echo translate( 'lng.nav.home' ); ?>
+                    </a>
+
+                    <?php if( !isset( $_SESSION['user'] ) ) { ?>
+
+                    <a class="w3-bar-item w3-button w3-padding-large
+                    <?php if( $controller == 'users' && $action == 'login' ) { echo " w3-white w3-text-black"; } ?>"
+                        href="/<?php echo $lang; ?>/users/login"><?php echo translate( 'lng.nav.login' ); ?>
+                    </a>
+
+                   <a class="w3-bar-item w3-button w3-padding-large
+                   <?php if( $controller == 'users' && $action == 'register' ) { echo " w3-white w3-text-black"; } ?>"
+                        href="/<?php echo $lang; ?>/users/register"><?php echo translate( 'lng.nav.register' ); ?>
+                   </a>
+
+                    <?php } else { ?>
+
+                    <a class="w3-bar-item w3-button w3-padding-large
+                    <?php if( $controller == 'articles' && $action == 'add') { echo " w3-white w3-text-black"; } ?>"
+                        href="/<?php echo $lang; ?>/articles/add"><?php echo translate( 'lng.nav.article.add' ); ?>
+                    </a>
+
+                    <a class="w3-bar-item w3-button w3-padding-large
+                    <?php if( $controller == 'users') { echo " w3-white w3-text-black"; } ?>"
+                        <a href="/<?php echo $lang; ?>/users/logout"><?php echo translate( 'lng.nav.logout' ); ?>
+                    </a>
+
+                    <?php } ?>
+
+                    <a class="w3-bar-item w3-button w3-padding-large
+                    <?php if( $controller == 'contacts') { echo " w3-white w3-text-black"; } ?>"
+                        href="/<?php echo $lang; ?>/contacts">
+                            <?php echo translate( 'lng.nav.contact' ); ?>
+                    </a>
+                </div> 
+                
+                <div class="w3-right bar-item-custom">
+                    <a href="" class="w3-bar-item w3-right">
+                        <li class="fa fa-search"></li>
+                    </a>
+                    <input class="w3-input w3-bar-item w3-right w3-border" type="text" placeholder="Search..">
+                </div>
+            </div>
+            
+            <header class="w3-container w3-padding-32 w3-center">
+                <h1>Der Maintaler Blog</h1>
+                <p>Template for creating <span class="w3-tag w3-black">MVC with PHP</span></p>
+            </header>
+
+            <div class="w3-row">
+                <div class="w3-col m9">
+                        
+                    <?php echo $data[ 'dynamic' ]['content']; ?>
+
+                </div>
+        
+                <div class="w3-col m3">
+                    <div class="w3-card-2 w3-margin w3-margin-top">
+                        <h4 class="w3-dark-grey w3-margin-4 w3-center">Sections</h4>
+                        <ul class="w3-ul w3-hoverable">
+                        <?php
+                        $static_pages = $data[ 'static' ];
+
+                        foreach ( $static_pages as $page ) {
+
+                            $file_name = LANG_PATH .DS. $lang .DS. $page['Alias'] . '.txt';
+
+                            if( file_exists( $file_name ) ) { ?>
+
+                            <li class="w3-padding-3"><a href="/<?php echo $lang; ?>/pages/view/<?php echo $page['Alias']; ?>">
+                                <?php echo $page['Title']; ?>
+                                </a></li>
+
+                        <?php } } ?>
+                        </ul>
+                    </div>
+                    <hr>
+                    <div class="w3-card-2 w3-margin">
+                        <h4 class="w3-dark-grey w3-center">Archives</h4>
+                        <ul class="w3-ul">
+                          <li><a href="#">March 2014</a></li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <div class="w3-card-2 w3-margin" style="width:50%">
+                        <h4 class="w3-dark-grey w3-padding-4 w3-center">Elsewhere</h4>
+                      <ol class="w3-ul">
+                        <li><a href="#">GitHub</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Facebook</a></li>
+                      </ol>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="w3-container w3-black w3-padding-8">
+              <p>Copyright &copy; <?php echo date('Y'); ?> Charles S. Lobe-Manga</p>
+            </footer>
+        </div>
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</html>

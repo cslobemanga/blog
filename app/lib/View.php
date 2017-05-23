@@ -30,22 +30,16 @@ class View
         $controller_dir = $router->getController();
         $template_name  = $router->getMethodPrefix() . $router->getAction() . '.phtml';
         
-        $router         = App::getRouter();
-        $loader_path    = VIEWS_PATH . DS . $router->getController();
-        
         if( Config::get('use_twig') ) {
-            try {
-                self::$twig_loader  = new \Twig_Loader_Filesystem( $loader_path );
-                self::$twig_engine  = new \Twig_Environment( self::$twig_loader, 
-                                [ 'cache' => false,
-                                  'debug' => true ] );
+            $template_file = $controller_dir .DS. 'html' .DS. 
+                    $router->getMethodPrefix() . $router->getAction() . '.twig';
 
-            } catch ( \Exception $tel ) {
-                echo $tel->getMessage();
-            }
-        }
+            return VIEWS_PATH .DS. $template_file;
         
-        return VIEWS_PATH . DS . $controller_dir . DS . $template_name;
+        } else {
+        
+            return VIEWS_PATH .DS. $controller_dir .DS. $template_name;
+        }
     }
 
     public function __construct( $data = [], $path = null ) 
@@ -54,7 +48,7 @@ class View
             $path = self::getDefaultViewPath();
         
         if( !file_exists( $path ) ) {
-            throw new \Exception ( "Template file is not found in path $path!" );
+            throw new \Exception ( "Template file is not found in path $path" );
         }
         
         $this->data = $data;
@@ -71,7 +65,20 @@ class View
         
         if( Config::get('use_twig') ) {
             
-            $template_file = App::getRouter()->getMethodPrefix() . App::getRouter()->getAction() . '.html.twig';
+            $router = App::getRouter();
+            
+            self::$twig_loader  = new \Twig_Loader_Filesystem( 
+                    [ VIEWS_PATH.DS. 'html', 
+                      VIEWS_PATH.DS. $router->getController() ] 
+                    );
+            
+            self::$twig_engine  = new \Twig_Environment( self::$twig_loader, 
+                                    [ 'cache' => false,
+                                      'debug' => true ] );
+            
+            $template_file  = 'html' .DS. $router->getMethodPrefix() . 
+                    $router->getAction() . '.twig';
+            
             return self::$twig_engine->render( $template_file, $data );
             
         } else {
