@@ -18,7 +18,7 @@ class ArticlesController extends Controller
     
     public function __construct( $pData = array() ) 
     {
-        parent::__construct($pData);
+        parent::__construct( $pData );
         
         $this->model = new Article();
     }

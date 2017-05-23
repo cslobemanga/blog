@@ -1,9 +1,13 @@
 {% extends "default.twig" %}
 
 {% block title %}Willkommen{% endblock %}
+ 
+{% block body %}
+    {% for article in articles %}
 
-{#{% for article in articles %}
-    
-   {{ article.Title }}
-   
-{% endfor %}#}
+       {{ article.Title }}
+
+    {% endfor %}
+{% endblock %}
+
+{% block footer %} <p>Copyright &copy; Charles S. Lobe-Manga</p>{% endblock %}

@@ -9,7 +9,6 @@ Charles S. Lobe-Manga <charles@lobe-manga.com>
 -->
 <html>
     <head>
-        {% block head %}
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}{% endblock %}</title>
@@ -17,7 +16,6 @@ Charles S. Lobe-Manga <charles@lobe-manga.com>
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="/css/style.css">
-        {% endblock %}
     </head>
     <body class="w3-light-grey">
         <?php
@@ -87,10 +85,10 @@ Charles S. Lobe-Manga <charles@lobe-manga.com>
             </header>
 
             <div class="w3-row">
-                <div class="w3-col m9">
-                        
-                    <?php echo $data[ 'dynamic' ]['content']; ?>
-
+                <div class="w3-col m9">    
+                    {% block body %}
+                        {{ dynamic }}
+                    {% endblock %}
                 </div>
         
                 <div class="w3-col m3">
@@ -133,7 +131,7 @@ Charles S. Lobe-Manga <charles@lobe-manga.com>
             </div>
 
             <footer class="w3-container w3-black w3-padding-8">
-              <p>Copyright &copy; <?php echo date('Y'); ?> Charles S. Lobe-Manga</p>
+                {% block footer %}{% endblock %}
             </footer>
         </div>
     </body>
