@@ -3,7 +3,7 @@
 
     $router     = App::getRouter();  
     
-    $file_path  = LANG_PATH .DS. $router->getLanguage() .DS. $data['page']['Alias'] . '.txt';
+    $file_path  = LANG_PATH_FILES .DS. $router->getLanguage() .DS. $data['page']['Alias'] . '.txt';
      
     if( $text = file_get_contents( $file_path, FILE_USE_INCLUDE_PATH ) ) {
 

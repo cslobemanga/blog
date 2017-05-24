@@ -10,7 +10,8 @@ error_reporting( E_ALL );
 define( 'DS',                   DIRECTORY_SEPARATOR );
 define( 'ROOT',                 dirname(dirname( __FILE__) ) );
 define( 'VIEWS_PATH',           ROOT. DS . 'views' );
-define( 'LANG_PATH',            ROOT. DS . 'app' .DS. 'lang' );
+define( 'LANG_PATH_CONFIG',     ROOT. DS . 'app' .DS. 'lang' );
+define( 'LANG_PATH_FILES',      ROOT .DS.  'lang' );
 define( 'VENDOR_PATH',          ROOT. DS . 'vendor' );
 
 require __DIR__ . '../../vendor/autoload.php';

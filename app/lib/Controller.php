@@ -47,11 +47,19 @@ class Controller
         
         $this->data['static_pages'] = [];
   
-        $pages = new Page();
+        $page = new Page();
         
-        foreach ( $pages->getAll() as $page ) {
+        try {
         
-            $this->data['static_pages'][] = $page;
+            $clt = $page->createLanguageTable( App::getRouter()->getLanguage() );
+            
+        } catch ( \PDOException $exc ) {
+            echo $exc->getMessage();
+        }
+        
+        foreach ( $page->getAll() as $p ) {
+        
+            $this->data['static_pages'][] = $p;
         }
     }
     

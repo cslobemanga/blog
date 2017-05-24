@@ -107,4 +107,15 @@ class Page extends Model
         $result = parent::delete( $column, $this->table );
 
     }
+    
+    /**
+     * 
+     * @param string $lang_code
+     * @return type
+     */
+    public function createLanguageTable( string $lang_code ): bool 
+    {
+        
+        return parent::createLanguageTable( $lang_code );
+    }
 }

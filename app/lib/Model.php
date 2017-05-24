@@ -139,7 +139,7 @@ class Model implements IModel
     /**
      * Removes an item with the specified key/value from a given table
      * 
-     * @param array $column
+     * @param array $columns
      * @param string $table
      * @return type
      */
@@ -156,5 +156,20 @@ class Model implements IModel
         }
         
         return $this->getDB()->query( $sql, $params, false );        
+    }
+    
+    /**
+     * Creates the corresponding language table pages_<lg>
+     * in the database
+     * 
+     * @param string $lang_code
+     * @return bool
+     */
+    public function createLanguageTable( string $lang_code ): bool
+    {
+        
+        $sql = "CALL createLanguageTable( ? )";
+        
+        return $this->getDB()->query( $sql, [$lang_code], false );     
     }
 }

@@ -23,7 +23,7 @@ class PagesController extends Controller
     }
 
     public function index() 
-    {
+    {   
         $this->data['pages'] = $this->model->getAll();
     }
     
@@ -49,11 +49,10 @@ class PagesController extends Controller
             $result = $this->model->register( $_POST );
             
             if( $result ) {
-            
-                //TODO SOON CLM Creating the corresponding content files
+           
                 $router = App::getRouter();
                 
-                $file_path = LANG_PATH .DS. $router->getLanguage() .DS. $_POST['alias'] . '.txt';
+                $file_path = LANG_PATH_FILES .DS. $router->getLanguage() .DS. $_POST['alias'] . '.txt';
                  
                 if( $file = fopen( $file_path, 'w' ) ) {
                     
@@ -63,13 +62,15 @@ class PagesController extends Controller
                     
                     fclose( $file );
                     
-                } else 
+                } else {
                     Session::setFlash ( 'Error: Content file could not be created!', 'alert-warning' );
+                }
                     
                 Session::setFlash ( 'The new page was successfully created!', 'alert-success' );
             
-            } else
+            } else {
                 Session::setFlash ( 'Error: page could not be created!', 'alert-warning' );
+            }
             
             Router::redirect( '/admin/pages' );
         }

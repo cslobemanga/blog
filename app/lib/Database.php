@@ -46,8 +46,9 @@ class Database
 
     public static function getInstance(): Database
     {
-        if( self::$instance === null )
+        if( self::$instance === null ) {
             self::$instance = new static();
+        }
         
         return self::$instance;
     }
