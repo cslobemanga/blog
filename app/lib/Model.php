@@ -168,7 +168,7 @@ class Model implements IModel
     public function createLanguageTable( string $lang_code ): bool
     {
         
-        $sql = "CALL createLanguageTable( ? )";
+        $sql = "CALL sp_create_language_table( ? )";
         
         return $this->getDB()->query( $sql, [$lang_code], false );     
     }

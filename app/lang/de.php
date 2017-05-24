@@ -25,7 +25,7 @@ return array(
   'lng.form.submit'                 => 'Absenden',
   'lng.form.btn.login'              => 'Einloggen',
   'lng.form.btn.register'           => 'Anmelden',
-  'lng.form.btn.update'           => 'Aktualisieren',
+  'lng.form.btn.update'             => 'Aktualisieren',
     
   'lng.flash.success.insert'        => 'Danke! Ihre Nachricht wurde erfolgreich gesendet.',
     

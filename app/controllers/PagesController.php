@@ -45,13 +45,10 @@ class PagesController extends Controller
     public function admin_add()
     {
         if( $_POST ) {
-            
             $result = $this->model->register( $_POST );
             
             if( $result ) {
-           
                 $router = App::getRouter();
-                
                 $file_path = LANG_PATH_FILES .DS. $router->getLanguage() .DS. $_POST['alias'] . '.txt';
                  
                 if( $file = fopen( $file_path, 'w' ) ) {
@@ -59,7 +56,6 @@ class PagesController extends Controller
                     $text = '<h3>' . $_POST['title'] . '</h3>';
                     
                     fwrite( $file, $text );
-                    
                     fclose( $file );
                     
                 } else {
@@ -71,7 +67,6 @@ class PagesController extends Controller
             } else {
                 Session::setFlash ( 'Error: page could not be created!', 'alert-warning' );
             }
-            
             Router::redirect( '/admin/pages' );
         }
     }
