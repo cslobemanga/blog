@@ -65,14 +65,8 @@ class App
         }
         
         // Layout
-        $use_twig = Config::get( 'use_twig' );
         
-        if( $use_twig ) {
-            $layout_path = VIEWS_PATH .DS. 'html' .DS. $layout . '.twig';
-        
-        } else {
-            $layout_path = VIEWS_PATH .DS. $layout . '.phtml';
-        }
+         $layout_path = VIEWS_PATH .DS. $layout . '.phtml';
         
         $layout_view_object = new View( array(
                                 'dynamic'   => compact('content'), 
