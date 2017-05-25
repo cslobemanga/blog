@@ -31,7 +31,6 @@ class ArticlesController extends Controller
     
     public function view()
     {
-        
         if( isset( $this->params[0] ) ) {
             
             $article_id = ( int ) $this->params[0];
@@ -42,7 +41,18 @@ class ArticlesController extends Controller
         }
     }
     
-    /**
+    public function archiv()
+    {
+        if( count($this->params) === 2 ) {
+        
+            $month  = (int) $this->params[0];
+            $year   = (int) $this->params[1];
+
+            $this->data['results'] = $this->model->getArchives( $month, $year );
+        }
+    }
+
+        /**
      * Adding a new article
      */
     public function add()
@@ -107,6 +117,7 @@ class ArticlesController extends Controller
     {
         
         $params = App::getRouter()->getParams();
+        $lang  = App::getRouter()->getLanguage();
         
         if( isset( $params[0] ) ) {
             
@@ -114,7 +125,7 @@ class ArticlesController extends Controller
             
             Session::setFlash ( $result ? 'The selected article was successfully deleted!' : 'Error: article could not be deleted!' );
             
-            Router::redirect( '/admin/' . App::getRouter()->getLanguage() );
+            Router::redirect( '/admin/' . $lang );
         }
     }
     

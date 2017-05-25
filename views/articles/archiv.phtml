@@ -1,0 +1,14 @@
+<h3>Search results: </h3>
+<?php
+    
+    $results = $data['results'];
+    
+    foreach ( $results as $result ) { ?>
+
+    <div class="w3-container w3-card-4 w3-dark-gray w3-text-sand w3-margin" style="width:60%">
+        <h3><?php echo $result['Title']; ?></h3>
+        <h4>Veröffentlicht am <?php echo $result['DatePublished']; ?></h4>
+    </div>
+
+    <?php } 
+?>

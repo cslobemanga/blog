@@ -57,6 +57,7 @@ class App
             $view_object    = new View( $controller_object->getData(), $view_path );
             
             $static_pages   = $controller_object->getData()['static_pages'] ?? [];
+            $archives       = $controller_object->getData()['archives'] ?? [];
             $content        = $view_object->render();
         }
         else 
@@ -70,7 +71,8 @@ class App
         
         $layout_view_object = new View( array(
                                 'dynamic'   => compact('content'), 
-                                'static'    => $static_pages ), $layout_path );
+                                'static'    => $static_pages,
+                                'archives'  => $archives ), $layout_path );
         
         echo $layout_view_object->render();
     }   

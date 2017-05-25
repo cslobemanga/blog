@@ -25,17 +25,17 @@ class Article extends Model
     {
         
         $table  = $this->table_view['author'];
-        $params = array( 'IsPublished' => 1 );
-        $order  = " ORDER BY DatePublished DESC";
+        $params = [ 'IsPublished' => 1 ];
+        $order  = "DatePublished DESC";
         
-        $result     = parent::findAll( $table, $params, $order );
+        $result = parent::findAll( $table, $params, $order );
         
         return $result; 
     }
 
     public function getById( int $article_id )
     {
-        $column = array( 'ArticleId' => $article_id );
+        $column = [ 'ArticleId' => $article_id ];
         
         $result = parent::findByColumn( $column, $this->table ); 
         
@@ -44,7 +44,7 @@ class Article extends Model
     
     public function getByAuthor( int $author_id )
     {
-        $column = array( 'AuthorId' => $author_id );
+        $column = [ 'AuthorId' => $author_id ];
         
         $result = parent::findByColumn( $column, $this->table );
         
@@ -71,6 +71,25 @@ class Article extends Model
         $result = $this->getDB()->query( $sql, [$article_id] );
         
         return $result;
+    }
+    
+    /**
+     * Finds all the articles published in a given month of a given year
+     * 
+     * @param int $month
+     * @param int $year
+     * @return array
+     */
+    public function getArchives( int $month, int $year ):array
+    {
+        $sql = "SELECT ArticleId, Title, DatePublished FROM $this->table";
+        
+        $conditions = [ 'MONTH(DatePublished)'  => $month, 
+                        'YEAR(DatePublished)'    => $year ];
+        
+        $order_by = "DatePublished DESC";
+        
+        return parent::findAll( $this->table, $conditions, $order_by );
     }
    
     /**
@@ -130,7 +149,7 @@ class Article extends Model
      */
     public function remove( int $article_id )
     {
-        $column = array( 'key' => 'ArticleId', 'value' => $article_id );
+        $column = [ 'ArticleId' => (int)$article_id ];
         
         return parent::delete( $column, $this->table );
     }

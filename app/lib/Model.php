@@ -49,18 +49,30 @@ class Model implements IModel
     {
         $sql    = "SELECT * FROM $table";
         $params = [];
+        $count  = 0;
         
         if( $conditions ) {
             $sql .= " WHERE ";
             
             foreach ( $conditions as $key => $value ) {
-                $sql .= $key . "=? ";
+                
+                if( $count === 0 ) {
+                    $sql .= $key . "=? ";
+   
+                } else {
+                    if( $count === count( $conditions)-1 ) {
+                        $sql .= "AND $key=? ";
+                    } else {
+                        $sql .= ", $key=? ";
+                    }
+                }
                 $params[] = $value;
+                $count++;
             }
         }
         
         if( $order_by ) {
-            $sql .= $order_by;
+            $sql .= " ORDER BY $order_by";
         }
         $result = $this->getDB()->query( $sql, $params );
         

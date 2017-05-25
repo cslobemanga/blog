@@ -10,10 +10,11 @@ error_reporting( E_ALL );
 define( 'user_config', array(
     
         'site_name'             => 'CSLM AG',
-        'languages'             => [ 'en', 'de', 'fr' ],
+        'languages'             => [ 'en' => 'English',
+                                     'de' => 'Deutsch', 
+                                     'fr' => 'Français' ],
         'routes'                => [ 'default'   => '',
-                                     'admin'     => 'admin_'
-                                   ],
+                                     'admin'     => 'admin_' ],
     
         // Routes
         'default_route'         =>  'default',
@@ -31,6 +32,8 @@ define( 'user_config', array(
         'default_user_status'   =>  1,
     
         'content_length'        =>  100,
+    
+        'datetime_zone'         => 'Europe/Berlin',
     )
 );
 

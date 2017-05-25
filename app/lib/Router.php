@@ -56,7 +56,7 @@ class Router
             } 
             
             // next element: language
-            if ( in_array(strtolower(current($path_parts)), $languages )) {
+            if ( in_array(strtolower(current($path_parts)), array_keys($languages) )) {
                 $this->language = strtolower(current( $path_parts ));
                 array_shift( $path_parts );
             }

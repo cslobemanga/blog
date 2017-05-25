@@ -2,12 +2,14 @@
 namespace Application\Lib;
 
 error_reporting( E_ALL );
+
+use Application\Lib\Interfaces\IView;
 /* 
  * Cart Project with MVC
  * Charles S. Lobe-Manga <charles@lobe-manga.com>  * 
  */
 
-class View
+class View implements IView
 {
     protected $data; 
     protected $path;
@@ -16,12 +18,13 @@ class View
      * 
      * @return boolean
      */
-    protected static function getDefaultViewPath(): string
+    protected function getDefaultViewPath(): string
     {
         $router = App::getRouter();
         
-        if ( !$router )
+        if ( !$router ) {
             return false;
+        }
         
         $controller_dir = $router->getController();
         $template_name  = $router->getMethodPrefix() . $router->getAction() . '.phtml';
@@ -31,8 +34,9 @@ class View
 
     public function __construct( $data = [], $path = null ) 
     {
-        if( !$path ) 
-            $path = self::getDefaultViewPath();
+        if( !$path ) {
+            $path = $this->getDefaultViewPath();
+        }
         
         if( !file_exists( $path ) ) {
             throw new \Exception ( "Template file is not found in path $path" );
@@ -42,7 +46,11 @@ class View
         $this->path = $path;
     }
     
-    public function render()
+    /**
+     * 
+     * @return string
+     */
+    public function render(): string
     {
         $data = $this->data;
         
