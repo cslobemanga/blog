@@ -27,6 +27,7 @@ class ArticlesController extends Controller
     {
         
         $this->data['articles'] = $this->model->getAll();
+        $this->data['language'] = App::getRouter()->getLanguage();
     }
     
     public function view()
@@ -38,6 +39,7 @@ class ArticlesController extends Controller
             $this->data['article']  = $this->model->getById( $article_id ) ;
             $this->data['author']   = $this->model->getAuthor($article_id );
             $this->data['comments'] = $this->model->getComments( $article_id );
+            $this->data['language'] = App::getRouter()->getLanguage();
         }
     }
     
@@ -82,6 +84,8 @@ class ArticlesController extends Controller
     public function admin_index()
     {
         $this->data['articles'] = $this->model->getAll();
+        $this->data['language'] = App::getRouter()->getLanguage();
+        
     }
     
     public function admin_edit()

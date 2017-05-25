@@ -1,5 +1,5 @@
 <?php 
-  $lang = \Application\Lib\App::getRouter()->getLanguage();
+  $lang = $data['language'];
   
   foreach ( $data['articles'] as $article ) { 
     
@@ -16,8 +16,11 @@
     
     <div class="w3-container w3-border">
         <p class="w3-padding-4 w3-margin">
-            Published on <?php echo date_format( $date_article, 'd M Y' ); ?> at 
+            
+            Published <?php echo dateIsToday( $date_article ) ? 
+                '<b>Today</b>' : 'on' . date_format( $date_article, 'd M Y' ); ?> at 
             <?php echo date_format( $date_article, 'G:h T' ); ?> by&nbsp;
+            
             <span class="w3-tag w3-black"><a href="#"><?php echo $article['Login']; ?></a></span>
         </p>
     </div>

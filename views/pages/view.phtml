@@ -1,9 +1,7 @@
 <?php 
-    use Application\Lib\App;
-
-    $router     = App::getRouter();  
+    $lang = $data['language'];
     
-    $file_path  = LANG_PATH_FILES .DS. $router->getLanguage() .DS. $data['page']['Alias'] . '.txt';
+    $file_path  = LANG_PATH_FILES .DS. $lang .DS. $data['page']['Alias'] . '.txt';
      
     if( $text = file_get_contents( $file_path, FILE_USE_INCLUDE_PATH ) ) {
 

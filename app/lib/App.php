@@ -69,10 +69,22 @@ class App
         
          $layout_path = VIEWS_PATH .DS. $layout . '.phtml';
         
-        $layout_view_object = new View( array(
-                                'dynamic'   => compact('content'), 
-                                'static'    => $static_pages,
-                                'archives'  => $archives ), $layout_path );
+        $layout_view_object = new View( 
+                           [
+                            'dynamic'   => compact('content'), 
+                            'static'    => $static_pages,
+                            'archives'  => $archives,
+                               
+                            'router'    => [
+                                'controller'=> self::$router->getController(),
+                                'action'    => self::$router->getAction(),
+                                'language'  => $lang 
+                             ],
+                               
+                            'languages' => Config::get( 'languages' ),
+                            'site_name' => Config::get( 'site_name' ),
+                               
+                           ], $layout_path );
         
         echo $layout_view_object->render();
     }   

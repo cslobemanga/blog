@@ -35,6 +35,8 @@ class PagesController extends Controller
             $alias = strtolower ( $params[0] );
             $this->data['page'] = $this->model->getByAlias( $alias );
         }
+        
+        $this->data['language'] = App::getRouter()->getLanguage();
     }
     
     public function admin_index()

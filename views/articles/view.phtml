@@ -1,14 +1,14 @@
 <?php
 use Application\Lib\Session;
-use Application\Lib\App;
 
 $article    = $data['article'];
 $author     = $data['author'];
 $comments   = $data['comments'];
+$language   = $data['language'];
 
 $date_article   = new DateTime($article['DatePublished']);
 $logged_in      = ( Session::get('user') != null );
-$add_comment_path = '/' . App::getRouter()->getLanguage() . '/comments/add/' . $article['ArticleId'];
+$add_comment_path = '/' . $language . '/comments/add/' . $article['ArticleId'];
 ?>
 
 <div class="w3-content" style="max-width: 800px;">
@@ -66,11 +66,13 @@ $add_comment_path = '/' . App::getRouter()->getLanguage() . '/comments/add/' . $
         
     <hr>
 
-    <?php foreach ($comments as $comment) { 
-        $date_comment = new DateTime( $comment['DatePublished'] );
-        $login = $comment['Login'];
-        $df_date = date_format( $date_comment, 'd M Y' );
-        $df_time = date_format( $date_comment, 'G:h T' );
+    <?php 
+    foreach ( $comments as $comment ) 
+    { 
+        $date_comment   = new DateTime( $comment['DatePublished'] );
+        $login          = $comment['Login'];
+        $df_date        = date_format( $date_comment, 'd M Y' );
+        $df_time        = date_format( $date_comment, 'G:h T' );
         
         $author_tag = authorComment( $login ) ? 'w3-tag w3-blue' : '';
         ?>
