@@ -83,7 +83,7 @@ class ArticlesController extends Controller
     
     public function admin_index()
     {
-        $this->data['articles'] = $this->model->getAll();
+        $this->data['articles'] = $this->model->getAll( false );
         $this->data['language'] = App::getRouter()->getLanguage();
         
     }

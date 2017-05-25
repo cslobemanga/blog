@@ -12,11 +12,12 @@ $lang = $data['language'];
         <table class="w3-table-all w3-hoverable w3-small w3-card-4" style="width: 90%">
             <tr class="w3-dark-gray w3-text-sand">
                 <th style="width: 5%">#</th>
-                <th style="width: 20%">Title</th>
+                <th class="w3-border" style="width: 20%">Title</th>
                 <th style="width: 10%">Author</th>
-                <th style="width: 35%">Content</th>
-                <th style="width: 15%">Last changed</th>
-                <th style="width: 15%"></th>
+                <th class="w3-border" style="width: 35%">Content</th>
+                <th style="width: 10%">Last changed</th>
+                <th class="w3-border w3-center" style="width: 7%">Active</th>
+                <th class="w3-white" style="width: 13%"></th>
             </tr>
 
             <?php
@@ -31,16 +32,17 @@ $lang = $data['language'];
                 date_format( $date_article, 'H:i' ); 
             ?>
             <tr>
-                <td><?php echo $count; ?></td>
+                <td><?php echo $article['ArticleId']; ?></td>
 
-                <td><?php echo $article['Title']; ?></td>
+                <td class="w3-border"><?php echo $article['Title']; ?></td>
 
                 <td><?php echo $article['Login']; ?></td>
 
-                <td><?php echo $content . ' ...'; ?></td>
+                <td class="w3-border"><?php echo $content . ' ...'; ?></td>
 
-                <td class="w3-center"><?php echo $df; ?></td>
+                <td class="w3-padding-4"><?php echo $df; ?></td>
 
+                <td class="w3-border w3-center"><?php echo $article['IsPublished']; ?></td>
 
                 <td class="admin-table">
                     <a href="/admin/<?php echo $lang; ?>/articles/edit/<?php echo $article['ArticleId']; ?>">

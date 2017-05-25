@@ -3,6 +3,7 @@ namespace Application\Lib;
 
 use Application\Models\Page;
 use Application\Models\Archiv;
+use Application\Models\SocialNetwork;
 
 error_reporting( E_ALL );
 /* 
@@ -30,6 +31,7 @@ class Controller
         
         $this->loadStaticPages();
         $this->loadArchives();
+        $this->loadSocialNetworks();
     }
 
     public function getData() {
@@ -81,6 +83,22 @@ class Controller
             
             $this->data['archives'][] = $a;
         }
+    }
+    
+    /**
+     * Loads the social networks on the sidebar
+     */
+    protected function loadSocialNetworks()
+    {
+        $this->data['social_networks'] = [];
+        
+        $social_network = new SocialNetwork();
+        
+        foreach ( $social_network->getAll() as $sn ) {
+            
+            $this->data['social_networks'][] = $sn;
+        }
+        
     }
 
     protected function redirect()

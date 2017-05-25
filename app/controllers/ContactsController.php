@@ -27,7 +27,7 @@ class ContactsController extends Controller
     {
         if( $_POST ) {
             
-            if( $this->model->register( $_POST ) ) {
+            if( $this->model->saveMessage( $_POST ) ) {
                 Session::setFlash( translate( 'lng.flash.success.insert' ), 'alert-success' );
                 Router::redirect( '/' . App::getRouter()->getLanguage() );
                 
@@ -40,6 +40,6 @@ class ContactsController extends Controller
     public function admin_index()
     {
      
-        $this->data = $this->model->getAll();
+        $this->data['messages'] = $this->model->getAll();
     }
 }

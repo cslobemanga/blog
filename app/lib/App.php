@@ -53,12 +53,13 @@ class App
         if( method_exists( $controller_object, $controller_method ) ) {
             
             // Controller's action may return a view path
-            $view_path      = $controller_object->$controller_method();
-            $view_object    = new View( $controller_object->getData(), $view_path );
+            $view_path          = $controller_object->$controller_method();
+            $view_object        = new View( $controller_object->getData(), $view_path );
             
-            $static_pages   = $controller_object->getData()['static_pages'] ?? [];
-            $archives       = $controller_object->getData()['archives'] ?? [];
-            $content        = $view_object->render();
+            $static_pages       = $controller_object->getData()['static_pages'] ?? [];
+            $archives           = $controller_object->getData()['archives'] ?? [];
+            $social_networks    = $controller_object->getData()['social_networks'];
+            $content            = $view_object->render();
         }
         else 
         {
@@ -71,18 +72,20 @@ class App
         
         $layout_view_object = new View( 
                            [
-                            'dynamic'   => compact('content'), 
-                            'static'    => $static_pages,
-                            'archives'  => $archives,
+                            'dynamic'           => compact('content'), 
+                            'static'            => $static_pages,
+                            'archives'          => $archives,
+                            'social_networks'   => $social_networks,
                                
                             'router'    => [
-                                'controller'=> self::$router->getController(),
-                                'action'    => self::$router->getAction(),
-                                'language'  => $lang 
+                                'controller'    => self::$router->getController(),
+                                'action'        => self::$router->getAction(),
+                                'language'      => $lang 
                              ],
                                
-                            'languages' => Config::get( 'languages' ),
-                            'site_name' => Config::get( 'site_name' ),
+                            'languages'         => Config::get( 'languages' ),
+                            'site_name'         => Config::get( 'site_name' ),
+                               
                                
                            ], $layout_path );
         

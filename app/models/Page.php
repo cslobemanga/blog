@@ -20,9 +20,9 @@ class Page extends Model
         $this->table = 'pages';
     }
 
-    public function getAll()
+    public function getAll( bool $only_published=true )
     {
-        $params = array( 'IsPublished' => 1 );
+        $params = $only_published ? [ 'IsPublished' => 1 ] : [];
    
         $result = parent::findAll( $this->table, $params );
         
@@ -33,7 +33,7 @@ class Page extends Model
     {           
         $column = array( 'Alias' => $pAlias );
    
-        $result = parent::findByColumn( $column, $this->table );
+        $result = parent::findByColumn( $this->table, $column );
         
         return $result[0] ?? false;
     }
@@ -42,7 +42,7 @@ class Page extends Model
     {           
         $column = array( 'PageId' => $pId );
    
-        $result = parent::findByColumn( $column, $this->table );
+        $result = parent::findByColumn( $this->table, $column );
         
         return $result[0] ?? false;
     }

@@ -82,17 +82,25 @@ class Model implements IModel
     /**
      * Find the corresponding row from a given column
      * 
-     * @param array $column
      * @param string $table
+     * @param array $column
+     * @param array $condition
      * @return type
      */
-    public function findByColumn( array $column, string $table )
+    public function findByColumn( string $table, array $column, array $condition=[] )
     {   
-        $key    = array_keys($column)[0];
-        $value  = $column[$key];
+        $key    = array_keys( $column )[0];
+        $params = [ $column[$key] ];
         
         $sql    = "SELECT * FROM $table WHERE $key = ?";
-        $result = $this->getDB()->query( $sql, [$value] );
+        
+        if( count( $condition ) ) {
+            foreach ( $condition as $k => $v ) {
+                $sql .= " AND $k=?";
+                $params[] = $v;
+            }
+        }
+        $result = $this->getDB()->query( $sql, $params );
         
         return $result;
     } 

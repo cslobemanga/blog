@@ -1,25 +1,28 @@
 <div class="w3-content" style="max-width: 1400px">
 
-    <div class="w3-container w3-padding-large w3-margin w3-responsive">
+    <div class="w3-container w3-padding-large w3-margin w3-responsive mail-box">
         
         <h3><b>Messages</b></h3>
         <hr>
 
-        <table class="w3-table-all" style="width: 80%">
+        <table class="w3-table-all w3-hoverable" style="width: 80%">
 
             <tr class="w3-dark-gray w3-text-sand">
                 <td style="width: 5%">#</td>
-                <td style="width: 10%">Name</td>
+                <td style="width: 20%">Name</td>
                 <td style="width: 25%">Email</td>
-                <td style="width: 50%">Message</td>
+                <td style="width: 40%">Message</td>
             </tr>
 
-            <?php foreach ( $data as $item ) { ?>
+            <?php 
+            $messages = $data['messages'];
+            
+            foreach ( $messages as $message ) { ?>
             <tr>
-                <td><?php echo $item['MessageId']; ?></td>
-                <td><?php echo $item['Name']; ?></td>
-                <td><?php echo $item['Email']; ?></td>
-                <td><?php echo $item['Message']; ?></td>
+                <td><?php echo $message['MessageId']; ?></td>
+                <td><?php echo $message['Name']; ?></td>
+                <td><?php echo $message['Email']; ?></td>
+                <td><?php echo $message['Message']; ?></td>
             </tr> 
             <?php } ?>
         </table>

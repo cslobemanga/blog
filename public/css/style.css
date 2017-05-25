@@ -93,15 +93,14 @@ header p {
 }
 
 .single-comment {
-/*    padding: 5px;
-    margin-top: 5px; 
-    margin-bottom: 15px; 
-    width: 100%;
-    background-color: mediumorchid;*/
     font-size: 2em;
 }
 
 div.row {
     border: 1px solid #DDD;
-    margin-top: 10px;
+}
+
+.mail-box {
+    font-family: "Lato", sans-serif;
+    font-size: 1.1em;
 }

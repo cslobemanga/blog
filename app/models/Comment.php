@@ -38,7 +38,7 @@ class Comment extends Model
     {
         $column = array( 'key' => 'CommentId', 'value' => $id );
    
-        $result = parent::findByColumn( $column, $this->table );
+        $result = parent::findByColumn( $this->table, $column );
         
         return $result[0] ?? false;
     }

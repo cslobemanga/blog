@@ -26,25 +26,27 @@ class User extends Model
     public function getAll( bool $only_active=true )
     {
    
-        $params = $only_active ? array( 'IsActive' => 1 ) : [];
+        $params = $only_active ? [ 'IsActive' => 1 ] : [];
         
         return parent::findAll( $this->table, $params );
     }
 
     public function getByLogin( string $login )
     {
-        $column = array( 'Login' => $login );
+        $column     = [ 'Login' => $login ];
+        $condition  = ['IsActive' => 1 ];
         
-        $result = parent::findByColumn( $column, $this->table );
+        $result = parent::findByColumn( $this->table, $column, $condition );
         
         return $result[0] ?? false;
     }
     
     public function getById( int $id )
     {
-        $column = array( 'UserId' => $id );
+        $column     = [ 'UserId' => (int)$id ];
+        $condition  = ['IsActive' => 1 ];
         
-        $result = parent::findByColumn( $column, $this->table );
+        $result = parent::findByColumn( $this->table, $column, $condition );
         
         return $result[0] ?? false;
     }

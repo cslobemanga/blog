@@ -21,23 +21,21 @@ class Article extends Model
         $this->table_view['comments']   = 'article_comments';
     }
     
-    public function getAll()
+    public function getAll( bool $only_published=true )
     {
-        
         $table  = $this->table_view['author'];
-        $params = [ 'IsPublished' => 1 ];
+        $params = $only_published ? [ 'IsPublished' => 1 ] : [];
+        
         $order  = "DatePublished DESC";
         
-        $result = parent::findAll( $table, $params, $order );
-        
-        return $result; 
+        return parent::findAll( $table, $params, $order );     
     }
 
     public function getById( int $article_id )
     {
         $column = [ 'ArticleId' => $article_id ];
         
-        $result = parent::findByColumn( $column, $this->table ); 
+        $result = parent::findByColumn( $this->table, $column ); 
         
         return $result[0] ?? null;
     }
@@ -46,7 +44,7 @@ class Article extends Model
     {
         $column = [ 'AuthorId' => $author_id ];
         
-        $result = parent::findByColumn( $column, $this->table );
+        $result = parent::findByColumn( $this->table, $column );
         
         return $result[0] ?? null;
     }

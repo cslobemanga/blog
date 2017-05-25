@@ -28,26 +28,21 @@ class Message extends Model
         return parent::findAll( $this->table, $params, $order_by );
     }
 
-    public function register( $data, $id=null )
+    public function saveMessage( $data )
     {
         if( !isset( $data['name'] ) || !isset( $data['email'] ) 
                 || !isset( $data['message'] ) )
             return false;
         
-        $id         = ( int )$id;
-        $name       = $data['name'];
-        $email      = $data['email'];
-        $message    = $data['message'];
+        $name       = trim( $data['name'] );
+        $email      = trim( $data['email'] );
+        $message    = trim( $data['message'] );
         
         $columns    = [ 'Name' => $name,
                         'Email' => $email,
                         'Message' => $message ];
         
-        if( $id ) {
-            $columns += [ 'MessageId' => $id ];
-        }
-        
-        return parent::save( $columns, $this->table, $id );
+        return parent::save( $columns, $this->table );
     }
     
     public function remove( int $comment_id )
