@@ -67,7 +67,7 @@ class UsersController extends Controller
         
         if( isset( $this->params[0] ) ) {
             $id = (int) $this->params[0];
-            $this->data['user'] = $this->model->getById( $id );
+            $this->data['user'] = $this->model->getById( $id, false );
             
         } else {
             Session::setFlash ( 'Wrong page requested!', 'alert-warning' );

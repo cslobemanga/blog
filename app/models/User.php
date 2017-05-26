@@ -31,20 +31,20 @@ class User extends Model
         return parent::findAll( $this->table, $params );
     }
 
-    public function getByLogin( string $login )
+    public function getByLogin( string $login, bool $only_active=true )
     {
         $column     = [ 'Login' => $login ];
-        $condition  = ['IsActive' => 1 ];
+        $condition  = $only_active ? ['IsActive' => 1 ] : [];
         
         $result = parent::findByColumn( $this->table, $column, $condition );
         
         return $result[0] ?? false;
     }
     
-    public function getById( int $id )
+    public function getById( int $id, bool $only_active=true )
     {
         $column     = [ 'UserId' => (int)$id ];
-        $condition  = ['IsActive' => 1 ];
+        $condition  = $only_active ? ['IsActive' => 1 ] : [];
         
         $result = parent::findByColumn( $this->table, $column, $condition );
         
