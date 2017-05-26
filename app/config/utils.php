@@ -16,7 +16,7 @@ use Application\Lib\Session;
  * @param string $default_value
  * @return string
  */
-function translate( string $key, $default_value= '' ):string
+function translate( string $key, $default_value= '' ): string
 {
 	return Lang::get( $key, $default_value );
 }
