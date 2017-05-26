@@ -3,10 +3,12 @@
   
   foreach ( $data['articles'] as $article ) { 
     
-      $article_id   = $article['ArticleId'];
-      $article_link = "/$lang/articles/view/$article_id";
+    $article_id     = $article['ArticleId'];
+    $article_link   = "/$lang/articles/view/$article_id";
       
-    $date_article = new DateTime( $article['DatePublished'] ); ?>
+    $date_article   = new DateTime( $article['DatePublished'] ); 
+    $date_modified  = new DateTime( $article['DateModified'] ); 
+ ?>
 
 <div class="w3-card-4 blog-item w3-margin" style="width: 95%">
     
@@ -17,11 +19,18 @@
     <div class="w3-container w3-border">
         <p class="w3-padding-4 w3-margin">
             
-            Published <?php echo dateIsToday( $date_article ) ? 
-                '<b>Today</b>' : 'on' . date_format( $date_article, 'd M Y' ); ?> at 
-            <?php echo date_format( $date_article, 'G:h T' ); ?> by&nbsp;
+            Published <?php echo ( dateIsToday( $date_article ) ? 
+                 '<b>Today</b>' : ' on ' . date_format( $date_article, 'd M Y' ) )  .
+                    ' at ' . date_format( $date_article, 'G:h' ); ?> by&nbsp;
             
             <span class="w3-tag w3-black"><a href=""><?php echo $article['Login']; ?></a></span>
+            
+            <?php if( $date_article != $date_modified ) { ?>
+            <span  class="w3-right">
+                Last Modified on <?php echo date_format( $date_modified, 'd M Y' ) . 
+                        ' at ' . date_format( $date_article, 'G:h' ); ?>
+            </span>
+            <?php } ?>
         </p>
     </div>
 

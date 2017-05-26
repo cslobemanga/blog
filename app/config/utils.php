@@ -50,6 +50,12 @@ function authorComment( string $login ): bool
     return ( $author['Login'] == $login );
 }
 
+/**
+ * Compares a given date with the current date
+ * 
+ * @param DateTime $date
+ * @return bool
+ */
 function dateIsToday( DateTime $date ): bool
 {
     $today  = new DateTime();

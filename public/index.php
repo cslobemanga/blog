@@ -1,6 +1,10 @@
 <?php
 session_start();
-error_reporting( E_ALL );
+error_reporting( E_ALL & ~E_DEPRECATED );
+
+if( !ini_get( 'date.timezone' ) ) {
+    date_default_timezone_set( 'Europe/Berlin' );
+}
  
  /* 
  * Cart Project with MVC
