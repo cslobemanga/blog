@@ -121,15 +121,20 @@ class ArticlesController extends Controller
     {
         
         $params = App::getRouter()->getParams();
-        $lang  = App::getRouter()->getLanguage();
+        $lang   = App::getRouter()->getLanguage();
         
         if( isset( $params[0] ) ) {
             
             $result = $this->model->remove( (int) $params[0] );
             
-            Session::setFlash ( $result ? 'The selected article was successfully deleted!' : 'Error: article could not be deleted!' );
-            
-            Router::redirect( '/admin/' . $lang );
+            if( $result ) {
+                Session::setFlash ( 'The selected article was successfully deleted!', 'alert-success' );
+                
+            } else {
+                Session::setFlash ( 'Error: article could not be deleted!', 'alert-warning' );
+            }
+            $this->redirect_path = '/admin/' . $lang;
+            $this->redirect();
         }
     }
     

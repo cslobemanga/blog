@@ -1,14 +1,17 @@
 <?php
 use Application\Lib\Session;
 
+
 $article    = $data['article'];
 $author     = $data['author'];
 $comments   = $data['comments'];
 $language   = $data['language'];
 
-$date_article   = new DateTime($article['DatePublished']);
-$logged_in      = ( Session::get('user') != null );
-$add_comment_path = '/' . $language . '/comments/add/' . $article['ArticleId'];
+$date_article       = new DateTime($article['DatePublished']);
+$add_comment_path   = '/' . $language . '/comments/add/' . $article['ArticleId'];
+
+$logged_user = Session::get('user');
+$logged_in   = ( $logged_user != null );
 ?>
 
 <div class="w3-content" style="max-width: 800px;">
@@ -23,79 +26,106 @@ $add_comment_path = '/' . $language . '/comments/add/' . $article['ArticleId'];
     
     <hr>
 
-    <p><?php echo $article['Content']; ?></p>
+    <p style="text-align: justify; margin-bottom: 20px;"><?php echo $article['Content']; ?></p>
+    
+    <hr><hr>
 
     <!--Comments section-->
 
-    <?php if (!count($comments)) { ?>
+    <?php if ( !count( $comments ) && $logged_in ) { ?>
         <p>Be the first to comment on this article.</p>
-    <?php } else { ?>
-        <p>
-            <br><br>
-            <b>Comments: </b><span class="w3-tag w3-black"><?php echo count($comments); ?></span>
+    <?php } else {
+            if( count( $comments ) ) { ?>
+            <p>
+            <span class="w3-left">
+                <b>Comments: </b><span class="w3-tag w3-black"><?php echo count($comments); ?></span>
+            </span>
+            <?php } 
+            
+            if( !$logged_in ) { ?>
+            <p>
+            <span class="w3-right">
+                You must be <b><a href="/<?php echo $language; ?>/users/login">logged in</a></b> 
+                    to comment on this article.
+            </span>
+            <?php } ?>
         </p>
     <?php } ?>
-
-    <form method="post" action="<?php echo $add_comment_path; ?>">
-        <input type="hidden" name="article_id" value="<?php echo $article['ArticleId']; ?>" >
-        <?php if( $logged_in ) {
-            $user = Session::get('user');
-        ?>
-        <input type="hidden" name="author_id" value="<?php echo $user['UserId']; ?>" >
-        <?php } ?>
         
-        <div class="w3-row">
-            <div class="w3-col m2">
-                <div class="w3-dark-gray w3-text-sand w3-right w3-margin" 
-                     style="width:50%;">
-                    <h1 class="w3-center">C</h1>
+        <hr><hr>
+
+        <form method="post" action="<?php echo $add_comment_path; ?>">
+            <input type="hidden" name="article_id" value="<?php echo $article['ArticleId']; ?>" >
+            <?php if( $logged_in ) { ?>
+            <input type="hidden" name="author_id" value="<?php echo $logged_user['UserId']; ?>" >
+            <?php } ?>
+
+            <div class="w3-row w3-padding-large">
+                <div class="w3-col m2"></div>
+                <div class="w3-col m10 w3-right">
+                    <textarea id="comment-textarea" name="content" rows="3" class="w3-padding-4" style="width:100%; resize: none" <?php if( !$logged_in ) echo 'readonly' ?> placeholder="Leave a comment" value="<?php echo $comment['Content'] ?? ''; ?>" required ></textarea>
                 </div>
             </div>
-            <div class="w3-col m10">
-                <textarea id="content" name="content" rows="4" style="width:95%"
-                          placeholder="Your comment" value="<?php echo $comment['Content'] ?? ''; ?>"
-            <?php if (!$logged_in) echo 'disabled'; ?> required="required" width="100%">
-                </textarea>
+            <div class="w3-container" style="width:98%">
+                <button class="w3-button w3-right w3-white w3-border w3-round-xlarge w3-border-black" 
+                        style="margin-left:10px">Cancel</button>
+                <button type="submit" class="w3-button w3-dark-gray w3-right w3-round-xlarge">OK</button>
             </div>
-        </div>
-        <div class="w3-container" style="width:95%">
-            <button class="w3-button w3-right w3-white w3-border w3-round-xlarge w3-border-black" style="margin-left:20px">Cancel</button>
-            <button type="submit" class="w3-button w3-dark-gray w3-right w3-round-xlarge">OK</button>
-        </div>
-    </form>
+        </form>
         
-    <hr>
-
-    <?php 
-    foreach ( $comments as $comment ) 
-    { 
-        $date_comment   = new DateTime( $comment['DatePublished'] );
-        $login          = $comment['Login'];
-        $df_date        = date_format( $date_comment, 'd M Y' );
-        $df_time        = date_format( $date_comment, 'G:h T' );
-        
-        $author_tag = authorComment( $login ) ? 'w3-tag w3-blue' : '';
-        ?>
-    <form action="" method="post">
-        <div class="w3-row" style="width:95%">
-            <div class="w3-col s2 w3-center">
-                <img src="http://gravatar.com/avatar/<?php echo md5($comment['Content']); ?>" width="40%" >
-            </div>
-            <div class="w3-col s10">
-                <p>Published by <span class="<?php echo $author_tag; ?>"><?php echo $login ?></span> am 
-                    <b><?php echo $df_date ?></b> um
-                    <?php echo $df_time ?>
-                </p>
-                <p><?php echo $comment['Content']; ?></p>
-            </div>
-        </div>
-        <?php if( authorComment($login) ) { ?>
-        <div class="w3-container" style="width: 95%">
-            <button type="submit" class="w3-button w3-dark-gray w3-border w3-right w3-round-xlarge">Edit</button>
-        </div>
-        <?php } ?>
-    </form>
         <hr>
+
+        <?php 
+        foreach ( $comments as $comment ) 
+        { 
+            $edit_comment_path = '/' . $language . '/comments/edit/' . 
+                    $article['ArticleId'] . '/' . $comment['CommentId'];
+            $delete_comment_path = '/' . $language . '/comments/delete/' . $comment['CommentId'];
+
+            $date_comment   = new DateTime( $comment['DatePublished'] );
+            $login          = $comment['Login'];
+            $df_date        = date_format( $date_comment, 'd M Y' );
+            $df_time        = date_format( $date_comment, 'G:h T' );
+
+            $author_tag     = authorComment( $login ) ? 'w3-tag w3-blue' : '';
+            $textarea_id    = 'btn_' . $comment['CommentId'];
+            ?>
+        <form action="" method="post">
+            <div class="w3-row" style="width:95%">
+                <div class="w3-col s2 w3-center">
+                    <img src="http://gravatar.com/avatar/<?php echo md5( $login ); ?>" width="40%" >
+                </div>
+                <div class="w3-col s10">
+                    <p>Published by <span class="<?php echo $author_tag; ?>">
+                            <b><?php echo $login ?></b></span> am <b><?php echo $df_date ?></b> um
+                        <?php echo $df_time ?>
+                    </p>
+                    <textarea id="<?php echo $textarea_id; ?>" name="content" rows="3" 
+                              class="<?php if( authorComment( $login ) ) echo 'textarea-author' ?>" 
+                              style="width:100%; text-align: left; resize: none; border: none" readonly >
+                        <?php echo trim( $comment['Content'] ); ?>
+                    </textarea>
+                </div>
+            </div>
+            <?php if( authorComment($login) ) { ?>
+            <div class="w3-container" id="div-edit-author" style="width: 95%;  visibility: hidden">
+                <a href="<?php echo $delete_comment_path; ?>" >
+                    <button class="w3-button w3-white w3-border w3-border-black w3-right w3-round-xlarge" 
+                            style="margin-left: 10px" onclick="return confirmDelete();">
+                        Delete
+                    </button>
+                </a>
+                <a href="<?php echo $edit_comment_path; ?>" >
+                    <button  class="w3-button w3-dark-gray w3-border w3-right w3-round-xlarge" >
+                        Edit
+                    </button>
+                </a>
+            </div>
+            <?php } ?>
+        </form>
+        
+        <hr>
+        
     <?php } ?>
 
 </div>

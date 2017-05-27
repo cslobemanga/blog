@@ -14,6 +14,7 @@ function confirmDelete()
 
 $( document ).ready( function() {
     
+    // Redirect language url
     $('#lang_option').change( function()
     {
        var url = $(this).val();
@@ -21,9 +22,21 @@ $( document ).ready( function() {
        if( url ) {
            window.location = '/' + url;
        }
-
-//       alert( url );
+       
        return false;
     });
+    
+    // Enable comment text-area
+    $( '.textarea-author' ).click( function()
+    {
+        var textarea_id = $(this).attr('id');
+        
+        $( ".textarea-author[id*='" + textarea_id + "']" )
+            .attr( 'readonly', false )
+            .addClass( 'w3-border' );
+    
+        $( '#div-edit-author').css( 'visibility', 'visible' );
+        
+    })
 });
 

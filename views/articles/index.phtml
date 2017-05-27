@@ -28,17 +28,20 @@
             <?php if( $date_article != $date_modified ) { ?>
             <span  class="w3-right">
                 Last Modified on <?php echo date_format( $date_modified, 'd M Y' ) . 
-                        ' at ' . date_format( $date_article, 'G:h' ); ?>
+                        ' at ' . date_format( $date_modified, 'G:h' ); ?>
             </span>
             <?php } ?>
         </p>
     </div>
 
     <div class="w3-container">
-        <p class="w3-padding-4 w3-margin"><?php echo $article['Content']; ?></p>
+        <p class="w3-padding-4 w3-margin" style="text-align: justify">
+            <?php echo substr( $article['Content'], 0, 300 ) . '...'; ?>
+        </p>
         <p>
             <a href="<?php echo $article_link ?>">
-                <button class="w3-button w3-right w3-padding-4 w3-border w3-black w3-text-sand w3-round-xlarge">
+                <button style="margin-right: 25px;" 
+                        class="w3-button w3-right w3-padding-4 w3-border w3-black w3-text-sand w3-round-xlarge">
                 Weiterlesen
                 </button>
             </a>

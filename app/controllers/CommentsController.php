@@ -60,4 +60,29 @@ class CommentsController extends Controller
              Session::setFlash( 'Error: Your comment could not be added!', 'alert-warning' );
         }
     }
+    
+    public function delete()
+    {
+        $params = App::getRouter()->getParams();
+        $lang   = App::getRouter()->getLanguage();
+        
+        if( isset( $params[0] ) ) {
+            
+            $result = $this->model->remove( (int)$params[0] );
+            
+            display( $result );
+            die();
+            
+            if( $result ) {
+                Session::setFlash( 'Your comment was successfully deleted!', 'alert-success' );
+                $this->redirect_path = '/' . $lang . '/articles';
+//                $this->redirect_path = '/' . $lang . '/articles/view/' . $article_id;
+                $this->redirect();
+                
+            } else {
+                echo 'no way...';
+                Session::setFlash( 'Error: Your comment could not be deleted!', 'alert-warning' );
+            }
+        }
+    }
 }

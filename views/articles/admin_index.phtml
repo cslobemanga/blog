@@ -46,10 +46,12 @@ $lang = $data['language'];
 
                 <td class="admin-table">
                     <a href="/admin/<?php echo $lang; ?>/articles/edit/<?php echo $article['ArticleId']; ?>">
-                        <button class="w3-button w3-blue w3-round-xlarge w3-text-sand">Edit</button></a>
+                        <button class="w3-button w3-blue w3-round-xlarge w3-text-sand">Edit</button>
+                    </a>
 
                     <a href="/admin/<?php echo $lang; ?>/articles/delete/<?php echo $article['ArticleId']; ?>" onclick="return confirmDelete();" >
-                        <button class="w3-button w3-orange w3-round-xlarge w3-text-sand">Delete</button></a>
+                        <button class="w3-button w3-orange w3-round-xlarge w3-text-sand">Delete</button>
+                    </a>
                 </td>
             </tr>
             <?php $count++; } ?>

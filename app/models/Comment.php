@@ -81,4 +81,17 @@ class Comment extends Model
             echo 'Error: ' . $ex->getMessage();
         }
     }
+    
+    /**
+     * Deletes a given comment from an article comment list
+     * 
+     * @param int $comment_id
+     * @return type
+     */
+    public function remove( int $comment_id )
+    {
+        $columns = [ 'CommentId' => (int)$comment_id ];
+        
+        return parent::delete( $columns, $this->table );
+    }
 }
