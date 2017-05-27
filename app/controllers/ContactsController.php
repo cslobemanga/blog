@@ -28,11 +28,11 @@ class ContactsController extends Controller
         if( $_POST ) {
             
             if( $this->model->saveMessage( $_POST ) ) {
-                Session::setFlash( translate( 'lng.flash.success.insert' ), 'alert-success' );
+                Session::setFlash( translate( 'lng.flash.success.insert' ), Session::SEVERITY_SUCCESS );
                 Router::redirect( '/' . App::getRouter()->getLanguage() );
                 
             } else {
-                Session::setFlash( translate( 'lng.flash.error.insert' ), 'alert-warning' );
+                Session::setFlash( translate( 'lng.flash.error.insert' ), Session::SEVERITY_WARNING );
             }
         }
     }

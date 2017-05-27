@@ -68,7 +68,7 @@ div.single-page {
 .admin-table-users {
     font-size: 1.0em;
     margin-top: 40px;
-    width: 60%;
+    width: 75%;
 }
 
 td.admin-table-pages {
@@ -103,4 +103,29 @@ div.row {
 .mail-box {
     font-family: "Lato", sans-serif;
     font-size: 1.1em;
+}
+
+.flash-message {
+   animation-duration: 10s;
+   -webkit-animation-duration: 10s;
+   animation-fill-mode: both;
+   -webkit-animation-fill-mode: both;
+    
+    width: 80%;
+    font-weight: bolder;
+    font-style: italic;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+@-webkit-keyframes fadeOut{
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.fadeOut {
+    animation-name: fadeOut;
+    -webkit-animation-name: fadeOut;
 }

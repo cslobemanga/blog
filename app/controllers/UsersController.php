@@ -25,9 +25,10 @@ class UsersController extends Controller
     
     public function logout()
     {
-        Session::destroy();
-        
         Router::redirect( '/' . App::getRouter()->getLanguage() );
+        Session::setFlash( 'User was successfully logged out!', Session::SEVERITY_SUCCESS );
+        
+        Session::destroy();
     }
 
     public function admin_index()
@@ -42,8 +43,12 @@ class UsersController extends Controller
         {
             $result = $this->model->register( $_POST, true );
             
-            Session::setFlash( $result ? 'User was successfully added!' : 'Error: User could not be created.' );
-            
+            if( $result ) {
+                Session::setFlash( 'User was successfully registered!', Session::SEVERITY_SUCCESS );
+                
+            } else {
+                Session::setFlash( 'Error: User could not be created.', Session::SEVERITY_WARNING );
+            }
             Router::redirect( '/admin/' . App::getRouter()->getLanguage() . '/users' );
         }
     }
@@ -57,11 +62,11 @@ class UsersController extends Controller
             $result = $this->model->update( $_POST, $id );
 
             if( $result ) {
-                Session::setFlash( 'The user was successfully updated!', 'alert-success' );
+                Session::setFlash( 'The user was successfully updated!', Session::SEVERITY_SUCCESS );
                 Router::redirect( '/admin/' . App::getRouter()->getLanguage() . '/users' );
                 
             } else {
-                Session::setFlash( 'Error: User data could not be edited!', 'alert-warning' );
+                Session::setFlash( 'Error: User data could not be edited!', Session::SEVERITY_WARNING );
                 Router::redirect( '/admin/' . App::getRouter()->getLanguage() . '/users' );
             }
         }
@@ -85,7 +90,12 @@ class UsersController extends Controller
             
             $result = $this->model->remove( (int) $params[0] );
             
-            Session::setFlash ( $result ? 'The selected user was successfully deleted!' : 'Error: User could not be deleted!' );
+            if( $result ) {
+                Session::setFlash ( 'The selected user was successfully deleted!', Session::SEVERITY_SUCCESS );
+                
+            } else {
+                Session::setFlash ( 'Error: User could not be deleted!', Session::SEVERITY_WARNING );
+            }
             
             Router::redirect( '/admin/' . App::getRouter()->getLanguage() . '/users' );
         }
@@ -98,26 +108,28 @@ class UsersController extends Controller
             
             $user = $this->model->getByLogin( $_POST['login'] );
             
-            if( !$user )
-                Session::setFlash( 'User unknown!' );
+            if( !$user ) {
+                Session::setFlash( 'User unknown!', Session::SEVERITY_WARNING );
+            }
             
             $result = $this->model->login( $_POST['login'], $_POST['password'] );
             
             if( $result ) {
             
                 Session::set( 'user', $user );
-                Session::setFlash( 'Herzlich Willkomen ' . $_POST['login'], 'alert-info' );
+                Session::setFlash( 'Herzlich Willkomen ' . $_POST['login'] );
                 
                 $lang = App::getRouter()->getLanguage();
                 
-                if( $user['Role'] == 1 )
+                if( $user['Role'] == 1 ) {
                     Router::redirect( '/admin/' . $lang );
                 
-                else
+                } else {
                     Router::redirect( '/' . $lang ); 
+                }
             
             } else {
-                Session::setFlash( 'Zugangsdaten sind ungültig!', 'alert-danger' );
+                Session::setFlash( 'Zugangsdaten sind ungültig!', Session::SEVERITY_WARNING );
             }
         }
     }
@@ -129,11 +141,11 @@ class UsersController extends Controller
             $result = $this->model->register( $_POST, $by_admin );
             
             if( $result ) {
-                Session::setFlash( 'User successfully registerd', 'alert-success' );
+                Session::setFlash( 'User successfully registerd', Session::SEVERITY_SUCCESS );
                 Router::redirect( $redirect_path );
                 
             } else
-                Session::setFlash( 'Error: User could not be registered.', 'alert-warning' );
+                Session::setFlash( 'Error: User could not be registered.', Session::SEVERITY_WARNING );
         } 
     }
     

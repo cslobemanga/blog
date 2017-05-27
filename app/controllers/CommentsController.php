@@ -63,12 +63,12 @@ class CommentsController extends Controller
         
         if( $this->model->add( $_POST ) ) {
             
-            Session::setFlash( 'Your comment was successfully added!', 'alert-success' );
+            Session::setFlash( 'Your comment was successfully added!', Session::SEVERITY_SUCCESS );
             $this->redirect_path = '/' . $lang . '/articles/view/' . $article_id;
             $this->redirect();
             
         } else {
-             Session::setFlash( 'Error: Your comment could not be added!', 'alert-warning' );
+             Session::setFlash( 'Error: Your comment could not be added!', Session::SEVERITY_WARNING );
         }
     }
     
@@ -87,12 +87,12 @@ class CommentsController extends Controller
             
             if( $result ) {
                 
-                Session::setFlash( 'Your comment was successfully deleted!', 'alert-success' );
+                Session::setFlash( 'Your comment was successfully deleted!', Session::SEVERITY_SUCCESS );
                 $this->redirect_path = '/' . $lang . '/articles/view/' . $article_id;
                 $this->redirect();
                 
             } else {
-                Session::setFlash( 'Error: Your comment could not be deleted!', 'alert-warning' );
+                Session::setFlash( 'Error: Your comment could not be deleted!', Session::SEVERITY_WARNING );
             }
         } 
     }
@@ -110,12 +110,12 @@ class CommentsController extends Controller
             $result = $this->model->edit( $_POST );
             
             if( $result ) {
-                Session::setFlash( 'Your comment was successfully edited!', 'alert-success' );
+                Session::setFlash( 'Your comment was successfully edited!', Session::SEVERITY_SUCCESS );
                 $this->redirect_path = '/' . $lang . '/articles/view/' . $article_id;
                 $this->redirect();
             
             } else {
-                 Session::setFlash( 'Error: Your comment could not be edited!', 'alert-warning' );
+                 Session::setFlash( 'Error: Your comment could not be edited!', Session::SEVERITY_WARNING );
             }
         }
     }

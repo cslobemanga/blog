@@ -8,30 +8,30 @@
         <h4><b>Users Control</b></h4>
         <hr>
 
-        <table class="w3-table-all w3-small w3-card-4 w3-hoverable" style="width:80%">
+        <table class="w3-table-all w3-small w3-card-4 w3-hoverable admin-table-users">
 
             <tr class="w3-dark-gray w3-text-sand">
-                <td style="width: 5%">#</td>
-                <td style="width: 25%">Login</td>
+                <td style="width: 8%">User-Id</td>
+                <td class="w3-border" style="width:22%">Login</td>
                 <td style="width: 35%">Email</td>
-                <td style="width: 7%">Admin</td>
+                <td class="w3-border" style="width:7%">Admin</td>
                 <td style="width: 7%">Active</td>
-                <td style="width: 30%"></td>
+                <td class="w3-white" style="width:30%"></td>
             </tr>
 
             <?php foreach ( $data['users'] as $user) { ?>
             <tr>
-                <td><?php echo $user['UserId']; ?></td>
+                <td class="w3-center"><?php echo str_pad( $user['UserId'], 3, '0', STR_PAD_LEFT ); ?></td>
 
-                <td><?php echo $user['Login']; ?></td>
+                <td class="w3-border"><?php echo $user['Login']; ?></td>
 
                 <td><?php echo $user['Email']; ?></td>
 
-                <td class="w3-center"><?php echo $user['Role']; ?></td>
+                <td class="w3-center w3-border"><?php echo $user['Role']; ?></td>
 
-                <td class="w3-center"><?php echo $user['IsActive']; ?></td>
+                <td class="w3-center w3-border"><?php echo $user['IsActive']; ?></td>
 
-                <td class="admin-table">
+                <td class="w3-center">
                     <a href="/admin/<?php echo $lang; ?>/users/edit/<?php echo $user['UserId']; ?>">
                         <button class="w3-button w3-blue w3-round-xlarge w3-text-sand">Edit</button></a>
 

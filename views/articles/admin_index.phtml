@@ -32,7 +32,7 @@ $lang = $data['language'];
                 date_format( $date_article, 'H:i' ); 
             ?>
             <tr>
-                <td><?php echo $article['ArticleId']; ?></td>
+                <td><?php echo str_pad($article['ArticleId'], 3, '0', STR_PAD_LEFT); ?></td>
 
                 <td class="w3-border"><?php echo $article['Title']; ?></td>
 

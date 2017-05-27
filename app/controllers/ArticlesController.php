@@ -5,7 +5,6 @@ use Application\Lib\Controller;
 use Application\Models\Article;
 use Application\Lib\Session;
 use Application\Lib\App;
-use Application\Lib\Router;
 
 error_reporting( E_ALL );
 /* 
@@ -28,6 +27,8 @@ class ArticlesController extends Controller
         
         $this->data['articles'] = $this->model->getAll();
         $this->data['language'] = App::getRouter()->getLanguage();
+        
+//        Session::setFlash( 'Herzlich Willkommen bei unserem Blog', Session::SEVERITY_INFO );
     }
     
     public function view()
@@ -71,13 +72,13 @@ class ArticlesController extends Controller
         
         if( $this->model->add( $_POST ) ) {
             
-            Session::setFlash( 'A new page was successfully created!', 'alert-info' );
+            Session::setFlash( 'A new page was successfully created!', Session::SEVERITY_SUCCESS );
             
             $this->redirect_path = '/' . $lang;
             $this->redirect();
         
         } else {
-            Session::setFlash( 'Error: A new page could not be created!', 'alert-danger' );
+            Session::setFlash( 'Error: A new page could not be created!', Session::SEVERITY_WARNING );
         }
     }
     
@@ -107,10 +108,10 @@ class ArticlesController extends Controller
         $result = $this->model->edit( $_POST, $article_id );
 
         if( $result ) {
-            Session::setFlash( 'Article was successfully edited', 'alert-success' );
+            Session::setFlash( 'Article was successfully edited', Session::SEVERITY_SUCCESS );
             
         } else {
-            Session::setFlash( 'Error: The required article could not be updated', 'alert-warning' );
+            Session::setFlash( 'Error: The required article could not be updated', Session::SEVERITY_WARNING );
         }
         
         $this->redirect_path = '/admin/' . $lang;
@@ -128,10 +129,10 @@ class ArticlesController extends Controller
             $result = $this->model->remove( (int) $params[0] );
             
             if( $result ) {
-                Session::setFlash ( 'The selected article was successfully deleted!', 'alert-success' );
+                Session::setFlash ( 'The selected article was successfully deleted!', Session::SEVERITY_SUCCESS );
                 
             } else {
-                Session::setFlash ( 'Error: article could not be deleted!', 'alert-warning' );
+                Session::setFlash ( 'Error: article could not be deleted!', Session::SEVERITY_WARNING );
             }
             $this->redirect_path = '/admin/' . $lang;
             $this->redirect();
@@ -152,13 +153,13 @@ class ArticlesController extends Controller
         
         if( $this->model->add( $_POST ) ) {
             
-            Session::setFlash( 'A new page was successfully created!', 'alert-info' );
+            Session::setFlash( 'A new page was successfully created!', Session::SEVERITY_SUCCESS );
             
             $this->redirect_path = '/admin/' . $lang;
             $this->redirect();
         
         } else {
-            Session::setFlash( 'Error: A new page could not be created!', 'alert-danger' );
+            Session::setFlash( 'Error: A new page could not be created!', Session::SEVERITY_WARNING );
         }
     }
 }

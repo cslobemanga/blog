@@ -9,54 +9,121 @@ error_reporting( E_ALL );
 
 class Session
 {
+    const SEVERITY_INFO     = 1;
+    const SEVERITY_SUCCESS  = 2;
+    const SEVERITY_WARNING  = 3;
+    const SEVERITY_ERROR    = 4;
+
     protected static $flash_message;
     
-    public static function setFlash( $message, $severity='alert-info' )
+    /**
+     * 
+     * @param type $message
+     * @param type $severity
+     */
+    public static function setFlash( $message, int $severity=self::SEVERITY_INFO )
     {
+        self::set( 'flash_message', $message );
+//        self::$flash_message = $message;
         
-        self::$flash_message = $message;
         self::set( 'severity', $severity );
     }
     
-    public static function hasFlash()
+    /**
+     * 
+     * @return bool
+     */
+    public static function hasFlash(): bool
     {
-        
-        return ( !is_null( self::$flash_message ) );
+        return ( !is_null( self::get( 'flash_message' ) ) );
     }
     
+    /**
+     * 
+     */
     public static function flash()
     {
+        $message = "<p class='w3-margin w3-round-xlarge w3-padding-large w3-" . 
+                self::getFlashBackground() . " flash-message fadeOut' >";
         
-        echo self::$flash_message;
+        $message .= '<b>' . self::get( 'flash_message' ) . '</b></p>';
         
-        self::$flash_message = null;
+        echo $message;
+        
+//        self::$flash_message = null;
     }
     
-    public static function getFlash()
+    /**
+     * Set the background color of the flash message box
+     * 
+     * @return string
+     */
+    public static function getFlashBackground()
     {
+        $color = 'blue';
         
-        return self::$flash_message;
+        switch ( self::get( 'severity' ) ) {
+            
+            case self::SEVERITY_ERROR:
+                $color = 'red';
+                break;
+            case self::SEVERITY_WARNING:
+                $color = 'orange';
+                break;
+            case self::SEVERITY_SUCCESS:
+                $color = 'green';
+                break;
+            default:
+                $color = 'blue';
+                break;
+        }
+        
+        return $color;
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    public static function getFlash(): string
+    {
+        return self::get( 'flash_message' );
     }
 
-    public static function set( $key, $value )
+    /**
+     * 
+     * @param string $key
+     * @param type $value
+     */
+    public static function set( string $key, $value )
     {
-        
         $_SESSION[ $key ] = $value;
     }
     
+    /**
+     * 
+     * @param int $key
+     * @return type
+     */
     public static function get( $key )
     {
-        
         return ( $_SESSION[ $key ] ?? null );
     }
     
-    public static function delete( $key )
+    /**
+     * 
+     * @param int $key
+     */
+    public static function delete( string $key )
     {
-        
-        if( isset( $_SESSION[ $key ] ) )
+        if( isset( $_SESSION[ $key ] ) ) {
             unset( $_SESSION[ $key ] );
+        }
     }
     
+    /**
+     * 
+     */
     public static function destroy()
     {
         self::delete( 'user' );

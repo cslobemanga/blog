@@ -92,9 +92,21 @@ Charles S. Lobe-Manga <charles@lobe-manga.com>
                 </div>
             </div>
             
-            <header class="w3-container w3-padding-32 w3-center">
-                <h1>Der Maintaler Blog</h1>
-                <p>Template for creating <span class="w3-tag w3-black">MVC with PHP</span></p>
+            <header class="w3-container w3-padding-32">
+                <div class="w3-row">
+                    <div id="flash-container" class="w3-col m4 w3-container">
+                       <?php
+                       if( \Application\Lib\Session::hasFlash() ) {
+                           
+                           \Application\Lib\Session::flash();
+                       }
+                       ?>
+                    </div>
+                    <div class="w3-col m8">
+                         <h1>Der Maintaler Blog</h1>
+                         <p>Template for creating <span class="w3-tag w3-black">MVC with PHP</span></p>
+                    </div>
+                </div>
             </header>
 
             <div class="w3-row">

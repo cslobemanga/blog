@@ -66,11 +66,14 @@ Charles S. Lobe-Manga <charles@lobe-manga.com>
 
             <div class="w3-container">
                 
-                <?php if( Session::hasFlash() ) { ?>
-                    <div class="alert alert-info" role="alert">
-                        <?php Session::flash(); ?>
-                    </div>
-                <?php } ?>
+                <div id="flash-container" class="w3-container">
+                    <?php
+                    if( \Application\Lib\Session::hasFlash() ) {
+
+                        \Application\Lib\Session::flash();
+                    }
+                    ?>
+                 </div>
 
                 <?php echo $data[ 'dynamic' ]['content']; ?>
             

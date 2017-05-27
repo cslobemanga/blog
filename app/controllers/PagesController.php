@@ -62,13 +62,13 @@ class PagesController extends Controller
                     fclose( $file );
                     
                 } else {
-                    Session::setFlash ( 'Error: Content file could not be created!', 'alert-warning' );
+                    Session::setFlash ( 'Error: Content file could not be created!', Session::SEVERITY_WARNING );
                 }
                     
-                Session::setFlash ( 'The new page was successfully created!', 'alert-success' );
+                Session::setFlash ( 'The new page was successfully created!', Session::SEVERITY_SUCCESS );
             
             } else {
-                Session::setFlash ( 'Error: page could not be created!', 'alert-warning' );
+                Session::setFlash ( 'Error: page could not be created!', Session::SEVERITY_WARNING );
             }
             Router::redirect( '/admin/pages' );
         }
@@ -81,7 +81,11 @@ class PagesController extends Controller
             
             $result = $this->model->edit( $_POST );
             
-            Session::setFlash( $result ? 'The new page was successfully edited!' : 'Error: page could not be edited!' );
+            if( $result ) {
+                Session::setFlash( 'The new page was successfully edited!', Session::SEVERITY_SUCCESS );
+            } else {
+                Session::setFlash( 'Error: page could not be edited!', Session::SEVERITY_WARNING);
+            }
             
             Router::redirect( '/admin/' . App::getRouter()->getLanguage() . '/pages' );
         }
@@ -107,8 +111,11 @@ class PagesController extends Controller
             
             $result = $this->model->remove( (int) $params[0] );
             
-            Session::setFlash ( $result ? 'The selected page was successfully deleted!' : 'Error: page could not be deleted!' );
-            
+            if( $result ) {
+                Session::setFlash ( 'The selected page was successfully deleted!', Session::SEVERITY_SUCCESS );
+            } else {
+                Session::setFlash ( 'Error: page could not be deleted!', Session::SEVERITY_WARNING );
+            }
             Router::redirect( '/admin/pages' );
         }
     }
