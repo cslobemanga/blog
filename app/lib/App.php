@@ -63,7 +63,7 @@ class App
         }
         else 
         {
-            throw new Exception ( "Method $controller_method of class $controller_class does not exist!" );
+            throw new \Exception ( "Method $controller_method of class $controller_class does not exist!" );
         }
         
         // Layout

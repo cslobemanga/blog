@@ -32,7 +32,8 @@ class UsersController extends Controller
 
     public function admin_index()
     {
-        $this->data['users'] = $this->model->getAll( false );
+        $this->data['users']    = $this->model->getAll( false );
+        $this->data['language'] = App::getRouter()->getLanguage();
     }
     
     public function admin_add()

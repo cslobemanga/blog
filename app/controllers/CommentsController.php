@@ -22,18 +22,29 @@ use Application\Lib\App;
 class CommentsController extends Controller
 {
  
-    public function __construct( $pData = array() ) 
+    /**
+     * 
+     * @param type $pData
+     */
+    public function __construct( array $pData=[] ) 
     {
-        parent::__construct($pData);
+        parent::__construct( $pData );
         
         $this->model = new Comment();
     }
     
+    /**
+     * 
+     */
     public function index()
     {
         $this->data['comments'] = $this->model->getAll();
     }
     
+    /**
+     * 
+     * @return boolean
+     */
     public function add()
     {
         $lang = App::getRouter()->getLanguage();
@@ -61,27 +72,50 @@ class CommentsController extends Controller
         }
     }
     
+    /**
+     * 
+     */
     public function delete()
     {
         $params = App::getRouter()->getParams();
         $lang   = App::getRouter()->getLanguage();
-        
-        if( isset( $params[0] ) ) {
+       
+        if( count( $params) > 1 ) {
+            $article_id = (int) $params[0];
             
-            $result = $this->model->remove( (int)$params[0] );
-            
-            display( $result );
-            die();
+            $result = $this->model->remove( (int)$params[1] );
             
             if( $result ) {
+                
                 Session::setFlash( 'Your comment was successfully deleted!', 'alert-success' );
-                $this->redirect_path = '/' . $lang . '/articles';
-//                $this->redirect_path = '/' . $lang . '/articles/view/' . $article_id;
+                $this->redirect_path = '/' . $lang . '/articles/view/' . $article_id;
                 $this->redirect();
                 
             } else {
-                echo 'no way...';
                 Session::setFlash( 'Error: Your comment could not be deleted!', 'alert-warning' );
+            }
+        } 
+    }
+    
+    public function edit()
+    {
+        $params = App::getRouter()->getParams();
+        $lang   = App::getRouter()->getLanguage();
+        
+        if( $_POST && count( $params ) > 1 ) {
+            
+            $article_id = (int) $params[0];
+            $comment_id = (int) $params[1];
+            
+            $result = $this->model->edit( $_POST );
+            
+            if( $result ) {
+                Session::setFlash( 'Your comment was successfully edited!', 'alert-success' );
+                $this->redirect_path = '/' . $lang . '/articles/view/' . $article_id;
+                $this->redirect();
+            
+            } else {
+                 Session::setFlash( 'Error: Your comment could not be edited!', 'alert-warning' );
             }
         }
     }

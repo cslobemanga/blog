@@ -91,7 +91,7 @@ class Article extends Model
     }
    
     /**
-     * Saves a new article or edit an existing one
+     * Adds a new article
      * 
      * @param type $data
      * @param bool $by_admin
@@ -122,6 +122,13 @@ class Article extends Model
         return false;
     }
     
+    /**
+     * Edits an existing article
+     * 
+     * @param type $data
+     * @param int $article_id
+     * @return type
+     */
     public function edit( $data, int $article_id )
     {
         try {

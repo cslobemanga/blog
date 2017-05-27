@@ -49,7 +49,8 @@ $lang = $data['language'];
                         <button class="w3-button w3-blue w3-round-xlarge w3-text-sand">Edit</button>
                     </a>
 
-                    <a href="/admin/<?php echo $lang; ?>/articles/delete/<?php echo $article['ArticleId']; ?>" onclick="return confirmDelete();" >
+                    <a href="/admin/<?php echo $lang; ?>/articles/delete/<?php echo $article['ArticleId']; ?>" 
+                            onclick="return confirmDelete();" >
                         <button class="w3-button w3-orange w3-round-xlarge w3-text-sand">Delete</button>
                     </a>
                 </td>
@@ -61,7 +62,7 @@ $lang = $data['language'];
         <br>
 
         <div>
-            <a href="/admin/articles/add/"
+            <a href="/admin/<?php echo $lang; ?>/articles/add/"
                <button class="w3-button w3-green w3-round-xlarge w3-text-sand">New Article</button>
             </a>
         </div>

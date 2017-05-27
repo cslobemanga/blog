@@ -42,6 +42,7 @@ class PagesController extends Controller
     public function admin_index()
     {
         $this->data['pages'] = $this->model->getAll( false );
+        $this->data['language'] = App::getRouter()->getLanguage();
     }
     
     public function admin_add()

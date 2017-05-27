@@ -90,8 +90,28 @@ class Comment extends Model
      */
     public function remove( int $comment_id )
     {
-        $columns = [ 'CommentId' => (int)$comment_id ];
+        $column = [ 'CommentId' => (int) $comment_id ];
         
-        return parent::delete( $columns, $this->table );
+        return parent::delete( $column, $this->table );
+    }
+    
+    /**
+     * 
+     * @param array $data
+     */
+    public function edit( array $data )
+    {
+        try {
+            $comment_id = $data['comment_id'];
+            $content = trim( $data['content'] );
+            
+            $columns = [ 'Content' => $content, 
+                         'CommentId' => $comment_id ];
+            
+            return parent::save( $columns, $this->table, $comment_id );
+            
+        } catch ( Exception $ex ) {
+            echo 'Error: ' . $ex->getMessage();
+        }
     }
 }
