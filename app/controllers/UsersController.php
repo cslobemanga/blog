@@ -15,7 +15,10 @@ error_reporting( E_ALL );
 
 class UsersController extends Controller
 {
-    
+    /**
+     * 
+     * @param type $pData
+     */
     public function __construct( $pData = array() ) 
     {
         parent::__construct( $pData );
@@ -23,12 +26,17 @@ class UsersController extends Controller
         $this->model = new User();
     }
     
+    /**
+     * 
+     */
     public function logout()
     {
+        Session::destroy();
+        session_start();
+        
         Router::redirect( '/' . App::getRouter()->getLanguage() );
         Session::setFlash( 'User was successfully logged out!', Session::SEVERITY_SUCCESS );
         
-        Session::destroy();
     }
 
     public function admin_index()
