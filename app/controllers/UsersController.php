@@ -152,8 +152,9 @@ class UsersController extends Controller
                 Session::setFlash( 'User successfully registerd', Session::SEVERITY_SUCCESS );
                 Router::redirect( $redirect_path );
                 
-            } else
+            } else {
                 Session::setFlash( 'Error: User could not be registered.', Session::SEVERITY_WARNING );
+            }
         } 
     }
     
@@ -162,11 +163,5 @@ class UsersController extends Controller
         $redirect_path = '/'. App::getRouter()->getLanguage() . '/users/login';
         
         $this->common_register( $redirect_path, false );
-    }
-
-    public function admin_logout()
-    {
-        
-        $this->logout();
     }
 }

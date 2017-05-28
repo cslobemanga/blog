@@ -40,15 +40,6 @@ class Article extends Model
         return $result[0] ?? null;
     }
     
-    public function getByAuthor( int $author_id )
-    {
-        $column = [ 'AuthorId' => $author_id ];
-        
-        $result = parent::findByColumn( $this->table, $column );
-        
-        return $result[0] ?? null;
-    }
-    
     public function getAuthor( int $article_id )
     {
         $table_view = $this->table_view['author'];

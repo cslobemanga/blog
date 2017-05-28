@@ -27,8 +27,6 @@ class ArticlesController extends Controller
         
         $this->data['articles'] = $this->model->getAll();
         $this->data['language'] = App::getRouter()->getLanguage();
-        
-//        Session::setFlash( 'Herzlich Willkommen bei unserem Blog', Session::SEVERITY_INFO );
     }
     
     public function view()

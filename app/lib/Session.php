@@ -50,7 +50,7 @@ class Session
         
         echo $message;
         
-//        self::$flash_message = null;
+        self::$flash_message = null;
     }
     
     /**

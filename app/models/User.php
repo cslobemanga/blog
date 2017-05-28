@@ -54,24 +54,34 @@ class User extends Model
     public function register( $data, $by_admin = false )
     {
         if( !isset( $data['login'] ) || !isset( $data['password'] ) || 
-                !isset( $data['email'] ) )
+                !isset( $data['email'] ) ) {
+            
             return false;
+        }
         
-        $hashed_pw  = password_hash( $data['password'], PASSWORD_DEFAULT );
+        $login      = trim( $data['login'] );
+        $hashed_pw  = password_hash( trim($data['password']), PASSWORD_DEFAULT );
+        $email      = trim( $data['email'] );
+        
         $is_admin   = isset( $data['role'] ) ? 1 : 0;
         $is_active  = isset( $data['is_active'] ) ? 1 : 0;
-        $params     = [ $data['login'], $hashed_pw, $data['email'] ];
+        
+        if( !$by_admin ) {
+            $is_admin   =  Config::get( 'default_user_role' );
+            $is_active  = Config::get( 'default_user_status' );
+        }
+        
+        $params = [ $login, $hashed_pw, $email, $is_admin, $is_active ];
         
         try {
-            $sql = "INSERT INTO $this->table (Login,Password,Email,Role,IsActive) VALUES(?,?,?,?,?)";
+           $columns = [ 'Login'     => $login,
+                        'Password'  => $hashed_pw,
+                        'Email'     => $email,
+                        'Role'      => $is_admin,
+                        'IsActive'  => $is_active
+                      ];
 
-            $more_params = $by_admin ? [ $is_admin, $is_active ] : 
-                            [ Config::get( 'default_user_role' ), 
-                              Config::get( 'default_user_status' ) ];
-
-            $result = $this->getDB()->query( $sql, array_merge( $params, $more_params ), false );
-        
-            return $result;
+            return parent::save( $columns, $this->table );
             
         } catch ( PDOException $ex ) {
             

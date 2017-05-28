@@ -26,6 +26,12 @@ class Comment extends Model
         $this->table_view['article']    = 'article_comments';
     }
     
+    /**
+     * Returns all comments in all articles
+     * Eventually useful for the site admin to get rid of spams
+     * 
+     * @return type
+     */
     public function getAll()
     {
         $params = [ 'IsPublished' => 1 ];
@@ -41,20 +47,6 @@ class Comment extends Model
         $result = parent::findByColumn( $this->table, $column );
         
         return $result[0] ?? false;
-    }
-    
-    public function getArticle( $comment_id )
-    {
-        $sql = "SELECT ArticleID FROM $this->table_view WHERE CommentID=?";
-        
-        $result = $this->getDB()->query( $sql, [$comment_id] );
-        
-        return $result[0] ?? false;
-    }
-    
-    public function getAuthor()
-    {
-        
     }
     
     /**
