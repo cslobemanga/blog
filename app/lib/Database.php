@@ -10,10 +10,24 @@ use Application\Lib\Traits\Singleton;
 
 class Database
 { 
+    /**
+     * The single static instance of the class
+     * 
+     * @var type 
+     */
     protected static $instance;
+    
+    /**
+     * The database connection instance of type PDO
+     * 
+     * @var type 
+     */
     protected $connection;
 
 
+    /**
+     * This constructor initializes the database connection
+     */
     private function __construct() 
     {
         try {
@@ -34,11 +48,21 @@ class Database
         }
     }
 
+    /**
+     * To prevent a duplication of the single instance
+     * 
+     * @return boolean
+     */
     private function __clone() 
     {
         return false;
     }
     
+    /**
+     * To prevent a duplication of the single instance
+     * 
+     * @return boolean
+     */
     private function __wakeup() 
     {
         return false;
@@ -53,7 +77,19 @@ class Database
         return self::$instance;
     }
     
-    public function query( $sql, $params=[], $select=true )
+    /**
+     * Generic method to query the database
+     * 
+     * The third parameter specifies wether it's a SELECT-query or not
+     * In case of a SELECT query the method returns an array, otherwise
+     * it returns a boolean about the success of the operation.
+     * 
+     * @param string $sql
+     * @param type $params
+     * @param bool $select
+     * @return boolean|array
+     */
+    public function query( string $sql, $params=[], bool $select=true )
     {
         if( !$this->connection ) {
             return false;
@@ -73,8 +109,8 @@ class Database
         
        $data = [];
        
-       foreach ( $statement->fetchAll() as $row ) {
-           
+       foreach ( $statement->fetchAll() as $row ) 
+       {    
            $data[] = $row;
        }
        

@@ -52,6 +52,15 @@ define( 'user_config', array(
                                     [ 'email' => 'elsa-gogia@web.de', 
                                       'name'  => 'Eliza Gogia']
                                    ],
+        'mail.standard.message' => 'Sehr geehrte Damen und Herren,<br/><br/>' .
+            'im Anhang dieser E-Mail finden Sie das Protokoll zum heutigen Test' .
+            'der produktiven Systeme.<br/><br/>Sollten Sie Fragen dazu haben, ' .
+            'stehen wir Ihnen gerne zur Verfügung.<br/><br/>Wir wünschen Ihnen ' . 
+            'einen angenehmen und erfolgreichen Tag und viel Spaß bei der Arbeit ' . 
+            'mit AdWorks.<br/><br/>Ihr<br/>financeTec Support Team<br/><br/>' . 
+            'financeTec AG<br/>Korngasse 2<br/>67547 Worms<br/><br/>' . 
+            'Tel. 069-401570200<br/>Fax. 069-401570222<br/>' . 
+            'Mail: support@financetec.de',
     )
 );
 

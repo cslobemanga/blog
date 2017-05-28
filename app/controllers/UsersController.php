@@ -16,6 +16,7 @@ error_reporting( E_ALL );
 class UsersController extends Controller
 {
     /**
+     * The constructor initializes the instance model
      * 
      * @param type $pData
      */
@@ -27,7 +28,7 @@ class UsersController extends Controller
     }
     
     /**
-     * 
+     * Logs the user out after destroying the current session
      */
     public function logout()
     {
@@ -39,12 +40,18 @@ class UsersController extends Controller
         
     }
 
+    /**
+     * Users control: the users list
+     */
     public function admin_index()
     {
         $this->data['users']    = $this->model->getAll( false );
         $this->data['language'] = App::getRouter()->getLanguage();
     }
     
+    /**
+     * Users control: adding a new user
+     */
     public function admin_add()
     {
         if( $_POST )
@@ -61,6 +68,9 @@ class UsersController extends Controller
         }
     }
     
+    /**
+     * Users control: updating an existing user
+     */
     public function admin_edit()
     {
         if( $_POST && isset( $_POST['user_id'] ) ) {
@@ -89,6 +99,9 @@ class UsersController extends Controller
         }
     }
 
+    /**
+     * Users control: Deleting an existing user
+     */
     public function admin_delete()
     {
         
@@ -109,6 +122,9 @@ class UsersController extends Controller
         }
     }
 
+    /**
+     * Login function,  checks the input credentials from the user's form
+     */
     public function login()
     {
         
@@ -142,26 +158,27 @@ class UsersController extends Controller
         }
     }
     
-    public function common_register( $redirect_path, bool $by_admin )
+    /**
+     * Common register function, saves the new user in the database
+     * 
+     * @param string $redirect_path
+     * @param bool $by_admin
+     */
+    public function register()
     {
         if( isset( $_POST['login'] ) && isset( $_POST['password'] ) ) {
             
-            $result = $this->model->register( $_POST, $by_admin );
+            $result = $this->model->register( $_POST );
             
             if( $result ) {
+                $redirect_path = '/'. App::getRouter()->getLanguage() . '/users/login';
+                
                 Session::setFlash( 'User successfully registerd', Session::SEVERITY_SUCCESS );
-                Router::redirect( $redirect_path );
+                $this->redirect();
                 
             } else {
                 Session::setFlash( 'Error: User could not be registered.', Session::SEVERITY_WARNING );
             }
         } 
-    }
-    
-    public function register()
-    {
-        $redirect_path = '/'. App::getRouter()->getLanguage() . '/users/login';
-        
-        $this->common_register( $redirect_path, false );
     }
 }

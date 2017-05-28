@@ -67,7 +67,7 @@ class User extends Model
         $is_active  = isset( $data['is_active'] ) ? 1 : 0;
         
         if( !$by_admin ) {
-            $is_admin   =  Config::get( 'default_user_role' );
+            $is_admin   = Config::get( 'default_user_role' );
             $is_active  = Config::get( 'default_user_status' );
         }
         
