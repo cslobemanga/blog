@@ -45,7 +45,7 @@ class Model implements IModel
      * @param string $order_by
      * @return type
      */
-    public function findAll( string $table=null, array $conditions=[], string $order_by=null )
+    public function findAll( string $table, array $conditions=[], string $order_by=null )
     {
         $sql    = "SELECT * FROM $table";
         $params = [];
@@ -108,11 +108,11 @@ class Model implements IModel
     /**
      * Save a new item, or update an existing item falls $id not null
      * 
-     * @param array $columns
      * @param string $table
+     * @param array $columns
      * @param int $id
      */
-    public function save( array $columns, string $table, int $id=null )
+    public function save( string $table, array $columns, int $id=null )
     {
         $id     = ( int )$id;
         $params = [];
@@ -159,11 +159,11 @@ class Model implements IModel
     /**
      * Removes an item with the specified key/value from a given table
      * 
-     * @param array $columns
      * @param string $table
+     * @param array $columns
      * @return type
      */
-    public function delete( array $columns, string $table )
+    public function delete( string $table, array $columns )
     {
         
         $sql    = "DELETE FROM $table WHERE ";

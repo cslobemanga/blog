@@ -13,6 +13,10 @@ error_reporting( E_ALL );
 class Page extends Model
 {
     
+    /**
+     * The constructor, initializes the tables and inherits
+     * a database connection instance from the parent class
+     */
     public function __construct() 
     {
         parent::__construct();
@@ -20,6 +24,12 @@ class Page extends Model
         $this->table = 'pages';
     }
 
+    /**
+     * Returns all the pages to be published in the layout template.
+     * 
+     * @param bool $only_published
+     * @return type
+     */
     public function getAll( bool $only_published=true )
     {
         $params = $only_published ? [ 'IsPublished' => 1 ] : [];
@@ -29,7 +39,13 @@ class Page extends Model
         return $result;
     }
     
-    public function getByAlias( $pAlias )
+    /**
+     * Returns a page given its alias.
+     * 
+     * @param string $pAlias
+     * @return type
+     */
+    public function getByAlias( string $pAlias )
     {           
         $column = array( 'Alias' => $pAlias );
    
@@ -38,7 +54,14 @@ class Page extends Model
         return $result[0] ?? false;
     }
     
-    public function getById( $pId )
+    /**
+     * Returns a page given its id.
+     * 
+     * @deprecated since version 1.1
+     * @param int $pId
+     * @return type
+     */
+    public function getById( int $pId )
     {           
         $column = array( 'PageId' => $pId );
    
@@ -50,11 +73,11 @@ class Page extends Model
     /**
      * Updates the page page id
      * 
-     * @param type $data
+     * @param array $data
      * @param type $id
      * @return boolean
      */
-    public function edit( $data )
+    public function edit( array $data )
     {
         if( !isset( $data['page_id'] ) || !isset( $data['title'] ) ) {
             return false;
@@ -68,17 +91,17 @@ class Page extends Model
                             'IsPublished'  => $is_published,
                             'PageId'       => $page_id ];
         
-        return parent::save( $columns, $this->table, $page_id );
+        return parent::save( $this->table, $columns, $page_id );
     }
     
     /**
      * * Creates a new page
      * 
-     * @param type $data
+     * @param array $data
      * @param type $id
      * @return boolean
      */
-    public function register( $data )
+    public function register( array $data )
     {
         if( !isset( $data['alias'] ) || !isset( $data['title'] ) ) {  
             return false;
@@ -92,7 +115,7 @@ class Page extends Model
                                  'Alias' => $alias, 
                                  'IsPublished' => $is_published );
         
-        return parent::save( $columns, $this->table );
+        return parent::save( $this->table, $columns );
     }
     
     /**
@@ -104,14 +127,17 @@ class Page extends Model
     {
         $column = array( 'PageId' => (int)$id );
          
-        $result = parent::delete( $column, $this->table );
-
+        return parent::delete( $this->table, $column );
     }
     
     /**
+     * Creates a table for each language in the application.
+     * 
+     * For translating purposes, this avoids having numerouns
+     * columns for each language in the same table.
      * 
      * @param string $lang_code
-     * @return type
+     * @return bool
      */
     public function createLanguageTable( string $lang_code ): bool 
     {

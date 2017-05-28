@@ -17,19 +17,19 @@ class Session
     protected static $flash_message;
     
     /**
+     * Set the value of the flash message and the severity grade.
      * 
      * @param type $message
      * @param type $severity
      */
-    public static function setFlash( $message, int $severity=self::SEVERITY_INFO )
+    public static function setFlash( string $message, int $severity=self::SEVERITY_INFO )
     {
-        self::set( 'flash_message', $message );
-//        self::$flash_message = $message;
-        
+        self::set( 'flash_message', $message );        
         self::set( 'severity', $severity );
     }
     
     /**
+     * Checks, wether there is any flash message to be displayed.
      * 
      * @return bool
      */
@@ -39,7 +39,7 @@ class Session
     }
     
     /**
-     * 
+     * Actually displays the flash message.
      */
     public static function flash()
     {
@@ -91,6 +91,7 @@ class Session
     }
 
     /**
+     * Sets the value of the $key session variable.
      * 
      * @param string $key
      * @param type $value
@@ -101,18 +102,19 @@ class Session
     }
     
     /**
+     * Gets the value of the $key session variable.
      * 
-     * @param int $key
+     * @param string $key
      * @return type
      */
-    public static function get( $key )
+    public static function get( string $key )
     {
         return ( $_SESSION[ $key ] ?? null );
     }
     
     /**
      * 
-     * @param int $key
+     * @param string $key
      */
     public static function delete( string $key )
     {

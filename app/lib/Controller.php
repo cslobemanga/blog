@@ -1,6 +1,9 @@
 <?php
 namespace Application\Lib;
 
+use Application\Lib\Interfaces\IModel;
+use Application\Lib\Interfaces\IController;
+
 use Application\Models\Page;
 use Application\Models\Archiv;
 use Application\Models\SocialNetwork;
@@ -11,7 +14,7 @@ error_reporting( E_ALL );
  * Charles S. Lobe-Manga <charles@lobe-manga.com>  * 
  */
 
-class Controller
+class Controller implements IController
 {
     
     protected $data;
@@ -22,8 +25,15 @@ class Controller
     
     protected $redirect_path;
 
-
-
+    /**
+     * Contructor, initializes the data and params values.
+     * 
+     * It also loads the static pages, the archives and the
+     * social networks links from the database, and generally
+     * speaking all data, which are not controller bound.
+     * 
+     * @param array $pData
+     */
     public function __construct( array $pData=[] ) 
     {
         $this->data     = $pData;
@@ -34,20 +44,21 @@ class Controller
         $this->loadSocialNetworks();
     }
 
-    public function getData() {
+    public function getData(): array {
         return $this->data;
     }
 
-    public function getModel() {
+    public function getModel(): IModel {
         return $this->model;
     }
 
-    public function getParams() {
+    public function getParams(): array {
         return $this->params;
     }
     
     /**
      *  Loads the pages titles to be viewed on the sidebar
+     *  and also creates the language tables in the database.
      */
     protected function loadStaticPages()
     {
@@ -70,7 +81,7 @@ class Controller
     }
     
     /**
-     * Loads the archive captions for month and year of publication
+     * Loads the archive captions for month and year of publication.
      * 
      */
     protected function loadArchives()
@@ -101,9 +112,11 @@ class Controller
         
     }
 
+    /**
+     * Redirects from the current page after an event.
+     */
     protected function redirect()
     {
-        
         Router::redirect( $this->redirect_path );
     }
 }

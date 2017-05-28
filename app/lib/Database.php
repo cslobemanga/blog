@@ -1,14 +1,14 @@
 <?php
 namespace Application\Lib;
 
-use Application\Lib\Traits\Singleton;
+use Application\Lib\Interfaces\IDatabase;
 
 /* 
  * Cart Project with MVC
  * Charles S. Lobe-Manga <charles@lobe-manga.com>  * 
  */
 
-class Database
+class Database implements IDatabase
 { 
     /**
      * The single static instance of the class
@@ -49,7 +49,7 @@ class Database
     }
 
     /**
-     * To prevent a duplication of the single instance
+     * Made private to prevent a duplication of the single instance
      * 
      * @return boolean
      */
@@ -59,7 +59,7 @@ class Database
     }
     
     /**
-     * To prevent a duplication of the single instance
+     * Made private to prevent a duplication of the single instance
      * 
      * @return boolean
      */
@@ -68,6 +68,11 @@ class Database
         return false;
     }
 
+    /**
+     * Returns the single instance of this class.
+     * 
+     * @return \Application\Lib\Database
+     */
     public static function getInstance(): Database
     {
         if( self::$instance === null ) {
@@ -89,7 +94,7 @@ class Database
      * @param bool $select
      * @return boolean|array
      */
-    public function query( string $sql, $params=[], bool $select=true )
+    public function query( string $sql, array $params=[], bool $select=true )
     {
         if( !$this->connection ) {
             return false;

@@ -14,6 +14,13 @@ use Application\Lib\Config;
 class User extends Model
 {
     
+    /**
+     * Constructor, initializes the tables and inherits the database
+     * instance from the parent class
+     * 
+     * We do need a couple of views tables to avoid too many queries
+     * from the database
+     */
     public function __construct() 
     {
         parent::__construct();
@@ -23,6 +30,12 @@ class User extends Model
         $this->table_view['comments']   = 'author_comments';
     }
     
+    /**
+     * Returns all the records sastisfying the conditions $only_active
+     * 
+     * @param bool $only_active
+     * @return type
+     */
     public function getAll( bool $only_active=true )
     {
    
@@ -31,6 +44,13 @@ class User extends Model
         return parent::findAll( $this->table, $params );
     }
 
+    /**
+     * Returns a user given their login
+     * 
+     * @param string $login
+     * @param bool $only_active
+     * @return type
+     */
     public function getByLogin( string $login, bool $only_active=true )
     {
         $column     = [ 'Login' => $login ];
@@ -41,6 +61,13 @@ class User extends Model
         return $result[0] ?? false;
     }
     
+    /**
+     * Returns a user given their id, is needed to fill the edit-form
+     * 
+     * @param int $id
+     * @param bool $only_active
+     * @return type
+     */
     public function getById( int $id, bool $only_active=true )
     {
         $column     = [ 'UserId' => (int)$id ];
@@ -51,7 +78,17 @@ class User extends Model
         return $result[0] ?? false;
     }
     
-    public function register( $data, $by_admin = false )
+    /**
+     * Registers a new user given its form credentials.
+     * 
+     * From an admin point of view, values for role and status may also
+     * be vorhanden.
+     * 
+     * @param array $data
+     * @param bool $by_admin
+     * @return boolean
+     */
+    public function register( array $data, bool $by_admin=false )
     {
         if( !isset( $data['login'] ) || !isset( $data['password'] ) || 
                 !isset( $data['email'] ) ) {
@@ -81,7 +118,7 @@ class User extends Model
                         'IsActive'  => $is_active
                       ];
 
-            return parent::save( $columns, $this->table );
+            return parent::save( $this->table, $columns );
             
         } catch ( PDOException $ex ) {
             
@@ -91,7 +128,16 @@ class User extends Model
         return false;
     }
     
-    public function update( $data, $id=null )
+    /**
+     * Updates an existing user, given their new form credentials.
+     * 
+     * Status and role may be changed only by an admin.
+     * 
+     * @param array $data
+     * @param string $id
+     * @return type
+     */
+    public function update( array$data, string $id=null )
     {
         $user_id    = ( int )$id;
         $is_admin   = isset( $data['role'] ) ? 1 : 0;
@@ -101,22 +147,37 @@ class User extends Model
                         'IsActive'  => $is_active, 
                         'UserId'    => $user_id ];
         
-        return parent::save( $columns, $this->table, $user_id );
+        return parent::save( $this->table, $columns, $user_id );
     }
 
-    public function login( $login, $password ): bool
+    /**
+     * Delegates the validity check to a private function authenticate
+     * 
+     * @param string $login
+     * @param string $password
+     * @return bool
+     */
+    public function login( string $login, string $password ): bool
     {
         
         return $this->authenticate( $login, $password );
     }
 
 
-    private function authenticate( $login, $password ): bool
+    /**
+     * Checks the validity of the credentials
+     * 
+     * @param string $login
+     * @param string $password
+     * @return bool
+     */
+    private function authenticate( string $login, string $password ): bool
     {
         $user = $this->getByLogin( $login );
         
-        if( !$user )
+        if( !$user ) {
             return false;
+        }
         
         return password_verify( $password, $user['Password'] );
     }
@@ -130,7 +191,7 @@ class User extends Model
     {
         $columns = [ 'UserId' => (int)$id ];
         
-        $result = parent::delete( $columns, $this->table );
+        $result = parent::delete( $this->table, $columns );
         
         return $result;
     }

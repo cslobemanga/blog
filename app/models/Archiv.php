@@ -17,6 +17,10 @@ use Application\Lib\Model;
 class Archiv extends Model
 {
  
+    /**
+     * The constructor, initializes the tables and inherits
+     * a database connection instance from the parent class
+     */
     public function __construct() 
     {
         parent::__construct();
@@ -24,6 +28,11 @@ class Archiv extends Model
         $this->table = 'articles_by_month_and_year';
     }
     
+    /**
+     * Returns all archivierte Daten sorted by month and year.
+     * 
+     * @return array
+     */
     public function getAll(): array
     {
         

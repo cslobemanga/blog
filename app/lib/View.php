@@ -15,8 +15,10 @@ class View implements IView
     protected $path;
    
     /**
+     * Returns the file name of the default layout, used in the case there's
+     * no controller specified and/or the path is null.
      * 
-     * @return boolean
+     * @return boolean|string
      */
     protected function getDefaultViewPath(): string
     {
@@ -32,7 +34,14 @@ class View implements IView
         return VIEWS_PATH .DS. $controller_dir .DS. $template_name;
     }
 
-    public function __construct( $data = [], $path = null ) 
+    /**
+     * Constructor, initializes the path and data values.
+     * 
+     * @param array $data
+     * @param type $path
+     * @throws \Exception
+     */
+    public function __construct( array $data=[], string $path=null ) 
     {
         if( !$path ) {
             $path = $this->getDefaultViewPath();
@@ -47,6 +56,8 @@ class View implements IView
     }
     
     /**
+     * Renders the complete view by including the template file and saving the 
+     * variables needed in the view.
      * 
      * @return string
      */

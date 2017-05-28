@@ -9,7 +9,7 @@ Charles S. Lobe-Manga <charles@lobe-manga.com>
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
-         stopOnFailures="false"
+         stopOnFailure="false"
          syntaxCheck="false" >
     
     <testsuites>  

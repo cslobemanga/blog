@@ -12,6 +12,10 @@ error_reporting( E_ALL );
 class Article extends Model
 {
     
+    /**
+     * The constructor, initializes the tables and inherits
+     * a database connection instance from the parent class
+     */
     public function __construct() 
     {
         parent::__construct();
@@ -21,6 +25,13 @@ class Article extends Model
         $this->table_view['comments']   = 'article_comments';
     }
     
+    /**
+     * Returns all the records satisfying the condition $only_published
+     * 
+     * @see Model::findAll()
+     * @param bool $only_published
+     * @return type
+     */
     public function getAll( bool $only_published=true )
     {
         $table  = $this->table_view['author'];
@@ -31,6 +42,12 @@ class Article extends Model
         return parent::findAll( $table, $params, $order );     
     }
 
+    /**
+     * Returns an article given its article_id.
+     * 
+     * @param int $article_id
+     * @return type
+     */
     public function getById( int $article_id )
     {
         $column = [ 'ArticleId' => $article_id ];
@@ -40,6 +57,12 @@ class Article extends Model
         return $result[0] ?? null;
     }
     
+    /**
+     * Returns the author of an article given the article id.
+     * 
+     * @param int $article_id
+     * @return type
+     */
     public function getAuthor( int $article_id )
     {
         $table_view = $this->table_view['author'];
@@ -51,7 +74,13 @@ class Article extends Model
         return $result[0] ?? null;
     }
     
-    public function getComments( $article_id )
+    /**
+     * Returns all the comments related to the current article.
+     * 
+     * @param int $article_id
+     * @return type
+     */
+    public function getComments( int $article_id )
     {
         $table_view = $this->table_view['comments'];
         
@@ -104,7 +133,7 @@ class Article extends Model
                          'Slug'     => trim( $data['slug'] ),
                          'Content'  => trim( $data['content'] ) ];
 
-            return parent::save( $columns, $this->table );
+            return parent::save( $this->table, $columns );
             
         } catch ( PDOException $ex ) {
             echo 'Error: ' . $ex->getMessage();
@@ -130,7 +159,7 @@ class Article extends Model
                          'IsPublished'  => $is_published,
                          'ArticleId'     => $article_id ];
             
-            return parent::save( $columns, $this->table, $article_id );
+            return parent::save( $this->table, $columns, $article_id );
             
         } catch ( Exception $ex ) {
             echo 'Error: ' . $ex->getMessage();
@@ -147,6 +176,6 @@ class Article extends Model
     {
         $column = [ 'ArticleId' => (int)$article_id ];
         
-        return parent::delete( $column, $this->table );
+        return parent::delete( $this->table, $column );
     }
 }

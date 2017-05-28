@@ -17,6 +17,10 @@ error_reporting( E_ALL );
 class Comment extends Model
 {
     
+    /**
+     * The constructor, initializes the tables and inherits
+     * a database connection instance from the parent class
+     */
     public function __construct() 
     {
         parent::__construct();
@@ -67,7 +71,7 @@ class Comment extends Model
                          'AuthorId'   => (int) $author_id, 
                          'Content'   => $content ];
             
-            return parent::save( $columns, $this->table );
+            return parent::save( $this->table, $columns  );
             
         } catch ( \Exception $ex) {
             echo 'Error: ' . $ex->getMessage();
@@ -84,10 +88,11 @@ class Comment extends Model
     {
         $column = [ 'CommentId' => (int) $comment_id ];
         
-        return parent::delete( $column, $this->table );
+        return parent::delete( $this->table, $column );
     }
     
     /**
+     * Edits a comment, given the form informations.
      * 
      * @param array $data
      */
@@ -100,7 +105,7 @@ class Comment extends Model
             $columns = [ 'Content' => $content, 
                          'CommentId' => $comment_id ];
             
-            return parent::save( $columns, $this->table, $comment_id );
+            return parent::save( $this->table, $columns, $comment_id );
             
         } catch ( Exception $ex ) {
             echo 'Error: ' . $ex->getMessage();

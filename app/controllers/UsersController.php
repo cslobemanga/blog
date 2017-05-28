@@ -104,7 +104,6 @@ class UsersController extends Controller
      */
     public function admin_delete()
     {
-        
         $params = App::getRouter()->getParams();
         
         if( isset( $params[0] ) ) {
