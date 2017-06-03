@@ -25,8 +25,8 @@ define( 'user_config', array(
         // DB-Verbindung
         'db.host'               =>  'localhost',
         'db.dbname'             =>  'db_mvc',
-        'db.user'               =>  'pma',
-        'db.password'           =>  'HBdv419!',
+        'db.user'               =>  '',
+        'db.password'           =>  '',
     
         'default_user_role'     =>  0,
         'default_user_status'   =>  1,
@@ -38,8 +38,8 @@ define( 'user_config', array(
         'smtp.host'             => 'smtp.gmail.com',
         'smtp.port'             => 587,
         'smtp.auth'             => true,
-        'smtp.username'         => 'charles@lobe-manga.com',
-        'smtp.password'         => 'HBdv419!',
+        'smtp.username'         => '',
+        'smtp.password'         => '',
         'smtp.debug'            => 2,
         'smtp.sender.email'     => 'charles@lobe-manga.com',
         'smtp.sender.name'      => 'Charles Lobe-Manga',
