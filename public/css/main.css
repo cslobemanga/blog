@@ -12,6 +12,10 @@ a {
     text-decoration: none;
 }
 
+textarea {
+    outline: none;
+}
+
 .bar-item-home {
     font-size: 2.0em;
     width: 10%;
